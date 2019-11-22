@@ -1,0 +1,15 @@
+.nav-bar {
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.nav-bar h1 {
+  font-family: 'Merriweather', serif;
+}
+/*# sourceMappingURL=nav.css.map */
