@@ -22,8 +22,8 @@ CREATE TABLE recipes (
   preperation TEXT NOT NULL,
   author VARCHAR(100),
   source_url VARCHAR(255),
-  prep_time INTEGER,
-  servings INTEGER
+  prep_time VARCHAR(50),
+  servings VARCHAR(50)
 );
 
 CREATE TABLE tags (
