@@ -20,5 +20,5 @@ VALUES
 ("beans"),
 ("oats"),
 ("steelcutoats"),
-("eggs")
-("pancakes")
+("eggs"),
+("pancakes");
