@@ -1,4 +1,4 @@
-INSERT INTO recipe_tags ( tage_id, recipe_id)
+INSERT INTO recipe_tags ( tag_id, recipe_id)
 VALUES
   (10, 1),
   (11, 1),
