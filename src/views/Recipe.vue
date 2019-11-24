@@ -1,5 +1,19 @@
 <template>
   <div class="about">
-    <h1>This is a recipe page</h1>
+    <NavBar/>
+    <RecipePage/>
   </div>
 </template>
+
+<script>
+import NavBar from "../components/layout/NavBar.vue"
+import RecipePage from "../components/RecipePage"
+
+export default {
+  name: 'recipe',
+  components: {
+    NavBar,
+    RecipePage
+  }
+}
+</script>
