@@ -1,14 +1,19 @@
 <template>
   <div>
         <NavBar/>
-      <div>
-        <h2>Enter a URL</h2>
-        <input type="text" v-model="scrapeurl" />
+        <form>
+      <div class ="url-form">
+        <h2>Enter a URL to auto-fill from one of our partner websites:</h2>
+        <input type="url" v-model="scrapeurl" />
         <input type="submit" value="Submit URL Scrape" v-on:click="submit" class="btn" />
       </div>
       <div class="new-recipe-title">
         <h2>Title</h2>
         <input type="text" v-model="title" placeholder="Your Title"/>
+      </div>
+      <div>
+        <h2>Summary</h2>
+        <input type="text" v-model="summary" />
       </div>
       <div>
         <h2>Image Link</h2>
@@ -32,16 +37,16 @@
       </div>
       <div>
         <h2>Ingredients</h2>
-        <input type="text" v-model="servings" />
         <IngredientsList/>
       </div>
-      <div>
+      <div class="preperation">
         <h2>Preparation</h2>
         <input type="text" v-model="preparation" />
       </div>
       <div>
         <input type="submit" class="btn" value="Create New Recipe" v-on:click="submit" />
       </div>
+      </form>
     </div>
 </template>
 
@@ -58,6 +63,7 @@ export default {
   },
   data: () => ({
       scrapeurl: '',
+      summary: '',
       title: '',
       imagelink: '',
       author: '',

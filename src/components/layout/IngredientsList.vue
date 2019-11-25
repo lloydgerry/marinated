@@ -2,7 +2,7 @@
   <div>
     <ul class='ingredients-list'>
       <li class='ingredients-list-item' v-for="ingredient in ingredientslist" v-bind:key="ingredient" >
-        {{ingredient}}
+       - {{ingredient}}
       </li>
       <input type="text" v-model="name" v-if="seen" v-on:keyup.enter="addIngredient(name)" placeholder="Type your ingredient here" > 
       <p><button v-on:click="seen = !seen"> Add Ingredient </button></p>

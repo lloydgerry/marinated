@@ -1,3 +1,16 @@
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5%;
+  font-size: 15px;
+  font-family: "Merriweather", serif;
+}
+
 input[type=text] {
   width: 10%;
   padding: 1.5em 10em;
@@ -6,9 +19,18 @@ input[type=text] {
           box-sizing: border-box;
 }
 
+input[type=url] {
+  width: 30%;
+  padding: 1.5em 3em;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 .ingredients-list {
-  margin: 4px 4px;
   padding: .75em;
+  margin: 20px 10px;
+  font-size: 12px;
 }
 
 .btn {
