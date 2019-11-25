@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="drawer">
     <div class="grid-container">
       <div class="grid-item"></div>
       <div class="grid-item"></div>
