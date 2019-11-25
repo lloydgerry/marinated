@@ -34,8 +34,6 @@
 
 <script>
 
-import '../styles/css/recipePage.css';
-
 export default {
   name: "RecipePage",
   data() {
@@ -56,3 +54,5 @@ export default {
   }
 }
 </script>
+
+<style scoped src="../styles/css/recipePage.css" lang="css"/>

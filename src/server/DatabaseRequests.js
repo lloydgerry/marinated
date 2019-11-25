@@ -19,4 +19,4 @@ const getRecipes = () => {
     .catch((err) => { console.log("caught an error in collecting recipes:", err) });
 };
 
-module.exports = { getRecipes }
+module.exports = {... getRecipes }
