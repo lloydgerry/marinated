@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import '../styles/css/recipePage.css';
 
 export default {
   name: "RecipePage",
@@ -53,3 +52,5 @@ export default {
   }
 }
 </script>
+
+<style scoped src="../styles/css/recipePage.css" lang="css"/>
