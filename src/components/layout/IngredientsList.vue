@@ -4,7 +4,7 @@
       <li class='ingredients-list-item' v-for="ingredient in ingredientslist" v-bind:key="ingredient" >
         {{ingredient}}
       </li>
-      <input type="text" v-model="name" v-if="seen" v-on:keyup.enter="submit" placeholder="Type your ingredient here" > 
+      <input type="text" v-model="name" v-if="seen" v-on:keyup.enter="addIngredient(name)" placeholder="Type your ingredient here" > 
       <p><button v-on:click="seen = !seen"> Add Ingredient </button></p>
     </ul>
   </div>
@@ -23,11 +23,15 @@ export default {
       seen: false,
     };
   },
-  addIngredient(name) {
-      this.ingredientslist.push({
-        name,
-      });
-    },
+  methods: {
+    addIngredient(name) {
+      this.ingredientslist.push(
+        name
+      );
+      this.name = "";
+      this.seen = false;
+    }
+  },
 };
 </script>
 
