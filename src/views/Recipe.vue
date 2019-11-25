@@ -11,6 +11,7 @@ import NavBar from "../components/layout/NavBar.vue"
 import RecipePage from "../components/RecipePage"
 // import Recipes from './components/Recipes'
 
+
 export default {
   name: 'recipe',
   components: {

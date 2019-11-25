@@ -1,12 +1,39 @@
+@import "partials/_variables.scss";
+
 .nav-bar {
   top:0;
   left: 0;
   display: flex;
-  justify-content: center;
-    
-  h1 {
-    font-family: 'Merriweather', serif;
+  justify-content: space-between;
+  align-content: center;
+  background-color: $primary-color;
+  margin: 0px;
+  height: 75px;
+  color: $text-primary;
+  a {
+    color: $text-primary;
     text-decoration: none;
+  }
+  #nav {
+    color: $text-primary;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 30px;
+    margin-right: 25px;
+    a{
+      text-decoration: none;
+    }
+    p {
+      margin: 0px 2px;
+    }
+  }  
+  h1 {
+    font-family: $main-font;
+    margin: 1em;
+    text-decoration: none;
+    font-size: 25px;
 
   }
 }
