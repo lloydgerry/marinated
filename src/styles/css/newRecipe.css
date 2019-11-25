@@ -1,0 +1,13 @@
+input[type=text] {
+  width: 10%;
+  padding: 1.5em 10em;
+  margin: 8px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.ingredients-list {
+  margin: 4px 0;
+  padding: .75em;
+}
+/*# sourceMappingURL=newRecipe.css.map */

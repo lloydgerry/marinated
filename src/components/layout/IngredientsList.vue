@@ -1,6 +1,10 @@
 <template>
   <div>
-    {{ingredientslist}}
+    <ul class='ingredients-list'>
+      <li v-for="ingredient in ingredientslist" v-bind:key="ingredient" >
+      {{ingredient}}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -9,7 +13,6 @@ export default {
   components: {
     // IngredientsList,
   },
-  // data function avails data to the template
   data() {
     return {
       ingredientslist: [

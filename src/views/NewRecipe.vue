@@ -75,6 +75,5 @@ export default {
 
 </script>
 
-<style>
+<style scoped src="../styles/css/newRecipe.css" lang="css"/>
 
-</style>
