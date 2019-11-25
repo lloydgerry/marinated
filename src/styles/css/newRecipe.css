@@ -7,7 +7,19 @@ input[type=text] {
 }
 
 .ingredients-list {
-  margin: 4px 0;
+  margin: 4px 4px;
   padding: .75em;
+}
+
+.btn {
+  -webkit-box-shadow: inset -3px -3px 10px #cc870a;
+  box-shadow: inset -3px -3px 10px #cc870a;
+  background-color: #fff;
+  border-radius: 15px;
+  /* Rounded button edges */
+  font-style: italic;
+  /* Italicize text */
+  padding: 10px 30px;
+  /* Distance between text and border */
 }
 /*# sourceMappingURL=newRecipe.css.map */

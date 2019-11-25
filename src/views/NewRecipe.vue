@@ -1,13 +1,14 @@
 <template>
   <div>
+        <NavBar/>
       <div>
         <h2>Enter a URL</h2>
         <input type="text" v-model="scrapeurl" />
-        <input type="submit" value="Submit URL Scape" v-on:click="submit" />
+        <input type="submit" value="Submit URL Scrape" v-on:click="submit" class="btn" />
       </div>
       <div class="new-recipe-title">
         <h2>Title</h2>
-        <input type="text" v-model="title" />
+        <input type="text" v-model="title" placeholder="Your Title"/>
       </div>
       <div>
         <h2>Image Link</h2>
@@ -19,7 +20,7 @@
       </div>
        <div>
         <h2>Source URL</h2>
-        <input type="text" v-model="sourceurl" />
+        <input type="text" v-model="sourceurl" placeholder="https://" />
       </div>
        <div>
         <h2>Prep Time</h2>
@@ -38,24 +39,27 @@
         <h2>Preparation</h2>
         <input type="text" v-model="preparation" />
       </div>
-      <div class="btn">
-        <input type="submit" value="Create New Recipe" v-on:click="submit" />
+      <div>
+        <input type="submit" class="btn" value="Create New Recipe" v-on:click="submit" />
       </div>
     </div>
 </template>
 
 <script>
 import IngredientsList from '../components/layout/IngredientsList'
+import NavBar from "../components/layout/NavBar.vue"
+
 
 
 export default {
   components: {
-   IngredientsList,
+    NavBar,
+    IngredientsList,
   },
   data: () => ({
       scrapeurl: '',
-      title: 'your recipe',
-      imagelink: 'https://',
+      title: '',
+      imagelink: '',
       author: '',
       sourceurl: '',
       preptime: '',
