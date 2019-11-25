@@ -1,12 +1,14 @@
 <template>
   <div class="nav-bar">
-      <div id="nav">
-      <router-link to="/"><h1>Marinated</h1></router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/mealplan">Meal Plan</router-link> |
-      <router-link to="/recipe">Recipe</router-link> |
-      <router-link to="/savedforlater">Saved For Later</router-link>
-
+    <router-link to="/"><h1>Marinated</h1></router-link> 
+    <div id="nav">
+      <p> Login </p>
+      <p> | </p>
+      <router-link to="/about">About</router-link>
+      <p> | </p>
+      <router-link to="/recipe">Recipe</router-link>
+      <p> | </p>
+      <p>🔍Search</p>
     </div>
   </div>
 </template>

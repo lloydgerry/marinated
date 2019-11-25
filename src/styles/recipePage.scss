@@ -1,0 +1,39 @@
+@import "partials/_variables.scss";
+
+.recipe-display{
+  display: flex;
+  flex-direction: row;
+  padding: 5%;
+  .grid-container {
+    width: 50%;
+    overflow-y: scroll;
+    height: 500px;
+    padding: 20px;
+
+    h1 {
+      font-size: 50px;
+      color: $secondary-color;
+      margin-bottom: 20px;
+    }
+    p {
+      color: $text-primary;
+      margin: 5px 0px;
+    }
+    #ingredients {
+      margin: 20px 10px;
+      font-size: 20px;
+      .ingredient {
+        margin: 10px 0px;
+      }
+    }
+    img {
+      max-width: 100%;
+
+    }
+    .prep{
+      margin: 20px 0px;
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+}
