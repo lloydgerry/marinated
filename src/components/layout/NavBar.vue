@@ -1,29 +1,31 @@
 <template>
   <div class="nav-bar">
-    <router-link to="/"><h1>Marinated</h1></router-link> 
+    <router-link to="/" title="Marinated"><h1>Marinated</h1></router-link> 
     <ul id="navigation">
-      <li v-for="item in navList" :key="item.id">
-        <template v-if="item.children">
+      <li v-for="item in navList" :key="item.index">
+        <template v-if="item.children" class="menu">
           <a 
-            :href="item.url" 
             :title="item.name" 
             @click="isOpen = !isOpen, active = !active" 
-            :class="{ active }">
+            :class="{ active }"
+          >
               {{ item.name }}  ▾
           </a>
           <div :class="{ isOpen }" class="dropdown">
             <ul>
-              <li v-for="{ url, name, index, target } in item.children" :key="index">
-                <router-link class="nav-link" :to="url" :title="name" :target="target">{{ name }}</router-link>
+              <li v-for="{ url, name, index } in item.children" :key="index">
+                <router-link class="nav-link" :to="url" :title="name">
+                  {{ name }}
+                </router-link>
               </li>
             </ul>
           </div>
         </template>
-          <template v-else>
-            <a :href="item.url" :title="item.name">
-              {{ item.name }}
-            </a>
-          </template>
+        <template v-else>
+          <a :href="item.url" :title="item.name">
+            {{ item.name }}
+          </a>
+        </template>
       </li>
     </ul>
   </div>
@@ -44,35 +46,30 @@ export default {
         {
           url: "#",
           name: "UserName",
-          id: 1,
           children: [
             {
               url: "/new-recipe",
-              name: "Add New Recipe",
-              target: "_blank"
+              name: "Add New Recipe"
             },
             {
               url: "/mealplan",
-              name: "Meal Plan",
-              target: "_blank"
+              name: "Meal Plan"
             },
             {
               url: "user-saved",
-              name: "View Saved",
-              target: "_blank"
+              name: "View Saved"
             },
             {
               url: "/logout",
-              name: "Logout",
-              target: "_blank"
+              name: "Logout"
             }
           ]
         },
-        { url: "#", name: "Search", id: 2}
+        { url: "#", name: "Search" }
       ]
     }
   }
 }
 </script>
 
-<style scoped src="../../styles/css/nav.css" lang="css"/>
+<style scoped src="../../styles/css/NavBar.css" lang="css"/>

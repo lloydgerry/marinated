@@ -1,0 +1,80 @@
+@import "./partials/variables";
+
+.nav-bar {
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  z-index: 300000;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  background-color: $primary-color;
+  margin: 0px;
+  height: 75px;
+
+  a {
+    text-decoration: none;
+    color: $text-primary;
+    h1 {
+      font-family: $main-font;
+      margin: 1em;
+      font-size: 25px;
+    }
+  }
+
+  #navigation {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5em;
+
+    li {
+      position: relative;
+      text-align: center;
+      width: 160px;
+
+      a {
+        display: block;
+        padding: 0.55em 1em;
+        text-decoration: none;
+        color: darken($text-primary, 15%);
+        border-radius: 0.35em;
+        background-color: transparent;
+        transition: all 200ms ease;
+
+        &:hover {
+          color: $white;
+          background-color: rgba($black, 0.65);
+        }
+
+        &.active {
+          background-color: rgba($black, 0.45);
+        }
+      }
+
+      .nav-link {
+        background-color: transparent;
+        text-align: left;
+      }
+    }
+  }
+
+  .dropdown {
+    position: absolute;
+    left: 50%;
+    transform: translatex(50%) rotatex(90deg) scale(0);
+    transform-origin: 0 0;
+    border-radius: 0.35em;
+    border: $black solid 1px;
+    background-color: rgba($white, 0.75);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 200ms linear;
+    color: $text-primary;
+    &.isOpen {
+      transform: translatex(-50%);
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
