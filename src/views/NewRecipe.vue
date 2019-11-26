@@ -39,7 +39,7 @@
           <h2>Ingredients</h2>
           <IngredientsList/>
         </div>
-        <div class="preperation grid-item">
+        <div class="preparation grid-item">
           <h2>Preparation</h2>
           <input type="text" v-model="preparation" />
         </div>
