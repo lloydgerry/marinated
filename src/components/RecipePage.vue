@@ -1,4 +1,5 @@
 <template>
+
   <div class="recipe-display"> 
     <div class="grid-container">
       <div class="grid-item">

@@ -32,7 +32,13 @@ const routes = [
     path: '/savedforlater',
     name: 'savedforlater',
     component: () => import(/* webpackChunkName: "savedforlater" */ '../views/SavedForLater.vue')
+  },
+  {
+    path: '/new-recipe',
+    name: 'new-recipe',
+    component: () => import(/* webpackChunkName: "new-recipe" */ '../views/NewRecipe.vue')
   }
+
 ]
 
 const router = new VueRouter({
