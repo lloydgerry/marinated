@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,gBAAgB,CAAC;EACb,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,IAAI;CAChB;;AAED,AAAA,qBAAqB,CAAC;EAClB,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "../RecipeCardsCarousel.scss"
+    ],
+    "names": [],
+    "file": "RecipeCardsCarousel.css"
+}
