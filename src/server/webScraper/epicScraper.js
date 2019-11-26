@@ -3,8 +3,7 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
-// export default function epicScraper(url) {
-  const epicScraper = (url) => {
+const epicScraper = (url) => {
 
   const recipe = {};
   let browser;
@@ -13,13 +12,11 @@ const cheerio = require('cheerio');
     .launch()
     .then(b => {
       browser = b;
-      return b.newPage()
+      return b.newPage();
     })
     .then(page => {
       page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
-      return page.goto(url).then(() => {
-        return page.content();
-      });
+      return page.goto(url).then(() => page.content());
     })
     .then(html => {
       const $ = cheerio.load(html);
@@ -48,4 +45,4 @@ const cheerio = require('cheerio');
     .catch(console.error);
 };
 
-module.exports = { epicScraper };
+export default epicScraper;

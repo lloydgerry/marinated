@@ -1,14 +1,14 @@
 // scraperRouter.js
 // November 2019
 
-const { epicScraper } = require('./webScraper/epicScraper');
-// import epicScraper from './webScraper/epiScraper.js';
 
-url =  'https://www.epicurious.com/recipes/food/views/big-batch-marinated-bell-peppers';
+import epicScraper from './webScraper/epicScraper.js';
+
+let url =  'https://www.epicurious.com/recipes/food/views/big-batch-marinated-bell-peppers';
 
 const scraperRouter = (url) => {
-  recipe = {};
-  splitUrl = url.split('.');  
+  let recipe = {};
+  const splitUrl = url.split('.');  
   
   if (splitUrl.includes('epicurious') === true ){
     epicScraper(url)
@@ -20,12 +20,7 @@ const scraperRouter = (url) => {
     recipe = `ERROR: ${url} is not supported at this time for import.`
     console.log(recipe);
   }
-
-
 };
 scraperRouter(url);
 
-module.exports = {
-  scraperRouter
-};
-
+export default scraperRouter;
