@@ -1,0 +1,47 @@
+.subtle {
+  color: #aaa;
+}
+
+.card-container {
+  margin: 25px auto 0;
+  position: relative;
+  width: 325px;
+  border: 0 2px 25px 2px black, 0 2px 50px 2px black, 0 0 100px 3px rgba(0, 0, 0, 0.25);
+}
+
+.card-media {
+  max-width: 325px;
+  max-height: auto;
+}
+
+.card {
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 5px rgba(75, 75, 75, 0.2);
+          box-shadow: 0 0 5px rgba(75, 75, 75, 0.2);
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 60px;
+  margin: 10px 10px;
+}
+
+.card-summary {
+  display: inline-block;
+  font-weight: 300;
+  line-height: 22px;
+  margin: 10px 10px;
+}
+
+.card-shadow {
+  background-color: #fff;
+  -webkit-box-shadow: #00000033 0px 10px 25px 0px;
+          box-shadow: #00000033 0px 10px 25px 0px;
+  height: 1px;
+  margin: -1px auto 0;
+  width: 80%;
+  z-index: -1;
+}
+/*# sourceMappingURL=RecipeCard.css.map */
