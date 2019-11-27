@@ -1,32 +1,78 @@
+const scraperRouter = require('./scraperRouter');
 
 
 module.exports = function(router, database) {
 
+
   router.get('/recipes', (request, response) => {
     return database.query(`SELECT * FROM recipes;`)
-      .then(data => {
-        console.log(data.rows);
-        // database.end()
-        return data.rows;
-      })
-      .then(recipes => response.send(recipes))
+      .then(recipes => response.send(recipes.rows))
       .catch(e => {
         console.error('Error in apiRoutes: ', e);
         response.send(e);
       });
   });
 
+  router.post('/recipes/scraper', (request, response) => {
+    let queryResult = ""
+    const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
+    const dbParams = [request.body.param];
+    database.query(dbQuery, dbParams)
+      .then(response => queryResult = response);
+    if (queryResult !== "") {
+      return { exists: false };
+    } else {
+      queryResult = scraperRouter(dbParams);
+      console.log(queryResult);
+      return queryResult;
+    }
+  });
+
+  router.get('/recipes/:id', (request, response) => {
+    const dbQuery = `SELECT * FROM recipes WHERE id is $1;`;
+    const dbParams = [request.body.id];
+    return database.query(dbQuery, dbParams)
+      .then(data => response.send(data.rows))
+      .catch(e => {
+        console.error('Error in apiRoutes: ', e);
+        response.send(e);
+      });
+  });
+
+  router.get('/user/:id', (request, response) => {
+    const dbQuery = `
+      SELECT * 
+      FROM user_recipes
+      JOIN recipes ON recipes.id = recipe_id
+      WHERE user_id is $1;
+    `;
+    const dbParams = [request.body.id];
+    return database.query(dbQuery, dbParams)
+      .then(data => response.send(data.rows))
+      .catch(e => {
+        console.error('Error in apiRoutes: ', e);
+        response.send(e);
+      });
+  });
+
+  router.get('/user/:id/mealplan', (request, response) => {
+    const dbQuery = `
+      SELECT * 
+      FROM plan_recipes
+      JOIN meal_plans ON meal_plan.id = meal_plans_id
+      JOIN recipes ON recipes.id = recipe_id
+      WHERE user_id is $1;
+    `;
+    const dbParams = [request.body.id];
+    return database.query(dbQuery, dbParams)
+      .then(data => response.send(data.rows))
+      .catch(e => {
+        console.error('Error in apiRoutes: ', e);
+        response.send(e);
+      });
+  });
+
+  
+
   return router;
-}
-
-
-
-
-// app.get('/api/home', (request, response) => {
-//   console.log('I am in the console')
-//   response.send('hello there')
-// })
-
-// app.get('/api/recipes', (request, response) => {
-
-// })
+};

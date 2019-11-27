@@ -38,10 +38,10 @@ CREATE TABLE meal_plans (
 );
 
 CREATE TABLE plan_recipes (
-    id SERIAL PRIMARY KEY NOT NULL,
-    meal_plans_id INTEGER REFERENCES meal_plans(id) ON DELETE CASCADE,
-    recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
-    position INTEGER NOT NULL
+  id SERIAL PRIMARY KEY NOT NULL,
+  meal_plans_id INTEGER REFERENCES meal_plans(id) ON DELETE CASCADE,
+  recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
+  position INTEGER NOT NULL
 );
 
 CREATE TABLE user_recipes (
