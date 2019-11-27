@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <NavBar/>
+    <DivSpace/>
     <div v-if="mealCardIsOpen">
       <PlanDrawer />
     </div>  
@@ -11,6 +12,7 @@
 <script>
 // @ is an alias to /src
 import NavBar from "../components/layout/NavBar.vue"
+import DivSpace from "../components/layout/DivSpace.vue"
 import PlanDrawer from "../components/PlanDrawer"
 import RecipeCardsCarousel from "../components/layout/RecipeCardsCarousel"
 const axios = require('axios')
@@ -21,7 +23,8 @@ export default {
   components: {
     NavBar,
     PlanDrawer,
-    RecipeCardsCarousel
+    RecipeCardsCarousel,
+    DivSpace
   },
   data() {
     return {
