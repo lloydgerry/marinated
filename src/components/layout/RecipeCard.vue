@@ -1,12 +1,12 @@
 <template>
-    <div class="card-container">
-      <Card>
-  <div class="card u-clearfix">
-      <img v-bind:src=recipe.image_url  alt="" class="card-media" />
-      <!-- <span class="card-number card-circle subtle">{{recipeCard.id}}</span> -->
-      <h2 class="card-title">{{recipe.title}} </h2>
-      <span class="card-summary subtle">{{recipe.summary}}</span>
-  </div>
+  <div class="card-container">
+    <Card>
+      <router-link :to="{ name: 'recipe', params: { id: recipe.id } }" class="card u-clearfix">
+          <img v-bind:src=recipe.image_url  alt="" class="card-media" />
+          <!-- <span class="card-number card-circle subtle">{{recipeCard.id}}</span> -->
+          <h2 class="card-title">{{recipe.title}} </h2>
+          <span class="card-summary subtle">{{recipe.summary}}</span>
+      </router-link>
   <div class="card-shadow"></div>
   </Card>
 </div>
@@ -25,7 +25,6 @@ export default {
   data () {
     return {
       recipeCard: {
-  
       }
     }
   }
