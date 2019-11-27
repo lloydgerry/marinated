@@ -2,7 +2,7 @@
 // November 2019
 
 
-const epicScraper = require('./webScrapers/epicScraper.js');
+const { epicScraper } = require('./webScrapers/epicScraper.js');
 
 
 const scraperRouter = (url) => {
@@ -10,10 +10,11 @@ const scraperRouter = (url) => {
   const splitUrl = url.split('.');  
   
   if (splitUrl.includes('epicurious') === true ){
-    epicScraper(url)
+   return epicScraper(url)
       .then(res => {
         console.log(res);
         recipe = res;
+        return recipe;
           });
   } else {
     recipe = `ERROR: ${url} is not supported at this time for import.`

@@ -1,4 +1,4 @@
-const scraperRouter = require('./scraperRouter');
+const { scraperRouter } = require('./scraperRouter');
 
 
 module.exports = function(router, database) {
@@ -8,25 +8,28 @@ module.exports = function(router, database) {
     return database.query(`SELECT * FROM recipes;`)
       .then(recipes => response.send(recipes.rows))
       .catch(e => {
-        console.error('Error in apiRoutes: ', e);
+        console.error('Error in apiRoutes recipes: ', e);
         response.send(e);
       });
   });
 
-  router.post('/recipes/scraper', (request, response) => {
+  router.post('/scraper', (request, response) => {
     let queryResult = ""
-    const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
-    const dbParams = [request.body.param];
-    database.query(dbQuery, dbParams)
-      .then(response => queryResult = response);
-    if (queryResult !== "") {
-      return { exists: false };
-    } else {
-      queryResult = scraperRouter(dbParams);
-      console.log(queryResult);
-      return queryResult;
-    }
-  });
+    // const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
+    const dbParams = [request.body.url];
+    console.log("recipes scraper body", request.body.url)
+    // database.query(dbQuery, dbParams)
+    //   .then(response => queryResult = response);
+    // if (queryResult !== "") {
+    //   return { exists: false };
+    // } else {
+      scraperRouter(dbParams[0])
+        .then(recipe => { 
+          console.log("data from scraper in router:", recipe)
+          response.send(recipe.data)
+        })
+    // }
+  })
 
   router.get('/recipes/:id', (request, response) => {
     const dbQuery = `SELECT * FROM recipes WHERE id is $1;`;
@@ -34,7 +37,7 @@ module.exports = function(router, database) {
     return database.query(dbQuery, dbParams)
       .then(data => response.send(data.rows))
       .catch(e => {
-        console.error('Error in apiRoutes: ', e);
+        console.error('Error in apiRoutes recipes id: ', e);
         response.send(e);
       });
   });
@@ -67,7 +70,7 @@ module.exports = function(router, database) {
     return database.query(dbQuery, dbParams)
       .then(data => response.send(data.rows))
       .catch(e => {
-        console.error('Error in apiRoutes: ', e);
+        console.error('Error in apiRoutes mealplan: ', e);
         response.send(e);
       });
   });

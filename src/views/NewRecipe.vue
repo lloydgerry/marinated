@@ -79,9 +79,9 @@ export default {
   }),
   methods: {
     submitScraper: function() {
-      console.log(this.scrapeUrl);
-      axios.get('/api/recipes/scraper')
-        .then(response => console.log(response))
+      console.log("logging scrapeURL in submitScraper: ", this.scrapeUrl);
+      axios.post('/api/scraper', {url: this.scrapeUrl})
+        .then(response => console.log("response in NewRecipe from scaper", response))
     },
     submitForm: function() {
       const newRecipeObject = {
