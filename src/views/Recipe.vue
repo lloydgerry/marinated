@@ -1,15 +1,15 @@
 <template>
   <div class="about">
     <NavBar/>
+    <DivSpace/>
     <RecipePage/>
-    {{recipes}}
   </div>
 </template>
 
 <script>
 import NavBar from "../components/layout/NavBar.vue"
+import DivSpace from "../components/layout/DivSpace.vue"
 import RecipePage from "../components/RecipePage"
-// import Recipes from './components/Recipes'
 
 
 export default {
@@ -17,19 +17,10 @@ export default {
   components: {
     NavBar,
     RecipePage,
-    // Recipes
-  },
+    DivSpace
+    },
   data() {
-    return {
-      recipes: [
-        { id: 1,
-          title: "Cookies"
-        },
-        { id: 2,
-          title: "Soup"
-        }
-      ]
-    }
+  
   },
   computed: {
 
