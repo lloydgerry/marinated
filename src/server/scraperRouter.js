@@ -2,9 +2,8 @@
 // November 2019
 
 
-import epicScraper from './webScraper/epicScraper.js';
+const epicScraper = require('./webScrapers/epicScraper.js');
 
-let url =  'https://www.epicurious.com/recipes/food/views/big-batch-marinated-bell-peppers';
 
 const scraperRouter = (url) => {
   let recipe = {};
@@ -21,6 +20,5 @@ const scraperRouter = (url) => {
     console.log(recipe);
   }
 };
-scraperRouter(url);
 
-export default scraperRouter;
+module.exports = { scraperRouter };
