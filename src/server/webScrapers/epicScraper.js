@@ -1,4 +1,4 @@
-
+// epicScraper.js
 
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
@@ -23,7 +23,7 @@ const epicScraper = (url) => {
       
       recipe.source_url = url;
       recipe.title = $('h1').text();
-      recipe.img = `https://www.epicurious.com${$('img.photo').attr('src')}`;
+      recipe.imgage_url = `https://www.epicurious.com${$('img.photo').attr('src')}`;
       recipe.author = $('.contributors > .contributor').attr('title');
       recipe.summary = $('.dek > p').text();
       recipe.prep_time = $('dd.total-time').text();
@@ -45,4 +45,6 @@ const epicScraper = (url) => {
     .catch(console.error);
 };
 
-export default epicScraper;
+module.exports = { 
+  epicScraper
+};

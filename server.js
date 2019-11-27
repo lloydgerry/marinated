@@ -1,5 +1,4 @@
 const express = require('express');
-const serveStatic = require('serve-static');
 // const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -16,14 +15,13 @@ app.use(
 const apiRoutes = require('./src/server/apiRoutes');
 const database = require('./src/server/dbConnection');
 const apiRouter = express.Router();
-apiRoutes(apiRouter, database)
+apiRoutes(apiRouter, database);
 app.use('/api', apiRouter);
 
 
-
-app.use(serveStatic(__dirname + "/dist"));
-let port = process.env.PORT || 5000;
-app.listen(port);
-console.log('server started '+ port);
+let PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}!`);
+});
 
 
