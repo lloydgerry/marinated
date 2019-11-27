@@ -5,8 +5,8 @@
       <form>
         <div class ="url-form grid-item" >
           <h2>Copy and paste a URL from one of our partner websites to auto-fill this form:</h2>
-          <input type="url" v-model="scrapeurl" />
-          <input type="submit" value="Submit URL Scrape" v-on:click="submiSCraper" class="btn" >
+          <input type="url" v-model="scrapeUrl" />
+          <input type="submit" value="Submit URL Scrape" v-on:click="submitScraper" class="btn" >
         </div>
       </form>
       <form>
@@ -20,7 +20,7 @@
         </div>
         <div class="grid-item"> 
           <h2>Image Link</h2>
-          <input type="text" v-model="imagelink" />
+          <input type="text" v-model="imageUrl" />
         </div>
         <div class="grid-item">
           <h2>Author</h2>
@@ -28,11 +28,11 @@
         </div>
         <div class="grid-item" >
           <h2>Source URL</h2>
-          <input type="text" v-model="sourceurl" placeholder="https://" />
+          <input type="text" v-model="sourceUrl" placeholder="https://" />
         </div>
         <div class="grid-item">
           <h2>Prep Time</h2>
-          <input type="text" v-model="preptime" />
+          <input type="text" v-model="prepTime" />
         </div>
         <div class="grid-item">
           <h2>Servings</h2>
@@ -47,7 +47,7 @@
           <input type="text" v-model="preparation" />
         </div>
         <div>
-          <input type="submit" class="btn" value="Create New Recipe" v-on:click="submit" />
+          <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
         </div>
       </form>
     </div>
@@ -55,9 +55,9 @@
 
 <script>
 import IngredientsList from '../components/layout/IngredientsList'
-import NavBar from "../components/layout/NavBar.vue"
-import DivSpace from "../components/layout/DivSpace.vue"
-
+import NavBar from '../components/layout/NavBar.vue'
+import DivSpace from '../components/layout/DivSpace.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -66,23 +66,36 @@ export default {
     DivSpace
   },
   data: () => ({
-      scrapeurl: '',
+      scrapeUrl: '',
       summary: '',
       title: '',
-      imagelink: '',
+      imageUrl: '',
       author: '',
-      sourceurl: '',
-      preptime: '',
+      sourceUrl: '',
+      prepTime: '',
       servings: '',
       ingredients: '',
       preparation: ''
   }),
   methods: {
     submitScraper: function() {
-      console.log(this.scrapeurl);
+      console.log(this.scrapeUrl);
+      axios.get('/api/recipes/scraper')
+        .then(response => console.log(response))
     },
     submitForm: function() {
-      console.log("form details:", this.scrapeurl, this.summary, this.title, this.imagelink, this.author, this.sourceurl, this.preptime, this.servings, this.ingredients, this.preparation);
+      const newRecipeObject = {
+        title: this.title,
+        image_url: this.imageUrl, 
+        summary: this.summary,
+        ingredients: this.ingredients,
+        preperation: this.preparation,
+        author: this.author,
+        source_url: this.sourceUrl,
+        prep_time: this.prepTime,
+        servings: this.servings
+      }
+      console.log("form details:", newRecipeObject);
     }
   }
 }
