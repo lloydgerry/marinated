@@ -1,14 +1,14 @@
 <template>
-    <div > 
-        <draggable v-model="recipeCarouselArray">
-            <transition-group class="recipe-carousel centered">
-                <div v-for="recipe in recipeCarouselArray" :key="recipe.id" class="recipe-carousel-item recipe-card">
-                  <RecipeCard v-bind:recipe="recipe" class="recipe-carousel-item recipe-card" />
-                </div>
-            </transition-group>
-        </draggable>
+  <div > 
+    <draggable v-model="recipeCarouselArray">
+      <transition-group class="recipe-carousel centered">
+        <div v-for="recipe in RecipeCards" :key="recipe.id" class="recipe-carousel-item recipe-card">
+          <RecipeCard v-bind:recipe="recipe" class="recipe-carousel-item recipe-card" />
+        </div>
+      </transition-group>
+    </draggable>
 
-    </div>
+  </div>
 </template>
 
 <script>
@@ -16,12 +16,15 @@ import draggable from 'vuedraggable'
 import RecipeCard from './RecipeCard'
 
   export default {
-        components: {
-            draggable,
-            RecipeCard,
-        },
+    name: "RecipeCardCarousel",
+    components: {
+      draggable,
+      RecipeCard
+    },
+    props : ["RecipeCards"],
         data () {
             return {
+              
                 recipeCarouselArray: [
                     {
                       id: 1,

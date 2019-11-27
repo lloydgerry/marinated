@@ -4,7 +4,7 @@
     <div v-if="mealCardIsOpen">
       <PlanDrawer />
     </div>  
-    <RecipeCardsCarousel />
+    <RecipeCardsCarousel v-bind:RecipeCards="RecipeCards"/>
   </div>
 </template>
 
@@ -13,6 +13,8 @@
 import NavBar from "../components/layout/NavBar.vue"
 import PlanDrawer from "../components/PlanDrawer"
 import RecipeCardsCarousel from "../components/layout/RecipeCardsCarousel"
+const axios = require('axios')
+
 
 export default {
   name: 'home',
@@ -23,9 +25,15 @@ export default {
   },
   data() {
     return {
-      mealCardIsOpen: false
+      mealCardIsOpen: false,
+      RecipeCards: []
+
     }
 
+
+  },
+  created() {
+    this.fetchData()
   },
   methods: {
     mealCardClose() {
@@ -33,6 +41,14 @@ export default {
     },
     mealCardOpen() {
       this.mealCardIsOpen = true
+    },
+    fetchData() {
+      axios.get('/api/recipes')
+        .then(res => {
+          this.RecipeCards = res.data;
+          console.log("vue returning the recipe data: ", res.data);
+        })
+        .catch(error => console.log("error from fetch data", error));
     }
   }
 }
