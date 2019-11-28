@@ -38,6 +38,11 @@ const routes = [
     path: '/new-recipe',
     name: 'new-recipe',
     component: () => import('../views/NewRecipe.vue')
+  },
+  {
+    path: '/FoodieChat',
+    name: 'FoodieChat',
+    component: () => import('../views/FoodieChat.vue')
   }
 
 ]
