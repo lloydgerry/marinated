@@ -1,10 +1,13 @@
 <template>
   <div>
     <ul class='ingredients-list'>
-      <li class='ingredients-list-item' v-for="ingredient in ingredientslist" v-bind:key="ingredient" >
+      <li class='ingredients-list-item' v-for="ingredient in ingredients" v-bind:key="ingredient" >
        - {{ingredient}}
       </li>
+      <form>
       <input type="text" v-model="name" v-if="seen" v-on:keyup.enter="addIngredient(name)" placeholder="Type your ingredient here" > 
+      <button v-on:click="onSubmit" type="submit"> + </button>
+      </form>
       <p><button v-on:click="seen = !seen"> Add Ingredient </button></p>
     </ul>
   </div>
@@ -12,22 +15,19 @@
 
 <script>
 export default {
+  props: ["ingredients"],
   components: {
   },
   data() {
     return {
-      ingredientslist: [
-        "sugar",
-        "flour"
-      ],
+      ingredientslist: [],
       seen: false,
+      name: ''
     };
   },
   methods: {
     addIngredient(name) {
-      this.ingredientslist.push(
-        name
-      );
+      this.$emit('new-ingredient', name );
       this.name = "";
       this.seen = false;
     }

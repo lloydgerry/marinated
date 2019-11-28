@@ -12,44 +12,45 @@
       <form>
         <div class="new-recipe-title grid-item">
           <h2>Title</h2>
-          <input type="text" v-model="title" placeholder="Your Title"/>
+          <input type="text" v-model="recipe.title" placeholder="Your Title"/>
         </div>
         <div class="grid-item">
           <h2>Summary</h2>
-          <input type="text" v-model="summary" />
-        </div>
-        <div class="grid-item"> 
-          <h2>Image Link</h2>
-          <input type="text" v-model="imageUrl" />
+          <input type="text" v-model="recipe.summary" />
         </div>
         <div class="grid-item">
           <h2>Author</h2>
-          <input type="text" v-model="author" />
+          <input type="text" v-model="recipe.author" />
+        </div>
+         <div class="grid-item"> 
+          <h2>Image Link</h2>
+          <input type="text" v-model="recipe.imgage_url" />
         </div>
         <div class="grid-item" >
           <h2>Source URL</h2>
-          <input type="text" v-model="sourceUrl" placeholder="https://" />
+          <input type="text" v-model="recipe.source_url" placeholder="https://" />
         </div>
         <div class="grid-item">
           <h2>Prep Time</h2>
-          <input type="text" v-model="prepTime" />
+          <input type="text" v-model="recipe.prep_time" />
         </div>
         <div class="grid-item">
           <h2>Servings</h2>
-          <input type="text" v-model="servings" />
+          <input type="text" v-model="recipe.servings" />
         </div>
         <div class="grid-item">
           <h2>Ingredients</h2>
-          <IngredientsList/>
+          <IngredientsList v-bind:ingredients="recipe.ingredients" v-on:new-ingredient="addIngredient"/>
         </div>
         <div class="preparation grid-item">
           <h2>Preparation</h2>
-          <input type="text" v-model="preparation" />
+          <input type="text" v-model="recipe.preparation" />
         </div>
         <div>
           <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
         </div>
       </form>
+      {{recipe}}
     </div>
 </template>
 
@@ -60,28 +61,39 @@ import DivSpace from '../components/layout/DivSpace.vue'
 import axios from 'axios'
 
 export default {
+  state: {
+    // recipe: {},
+    loading: false
+  },
   components: {
     NavBar,
     IngredientsList,
     DivSpace
   },
-  data: () => ({
+  data() {
+    return{
       scrapeUrl: '',
-      summary: '',
-      title: '',
-      imageUrl: '',
-      author: '',
-      sourceUrl: '',
-      prepTime: '',
-      servings: '',
-      ingredients: '',
-      preparation: ''
-  }),
+      recipe: {
+        summary: '',
+        title: '',
+        imgage_url: '',
+        author: '',
+        sourceUrl: '',
+        prepTime: '',
+        servings: '',
+        ingredients: '',
+        preparation: ''
+      }
+    }
+  },
   methods: {
     submitScraper: function() {
-      console.log("logging scrapeURL in submitScraper: ", this.scrapeUrl);
       axios.post('/api/scraper', {url: this.scrapeUrl})
-        .then(response => console.log("response in NewRecipe from scaper", response))
+        .then(fetchedrecipe => {
+          console.log("fetched recipe data: ", fetchedrecipe)
+          this.recipe = fetchedrecipe.data
+        })
+        .catch(error => console.log("error in submitScraper in NewRecipe: ", error))
     },
     submitForm: function() {
       const newRecipeObject = {
@@ -96,6 +108,9 @@ export default {
         servings: this.servings
       }
       console.log("form details:", newRecipeObject);
+    },
+    addIngredient: function(name) {
+      this.recipe.ingredients.push(name);
     }
   }
 }

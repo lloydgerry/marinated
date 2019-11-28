@@ -1,16 +1,23 @@
 const { scraperRouter } = require('./scraperRouter');
+const { pool } = require('./dbConnection');
 
-
-module.exports = function(router, database) {
+module.exports = function(router) {
 
 
   router.get('/recipes', (request, response) => {
-    return database.query(`SELECT * FROM recipes;`)
-      .then(recipes => response.send(recipes.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes recipes: ', e);
-        response.send(e);
-      });
+    pool.connect((error, client, release) => {
+
+      if (error) {console.log(error)}
+
+    return client.query(`SELECT * FROM recipes;`)
+      .then(recipes => {
+        release()
+        response.send(recipes.rows) 
+      })
+      .catch(error => {
+        console.error('Error in apiRoutes recipes: ', error);
+      })
+    })
   });
 
   router.post('/scraper', (request, response) => {
@@ -26,8 +33,12 @@ module.exports = function(router, database) {
       scraperRouter(dbParams[0])
         .then(recipe => { 
           console.log("data from scraper in router:", recipe)
-          response.send(recipe.data)
+          response.send(recipe)
         })
+        .catch(e => {
+          console.error('Error in apiRoutes scraper: ', e);
+          response.send(e);
+        });
     // }
   })
 
