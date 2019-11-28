@@ -21,25 +21,35 @@ module.exports = function(router) {
   });
 
   router.post('/scraper', (request, response) => {
-    let queryResult = ""
-    // const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
-    const dbParams = [request.body.url];
-    console.log("recipes scraper body", request.body.url)
-    // database.query(dbQuery, dbParams)
-    //   .then(response => queryResult = response);
-    // if (queryResult !== "") {
-    //   return { exists: false };
-    // } else {
-      scraperRouter(dbParams[0])
-        .then(recipe => { 
-          console.log("data from scraper in router:", recipe)
-          response.send(recipe)
+    pool.connect((error, client, release) => {
+      if (error) {console.log(error)}
+      let queryResult = ""
+      const dbQuery = `SELECT * FROM recipes WHERE source_url = $1;`;
+      const dbParams = [request.body.url];
+
+      console.log("recipes scraper body", request.body.url)
+
+      return client.query(dbQuery, dbParams)
+        .then(response => {
+          queryResult = response
+          console.log("query result", queryResult)
+          release()
         })
-        .catch(e => {
-          console.error('Error in apiRoutes scraper: ', e);
-          response.send(e);
-        });
-    // }
+        .then( () => {
+          if (queryResult.rowCount !== 0) {
+            console.log("yay this exists")
+            return { exists: false };
+            } else {
+              scraperRouter(dbParams[0])
+                .then(recipe => { 
+                  console.log("data from scraper in router:", recipe)
+                  response.send(recipe)
+                })
+            }
+          })
+        .catch(error => console.log("error in dbquery for new-recipe", error));
+
+    })
   })
 
   router.post('/recipes-new', (request, response) => {
