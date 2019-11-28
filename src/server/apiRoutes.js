@@ -54,38 +54,43 @@ module.exports = function(router) {
 
   router.post('/recipes-new', (request, response) => {
     pool.connect((error, client, release) => {
-
-      if (error) {console.log(error)}
+      if (error) {console.log(error)};
 
       const dbQuery = `
         INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings)
         VAlUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       `;
-      const data = request.body.recipe
-
+      const data = request.body.recipe;
       const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preparation, data.author, data.source_url, data.prep_time, data.servings];
 
-    return client.query(dbQuery,dbParams)
-      .then(res => {
-        release()
-        response.send(res) 
-      })
-      .catch(error => {
-        console.error('Error from inserting recipe: ', error);
-      })
+      return client.query(dbQuery,dbParams)
+        .then(res => {
+          release()
+          response.send(res) 
+        })
+        .catch(error => {
+          console.error('Error from inserting recipe: ', error);
+        });
     })
   });
 
   router.get('/recipes/:id', (request, response) => {
-    const dbQuery = `SELECT * FROM recipes WHERE id is $1;`;
-    const dbParams = [request.body.id];
-    return database.query(dbQuery, dbParams)
-      .then(data => response.send(data.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes recipes id: ', e);
-        response.send(e);
-      });
+    pool.connect((error, client, release) => {
+      if (error) {console.log(error)};
+
+      const dbQuery = `SELECT * FROM recipes WHERE id = $1;`;
+      const dbParams = [request.params.id];
+      return client.query(dbQuery, dbParams)
+        .then(data => {
+          release();
+          response.send(data.rows);
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes recipes id: ', e);
+          response.send(e);
+        });
+    });
   });
 
   router.get('/user/:id', (request, response) => {
