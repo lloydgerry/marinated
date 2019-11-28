@@ -19,7 +19,7 @@ CREATE TABLE recipes (
   image_url VARCHAR(255), 
   summary TEXT,
   ingredients VARCHAR(150)[] NOT NULL,
-  preperation TEXT NOT NULL,
+  preparation TEXT[] NOT NULL,
   author VARCHAR(100),
   source_url VARCHAR(255),
   prep_time VARCHAR(50),
