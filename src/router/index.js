@@ -21,22 +21,23 @@ const routes = [
   {
     path: '/mealplan',
     name: 'mealplan',
-    component: () => import(/* webpackChunkName: "mealplan" */ '../views/MealPlan.vue')
+    component: () => import('../views/MealPlan.vue')
   },
     {
       path: '/recipe/:id',
       name: 'recipe',
-      component: () => import(/* webpackChunkName: "recipe" */ '../views/Recipe.vue')
+      props: true,
+      component: () => import('../views/Recipe.vue')
     },
   {
     path: '/savedforlater',
     name: 'savedforlater',
-    component: () => import(/* webpackChunkName: "savedforlater" */ '../views/SavedForLater.vue')
+    component: () => import('../views/SavedForLater.vue')
   },
   {
     path: '/new-recipe',
     name: 'new-recipe',
-    component: () => import(/* webpackChunkName: "new-recipe" */ '../views/NewRecipe.vue')
+    component: () => import('../views/NewRecipe.vue')
   }
 
 ]

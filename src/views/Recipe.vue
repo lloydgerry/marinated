@@ -2,29 +2,76 @@
   <div class="about">
     <NavBar/>
     <DivSpace/>
-    <RecipePage/>
+    <div class="recipe-display"> 
+    <div class="grid-container">
+      <div class="grid-item">
+        <h1>{{recipe.title}}</h1>
+        <p>Author: {{ recipe.author }}</p>
+        <p>Time: {{ recipe.prep_time }}</p>
+        <p>Servings: {{ recipe.servings }}</p>
+      </div>
+      <div class="grid-item" id="ingredients">
+        <div 
+          class="ingredient"
+          v-for="ingredient in recipe.ingredients" 
+          :key="ingredient.index"
+        >
+          {{ ingredient }}
+        </div>
+      </div>
+    </div>
+    <div class="grid-container">
+      <div class="grid-item">
+        <img :src="recipe.image_url">
+      </div>
+      <div>
+        <div 
+          class="prep"
+          v-for="preparation in recipe.preparation" 
+          :key="preparation.index"
+        >
+          {{ preparation }}
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
-import NavBar from "../components/layout/NavBar.vue"
-import DivSpace from "../components/layout/DivSpace.vue"
-import RecipePage from "../components/RecipePage"
+import NavBar from "../components/layout/NavBar.vue";
+import DivSpace from "../components/layout/DivSpace.vue";
+import axios from 'axios';
 
 
 export default {
-  name: 'recipe',
+  name: 'Recipe',
   components: {
     NavBar,
-    RecipePage,
     DivSpace
-    },
+  },
+  props: [ 'id'],
   data() {
-  
+    return {
+      recipe: {},
+      
+    }
   },
   computed: {
 
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      axios.get(`api/recipes/${this.id}`)
+        .then(res => this.recipe = res.data[0])
+        .catch(error => console.log("error from fetch data", error));
+    }
   }
 
 }
 </script>
+
+<style scoped src="../styles/css/recipePage.css" lang="css"/>
