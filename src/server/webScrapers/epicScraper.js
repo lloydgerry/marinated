@@ -35,9 +35,9 @@ const epicScraper = (url) => {
         recipe.ingredients.push($(el).text());
       });
 
-      recipe.preperation = [];
+      recipe.preparation = [];
       $('.preparation-steps > li').each((i, el) => {
-        recipe.preperation.push($(el).text().trim('\n'));
+        recipe.preparation.push($(el).text().trim('\n'));
       });
 
       browser.close();
