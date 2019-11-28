@@ -13,9 +13,9 @@ app.use(
 )
 
 const apiRoutes = require('./src/server/apiRoutes');
-const database = require('./src/server/dbConnection');
+// const database = require('./src/server/dbConnection');
 const apiRouter = express.Router();
-apiRoutes(apiRouter, database);
+apiRoutes(apiRouter);
 app.use('/api', apiRouter);
 
 

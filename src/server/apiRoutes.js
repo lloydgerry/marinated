@@ -1,31 +1,70 @@
-const scraperRouter = require('./scraperRouter');
+const { scraperRouter } = require('./scraperRouter');
+const { pool } = require('./dbConnection');
 
-
-module.exports = function(router, database) {
+module.exports = function(router) {
 
 
   router.get('/recipes', (request, response) => {
-    return database.query(`SELECT * FROM recipes;`)
-      .then(recipes => response.send(recipes.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes: ', e);
-        response.send(e);
-      });
+    pool.connect((error, client, release) => {
+
+      if (error) {console.log(error)}
+
+    return client.query(`SELECT * FROM recipes;`)
+      .then(recipes => {
+        release()
+        response.send(recipes.rows) 
+      })
+      .catch(error => {
+        console.error('Error in apiRoutes recipes: ', error);
+      })
+    })
   });
 
-  router.post('/recipes/scraper', (request, response) => {
+  router.post('/scraper', (request, response) => {
     let queryResult = ""
-    const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
-    const dbParams = [request.body.param];
-    database.query(dbQuery, dbParams)
-      .then(response => queryResult = response);
-    if (queryResult !== "") {
-      return { exists: false };
-    } else {
-      queryResult = scraperRouter(dbParams);
-      console.log(queryResult);
-      return queryResult;
-    }
+    // const dbQuery = `SELECT * FROM recipes WHERE source_url is $1;`;
+    const dbParams = [request.body.url];
+    console.log("recipes scraper body", request.body.url)
+    // database.query(dbQuery, dbParams)
+    //   .then(response => queryResult = response);
+    // if (queryResult !== "") {
+    //   return { exists: false };
+    // } else {
+      scraperRouter(dbParams[0])
+        .then(recipe => { 
+          console.log("data from scraper in router:", recipe)
+          response.send(recipe)
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes scraper: ', e);
+          response.send(e);
+        });
+    // }
+  })
+
+  router.post('/recipes-new', (request, response) => {
+    pool.connect((error, client, release) => {
+
+      if (error) {console.log(error)}
+
+      const dbQuery = `
+        INSERT INTO recipes (title, image_url, summary, ingredients, preperation, author, source_url, prep_time, servings)
+        VAlUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `;
+      const data = request.body.recipe
+
+      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preperation.join(), data.author, data.source_url, data.prep_time, data.servings];
+
+    return client.query(dbQuery,dbParams)
+      .then(res => {
+        release()
+        response.send(res) 
+      })
+      .catch(error => {
+        console.error('Error from inserting recipe: ', error);
+      })
+    })
   });
 
   router.get('/recipes/:id', (request, response) => {
@@ -34,7 +73,7 @@ module.exports = function(router, database) {
     return database.query(dbQuery, dbParams)
       .then(data => response.send(data.rows))
       .catch(e => {
-        console.error('Error in apiRoutes: ', e);
+        console.error('Error in apiRoutes recipes id: ', e);
         response.send(e);
       });
   });
@@ -67,7 +106,7 @@ module.exports = function(router, database) {
     return database.query(dbQuery, dbParams)
       .then(data => response.send(data.rows))
       .catch(e => {
-        console.error('Error in apiRoutes: ', e);
+        console.error('Error in apiRoutes mealplan: ', e);
         response.send(e);
       });
   });
@@ -76,3 +115,21 @@ module.exports = function(router, database) {
 
   return router;
 };
+// router.post('/recipes-new', (request, response) => {
+//   pool.connect((error, client, release) => {
+
+//     if (error) {console.log(error)}
+
+//     const dbQuery = ``;
+//     const dbParams = [request.body.!!!!!!];
+
+//   return client.query(dbQuery,dbParams)
+//     .then(recipes => {
+//       release()
+//       response.send() 
+//     })
+//     .catch(error => {
+//       console.error('', error);
+//     })
+//   })
+// })

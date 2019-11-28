@@ -23,7 +23,7 @@ const epicScraper = (url) => {
       
       recipe.source_url = url;
       recipe.title = $('h1').text();
-      recipe.imgage_url = `https://www.epicurious.com${$('img.photo').attr('src')}`;
+      recipe.image_url = `https://www.epicurious.com${$('img.photo').attr('src')}`;
       recipe.author = $('.contributors > .contributor').attr('title');
       recipe.summary = $('.dek > p').text();
       recipe.prep_time = $('dd.total-time').text();
