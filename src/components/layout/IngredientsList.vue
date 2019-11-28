@@ -4,9 +4,9 @@
       <li class='ingredients-list-item' v-for="ingredient in ingredients" v-bind:key="ingredient" >
        - {{ingredient}}
       </li>
-      <form>
-      <input type="text" v-model="name" v-if="seen" v-on:keyup.enter="addIngredient(name)" placeholder="Type your ingredient here" > 
-      <button v-on:click="onSubmit" type="submit"> + </button>
+      <form v-if="seen" @submit="addIngredient">
+      <input type="text" v-model="name"  v-on:keyup.enter="submit" placeholder="Type your ingredient here" > 
+      <input type="submit" value="+">
       </form>
       <p><button v-on:click="seen = !seen"> Add Ingredient </button></p>
     </ul>
@@ -26,8 +26,10 @@ export default {
     };
   },
   methods: {
-    addIngredient(name) {
-      this.$emit('new-ingredient', name );
+    addIngredient(e) {
+      e.preventDefault();
+      console.log("name from addIngredient in InList", this.name)
+      this.$emit('new-ingredient', this.name );
       this.name = "";
       this.seen = false;
     }

@@ -24,7 +24,7 @@
         </div>
          <div class="grid-item"> 
           <h2>Image Link</h2>
-          <input type="text" v-model="recipe.imgage_url" />
+          <input type="text" v-model="recipe.image_url" />
         </div>
         <div class="grid-item" >
           <h2>Source URL</h2>
@@ -44,13 +44,12 @@
         </div>
         <div class="preparation grid-item">
           <h2>Preparation</h2>
-          <input type="text" v-model="recipe.preparation" />
+          <IngredientsList v-bind:ingredients="recipe.preperation" v-on:new-ingredient="addIngredient"/>
         </div>
         <div>
           <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
         </div>
       </form>
-      {{recipe}}
     </div>
 </template>
 
@@ -76,12 +75,12 @@ export default {
       recipe: {
         summary: '',
         title: '',
-        imgage_url: '',
+        image_url: '',
         author: '',
         sourceUrl: '',
         prepTime: '',
         servings: '',
-        ingredients: '',
+        ingredients: [],
         preparation: ''
       }
     }
@@ -96,18 +95,24 @@ export default {
         .catch(error => console.log("error in submitScraper in NewRecipe: ", error))
     },
     submitForm: function() {
-      const newRecipeObject = {
-        title: this.title,
-        image_url: this.imageUrl, 
-        summary: this.summary,
-        ingredients: this.ingredients,
-        preperation: this.preparation,
-        author: this.author,
-        source_url: this.sourceUrl,
-        prep_time: this.prepTime,
-        servings: this.servings
-      }
-      console.log("form details:", newRecipeObject);
+      // const newRecipeObject = {
+      //   title: this.title,
+      //   image_url: this.imageUrl, 
+      //   summary: this.summary,
+      //   ingredients: this.ingredients,
+      //   preperation: this.preparation,
+      //   author: this.author,
+      //   source_url: this.sourceUrl,
+      //   prep_time: this.prepTime,
+      //   servings: this.servings
+      // }
+      // console.log("form details:", newRecipeObject)
+      axios.post('api/recipes-new', { recipe: this.recipe})
+        .then(res => {
+          console.log('recipe entered, go home to check it out.', res);
+        })
+        .catch(error => console.log('error in post request', error));
+        
     },
     addIngredient: function(name) {
       this.recipe.ingredients.push(name);
