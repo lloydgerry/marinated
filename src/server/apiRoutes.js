@@ -71,10 +71,8 @@ module.exports = function(router) {
 
       const dbQuery = `SELECT * FROM recipes WHERE id = $1;`;
       const dbParams = [request.params.id];
-      console.log('dbParams', dbParams, request.body); 
       return client.query(dbQuery, dbParams)
         .then(data => {
-          console.log('recipe query, ', data);
           release();
           response.send(data.rows);
         })

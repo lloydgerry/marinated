@@ -53,12 +53,8 @@ export default {
   props: [ 'id'],
   data() {
     return {
-      recipe: {},
-      
+      recipe: {}
     }
-  },
-  computed: {
-
   },
   created() {
     this.fetchData()
