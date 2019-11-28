@@ -44,7 +44,7 @@
         </div>
         <div class="preparation grid-item">
           <h2>Preparation</h2>
-          <IngredientsList v-bind:ingredients="recipe.preperation" v-on:new-ingredient="addIngredient"/>
+          <IngredientsList v-bind:ingredients="recipe.preparation" v-on:new-ingredient="addIngredient"/>
         </div>
         <div>
           <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
@@ -100,7 +100,7 @@ export default {
       //   image_url: this.imageUrl, 
       //   summary: this.summary,
       //   ingredients: this.ingredients,
-      //   preperation: this.preparation,
+      //   preparation: this.preparation,
       //   author: this.author,
       //   source_url: this.sourceUrl,
       //   prep_time: this.prepTime,
