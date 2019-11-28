@@ -1,15 +1,14 @@
 
 
-const { Client } = require('pg');
+const { Pool } = require('pg');
 require('dotenv').config();
 
-const client = new Client({
+const pool = new Pool({
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
 
-client
-  .connect()
-  .catch(error => console.log("db connection error: ", error))
-
-module.exports = client;
+module.exports = { pool }
