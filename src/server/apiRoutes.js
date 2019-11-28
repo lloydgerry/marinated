@@ -54,7 +54,7 @@ module.exports = function(router) {
       `;
       const data = request.body.recipe
 
-      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preperation.join(), data.author, data.source_url, data.prep_time, data.servings];
+      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preperation, data.author, data.source_url, data.prep_time, data.servings];
 
     return client.query(dbQuery,dbParams)
       .then(res => {
