@@ -48,13 +48,13 @@ module.exports = function(router) {
       if (error) {console.log(error)}
 
       const dbQuery = `
-        INSERT INTO recipes (title, image_url, summary, ingredients, preperation, author, source_url, prep_time, servings)
+        INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings)
         VAlUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       `;
       const data = request.body.recipe
 
-      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preperation, data.author, data.source_url, data.prep_time, data.servings];
+      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preparation, data.author, data.source_url, data.prep_time, data.servings];
 
     return client.query(dbQuery,dbParams)
       .then(res => {
