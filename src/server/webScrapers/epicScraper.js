@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 
 const epicScraper = (url) => {
 
+
   const recipe = {};
   let browser;
 
@@ -23,7 +24,7 @@ const epicScraper = (url) => {
       
       recipe.source_url = url;
       recipe.title = $('h1').text();
-      recipe.image_url = `https://www.epicurious.com${$('img.photo').attr('src')}`;
+      recipe.image_url = `${$('source').attr('srcset')}`;
       recipe.author = $('.contributors > .contributor').attr('title');
       recipe.summary = $('.dek > p').text();
       recipe.prep_time = $('dd.total-time').text();
@@ -44,6 +45,7 @@ const epicScraper = (url) => {
     })
     .catch(console.error);
 };
+
 
 module.exports = { 
   epicScraper

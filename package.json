@@ -36,6 +36,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "esm": "^3.2.25",
+    "nodemon": "^2.0.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
