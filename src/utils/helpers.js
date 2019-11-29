@@ -14,7 +14,7 @@ export const applyDrag = (arr, dragResult) => {
   }
 
   return result
-}
+};
 
 export const generateItems = (count, creator) => {
   const result = []
@@ -22,4 +22,12 @@ export const generateItems = (count, creator) => {
     result.push(creator(i))
   }
   return result
-}
+};
+
+export const emptyTable = () => {
+  const result = [];
+  for (let i = 0; i < 7; i++) {
+    result.push([{id: i, title: `Something ${i}`}, {id: i+1, title: `Something ${i}`}, {id: i+2, title: `Something ${i}`}] )
+  }
+  return result;
+};
