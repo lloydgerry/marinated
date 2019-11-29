@@ -39,6 +39,8 @@ const epicScraper = (url) => {
       $('.preparation-steps > li').each((i, el) => {
         recipe.preparation.push($(el).text().trim('\n'));
       });
+      
+      recipe.tags = $('meta[name="keywords"]').attr('content');
 
       browser.close();
       return recipe;
