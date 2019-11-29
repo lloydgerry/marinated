@@ -40,9 +40,15 @@ const routes = [
     component: () => import('../views/NewRecipe.vue')
   },
   {
-    path: '/FoodieChat',
+    path: '/foodie-chat',
     name: 'FoodieChat',
     component: () => import('../views/FoodieChat.vue')
+
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue')
   }
 
 ]

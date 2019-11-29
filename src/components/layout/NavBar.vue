@@ -52,7 +52,7 @@ export default {
               name: "Add New Recipe"
             },
             {
-              url: "/FoodieChat",
+              url: "/foodie-chat",
               name: "FoodieChat"
             },
             {
@@ -69,7 +69,7 @@ export default {
             }
           ]
         },
-        { url: "#", name: "Search" }
+        { url: "/search", name: "Search" }
       ]
     }
   }

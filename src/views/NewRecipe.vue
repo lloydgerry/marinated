@@ -95,18 +95,6 @@ export default {
         .catch(error => console.log("error in submitScraper in NewRecipe: ", error))
     },
     submitForm: function() {
-      // const newRecipeObject = {
-      //   title: this.title,
-      //   image_url: this.imageUrl, 
-      //   summary: this.summary,
-      //   ingredients: this.ingredients,
-      //   preparation: this.preparation,
-      //   author: this.author,
-      //   source_url: this.sourceUrl,
-      //   prep_time: this.prepTime,
-      //   servings: this.servings
-      // }
-      // console.log("form details:", newRecipeObject)
       axios.post('api/recipes-new', { recipe: this.recipe})
         .then(res => {
           console.log('recipe entered, go home to check it out.', res);

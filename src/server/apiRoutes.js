@@ -20,6 +20,30 @@ module.exports = function(router) {
     })
   });
 
+  router.post('/searchRecipes', (request, response) => {
+    pool.connect((error, client, release) => {
+
+      if (error) {console.log(error)}
+
+      const dbQuery = `
+      SELECT * FROM recipes 
+      WHERE title = $1
+      `;
+      const dbParams = [request.body.search_query];
+      console.log("request.body: ", request.body)
+      console.log("dbParams in searchRecipes: ", dbParams)
+
+    return client.query(dbQuery, dbParams)
+      .then(foundRecipes => {
+        release()
+        response.send(foundRecipes) 
+      })
+      .catch(error => {
+        console.error('error in apiRoutes for searchRecipes', error);
+      })
+    })
+  })
+
   router.post('/scraper', (request, response) => {
     pool.connect((error, client, release) => {
       if (error) {console.log(error)}
@@ -130,12 +154,12 @@ module.exports = function(router) {
 
   return router;
 };
-// router.post('/recipes-new', (request, response) => {
+// router.post('/', (request, response) => {
 //   pool.connect((error, client, release) => {
 
 //     if (error) {console.log(error)}
 
-//     const dbQuery = ``;
+//     const dbQuery = `ENTER YOUR QUERY HERE`;
 //     const dbParams = [request.body.!!!!!!];
 
 //   return client.query(dbQuery,dbParams)
