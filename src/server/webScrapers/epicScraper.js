@@ -10,7 +10,7 @@ const epicScraper = (url) => {
   let browser;
 
   return puppeteer
-    .launch()
+    .launch({ args: ['--no-sandbox'] })
     .then(b => {
       browser = b;
       return b.newPage();
