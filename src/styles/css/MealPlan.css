@@ -1,0 +1,73 @@
+.simple-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.simple-page .menu {
+  position: fixed;
+  width: 100%;
+  height: 400px;
+  background-color: lightcoral;
+  z-index: 1;
+}
+
+.simple-page .menu .draggable-item-horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.simple-page .bottom-bar {
+  margin-top: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.simple-page .bottom-bar .delete-area {
+  background: red;
+  height: 100px;
+  width: 100px;
+}
+
+.simple-page .bottom-bar .card-carousel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  overflow-y: scroll;
+  min-height: -webkit-fit-content;
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+
+.simple-page .bottom-bar .card-carousel .draggable-item-horizontal {
+  height: 200px;
+  width: 200px;
+  border: solid 1px black;
+  margin: 2px;
+  background-color: lightskyblue;
+}
+/*# sourceMappingURL=MealPlan.css.map */
