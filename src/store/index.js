@@ -13,12 +13,14 @@ export default new Vuex.Store({
       state.recipes = newRecipes;
     }
   },
+  getters: {
+    getRecipes: state => {return state.recipes}
+  },
   actions: {
-    fetchData({commit}) {
+    fetchAllRecipesData({commit}) {
       axios.get('/api/recipes')
         .then(res => {
           commit('setRecipes',  res.data) ;
-          console.log(" returning the recipe data in store: ", res.data);
           console.log("store state recipes: ", this.state.recipes)
         })
         .catch(error => console.log("error from fetch data in store", error));
@@ -26,5 +28,4 @@ export default new Vuex.Store({
   },
   modules: {
   },
-  //  
 })
