@@ -6,17 +6,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userId: 0,
     recipes: []
   },
   mutations: {
     setRecipes(state, newRecipes) {
       state.recipes = newRecipes;
-    }
+    },
+    login: (state, id) => state.userId = id,
+    logout: (state, id) => state.userId = id
   },
   getters: {
     getRecipes: state => {return state.recipes}
   },
   actions: {
+    loginUser({ commit }) {
+      commit('login', 1);
+    },
+    logoutUser({ commit }) {
+      commit('logout', 0);
+    },
     fetchAllRecipesData({commit}) {
       axios.get('/api/recipes')
         .then(res => {

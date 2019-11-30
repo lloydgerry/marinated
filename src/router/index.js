@@ -49,6 +49,10 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: () => import('../views/Search.vue')
+  },
+  {
+    path: '/logout',
+    redirect: '/'
   }
 
 ]

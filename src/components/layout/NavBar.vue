@@ -2,18 +2,25 @@
   <div class="nav-bar">
     <router-link to="/" title="Marinated"><h1>Marinated</h1></router-link> 
     <ul id="navigation">
-      <li v-for="item in navList" :key="item.index">
-        <template v-if="item.children" class="menu">
+      <li v-if="this.$store.state.userId < 1">
+        <template>
+          <a @click="login" :title="navList[0].name">
+            {{ navList[0].name }}
+          </a>
+        </template>
+      </li>
+      <li v-else>
+        <template class="menu">
           <a 
-            :title="item.name" 
+            :title="navList[1].name" 
             @click="isOpen = !isOpen, active = !active" 
             :class="{ active }"
           >
-              {{ item.name }}  ▾
+              {{ navList[1].name }}  ▾
           </a>
           <div :class="{ isOpen }" class="dropdown">
             <ul>
-              <li v-for="{ url, name, index } in item.children" :key="index">
+              <li v-for="{ url, name, index } in navList[1].children" :key="index">
                 <router-link class="nav-link" :to="url" :title="name">
                   {{ name }}
                 </router-link>
@@ -21,9 +28,10 @@
             </ul>
           </div>
         </template>
-        <template v-else>
-          <a :href="item.url" :title="item.name">
-            {{ item.name }}
+      <li>
+        <template>
+          <a :href="navList[2].url" :title="navList[2].name">
+            {{ navList[2].name }}
           </a>
         </template>
       </li>
@@ -32,19 +40,19 @@
 </template>
 
 <script>
-
-
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'NavBar',
-  props: ["item"],
+  state: {...mapState},
+  // props: ["item"],
   data() {
     return {
       isOpen: false,
       active: false,
       navList: [
-        {
-          url: "#",
+        { url: '/', name: 'Login'},
+        { url: "#",
           name: "UserName",
           children: [
             {
@@ -72,6 +80,17 @@ export default {
         { url: "/search", name: "Search" }
       ]
     }
+  },
+  methods: {
+    ...mapActions(['loginUser', 'logoutUser']),
+    login(e) {
+      e.preventDefault();
+      this.loginUser();
+    },
+    logout(e) {
+      e.preventDefault();
+      this.logoutUser();
+    },
   }
 }
 </script>
