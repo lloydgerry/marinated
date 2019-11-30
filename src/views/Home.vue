@@ -5,7 +5,7 @@
     <div v-if="mealCardIsOpen">
       <PlanDrawer />
     </div>  
-    <RecipeCardsCarousel v-bind:RecipeCards="RecipeCards"/>
+    <RecipeCardsCarousel v-bind:RecipeCards="this.$store.state.recipes"/>
   </div>
 </template>
 
@@ -15,17 +15,25 @@ import NavBar from "../components/layout/NavBar.vue"
 import DivSpace from "../components/layout/DivSpace.vue"
 import PlanDrawer from "../components/PlanDrawer"
 import RecipeCardsCarousel from "../components/layout/RecipeCardsCarousel"
-const axios = require('axios')
+// const axios = require('axios')
 
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'home',
+  state: {...mapState},
   components: {
     NavBar,
     PlanDrawer,
     RecipeCardsCarousel,
     DivSpace
   },
+  computed: {
+    updateRecipeCards () {
+      return this.$store.state.recipes
+    }
+  },
+
   data() {
     return {
       mealCardIsOpen: false,
@@ -36,22 +44,15 @@ export default {
 
   },
   created() {
-    this.fetchData()
+    this.fetchAllRecipesData()
   },
   methods: {
+    ...mapActions(['fetchAllRecipesData']),
     mealCardClose() {
       this.mealCardIsOpen = false
     },
     mealCardOpen() {
       this.mealCardIsOpen = true
-    },
-    fetchData() {
-      axios.get('/api/recipes')
-        .then(res => {
-          this.RecipeCards = res.data;
-          console.log("vue returning the recipe data: ", res.data);
-        })
-        .catch(error => console.log("error from fetch data", error));
     }
   }
 }
