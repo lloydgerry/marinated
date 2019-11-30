@@ -61,39 +61,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-div {
-  font-family: karlaregular,sans-serif;
-  margin: 20px;
-  font-size: 1em;
-}
-
-.search-container {
-  display: flex;
-  justify-content: flex-start;
-  height: 2.5em;
-
-}
-
-.search-box {
-  border-radius: 34px;
-  border: 2px solid #e6e6e6;
-  width: 60%;  
-  padding: 0 1em;
-}
-
-.btn-round {
-  background-color: aliceblue;
-  margin-left: 10px;
-  border-radius: 34px;
-  border: 2px solid #e6e6e6;
-  width: 6.5em;
-}
-
-.search-error-msg {
-    margin: 2em
-  }
-
-
-</style>
+<style scoped src="../styles/css/Search.css" lang="css"/>
