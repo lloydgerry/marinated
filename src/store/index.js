@@ -5,7 +5,6 @@ const axios = require('axios')
 Vue.use(Vuex)
 
 
-
 export default new Vuex.Store({
   state: {
     user: {id: 0, email: '', name: ''},
@@ -29,7 +28,7 @@ export default new Vuex.Store({
         .catch(error => console.log("error from login in store", error));
     },
     logoutUser({ commit }) {
-      axios.get('/api/logoout', {email: 'hermione@test.com'})
+      axios.post('/api/logout', {email: 'hermione@test.com'})
         .then(res => commit('logout', res))
         .catch(error => console.log("error from logout in store", error));
     },
