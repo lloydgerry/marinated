@@ -1,7 +1,7 @@
 const express = require('express');
-// const cookieSession = require('cookie-session');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 require('dotenv').config();
 
 const app = express();
@@ -11,10 +11,16 @@ app.use(
   bodyParser.urlencoded({
     extended: true,
   })
-)
+);
+
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.cookieString],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
 
 const apiRoutes = require('./src/server/apiRoutes');
-// const database = require('./src/server/dbConnection');
 const apiRouter = express.Router();
 apiRoutes(apiRouter);
 app.use('/api', apiRouter);
