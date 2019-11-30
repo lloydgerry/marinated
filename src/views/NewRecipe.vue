@@ -91,7 +91,8 @@ export default {
     }
   },
   methods: {
-    submitScraper: function() {
+    submitScraper: function(e) {
+      e.preventDefault();
       axios.post('/api/scraper', {url: this.scrapeUrl})
         .then(fetchedrecipe => {
           console.log("fetched recipe data: ", fetchedrecipe)

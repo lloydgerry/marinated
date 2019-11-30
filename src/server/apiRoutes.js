@@ -27,7 +27,7 @@ module.exports = function(router) {
 
       const dbQuery = `
       SELECT * FROM recipes 
-      WHERE search_array @@ to_tquery($1)
+      WHERE search_array @@ to_tsquery($1)
       `;
       const dbParams = [request.body.search_query];
       console.log("request.body: ", request.body)
