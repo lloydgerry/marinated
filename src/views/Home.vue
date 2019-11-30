@@ -2,6 +2,7 @@
   <div class="home">
     <NavBar/>
     <DivSpace/>
+    <span>{{ errorMsg }}</span>
     <div v-if="mealCardIsOpen">
       <PlanDrawer />
     </div>  
@@ -37,11 +38,19 @@ export default {
   data() {
     return {
       mealCardIsOpen: false,
-      RecipeCards: []
-
+      RecipeCards: [],
+      errorMsg: null
     }
-
-
+  },
+  beforeRouteEnter(to, from, next) {
+    if (to.query.redirectFrom) {
+      next(vm => {
+        vm.errorMsg =
+          "Sorry, You need to log in before being able to access that route"
+      })
+    } else {
+      next()
+    }
   },
   created() {
     this.fetchAllRecipesData()

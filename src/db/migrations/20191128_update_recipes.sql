@@ -17,7 +17,8 @@ CREATE TABLE recipes (
   source_url VARCHAR(255),
   prep_time VARCHAR(50),
   servings VARCHAR(50),
-  search_vector TSVECTOR
+  tags TEXT,
+  search_array TSVECTOR
 );
 
 -- CREATE TABLE users (

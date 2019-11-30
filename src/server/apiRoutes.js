@@ -3,6 +3,21 @@ const { pool } = require('./dbConnection');
 
 module.exports = function(router) {
 
+  router.post("/login", (req, res) => {
+    const user = {id: 1, email: req.body.email, name: 'Hermione'};
+    if (user) {
+      req.session.userId = user.id;
+      res.send(user);
+    } else {
+      res.send(0);
+    } 
+  });
+
+  router.post("/logout", (req, res) => {
+    const user = {id: 0, email: '', name: ''};
+    req.session.userId = null;
+    res.send(user);
+  });
 
   router.get('/recipes', (request, response) => {
     pool.connect((error, client, release) => {
@@ -27,7 +42,7 @@ module.exports = function(router) {
 
       const dbQuery = `
       SELECT * FROM recipes 
-      WHERE title = $1
+      WHERE search_array @@ to_tsquery($1)
       `;
       const dbParams = [request.body.search_query];
       console.log("request.body: ", request.body)
@@ -81,12 +96,18 @@ module.exports = function(router) {
       if (error) {console.log(error)};
 
       const dbQuery = `
-        INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings)
+        INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, tags, search_array)
         VAlUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, to_tsvector($11))
       `;
       const data = request.body.recipe;
-      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preparation, data.author, data.source_url, data.prep_time, data.servings];
+      const title_vector = String(data.title);
+      const tags_vector = String(data.tags);
+      const search_array = [
+        title_vector,
+        tags_vector
+      ]
+      const dbParams = [data.title, data.image_url, data.summary, data.ingredients, data.preparation, data.author, data.source_url, data.prep_time, data.servings, data.tags, search_array];
 
       return client.query(dbQuery,dbParams)
         .then(res => {

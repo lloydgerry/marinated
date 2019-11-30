@@ -38,13 +38,17 @@
           <h2>Servings</h2>
           <input type="text" v-model="recipe.servings" />
         </div>
-        <div class="grid-item">
+        <div class="ingredients grid-item">
           <h2>Ingredients</h2>
           <IngredientsList v-bind:ingredients="recipe.ingredients" v-on:new-ingredient="addIngredient"/>
         </div>
         <div class="preparation grid-item">
           <h2>Preparation</h2>
           <IngredientsList v-bind:ingredients="recipe.preparation" v-on:new-ingredient="addIngredient"/>
+        </div>
+        <div class="tags grid-item">
+          <h2>Tags</h2>
+          <input type="text" v-model="recipe.tags" />
         </div>
         <div>
           <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
@@ -81,12 +85,14 @@ export default {
         prepTime: '',
         servings: '',
         ingredients: [],
-        preparation: ''
+        preparation: '',
+        tags: ''
       }
     }
   },
   methods: {
-    submitScraper: function() {
+    submitScraper: function(e) {
+      e.preventDefault();
       axios.post('/api/scraper', {url: this.scrapeUrl})
         .then(fetchedrecipe => {
           console.log("fetched recipe data: ", fetchedrecipe)
