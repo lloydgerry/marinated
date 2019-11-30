@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class='ingredients-list'>
-      <li class='ingredients-list-item' v-for="ingredient in ingredients" v-bind:key="ingredient" >
+      <li class='ingredients-list-item' v-for="ingredient in ingredients" v-bind:key="ingredient.index" >
        - {{ingredient}}
       </li>
       <form v-if="seen" @submit="addIngredient">
