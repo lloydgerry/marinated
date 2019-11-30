@@ -2,8 +2,8 @@
   <div > 
     <draggable v-model="recipeCarouselArray">
       <transition-group class="recipe-carousel centered">
-        <div v-for="recipe in RecipeCards" :key="recipe.id" class="recipe-carousel-item recipe-card">
-          <RecipeCard v-bind:recipe="recipe" class="recipe-carousel-item recipe-card" />
+        <div v-for="recipe in RecipeCards" :key="recipe.id" class="recipe-carousel-item">
+          <RecipeCard v-bind:recipe="recipe" class="recipe-carousel-item" />
         </div>
       </transition-group>
     </draggable>
