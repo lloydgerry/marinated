@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <router-link to="/" title="Marinated"><h1>Marinated</h1></router-link> 
     <ul id="navigation">
-      <li v-if="this.$store.state.userId < 1">
+      <li v-if="!this.$store.state.user.id > 0 ">
         <template>
           <a @click="login" :title="navList[0].name">
             {{ navList[0].name }}
@@ -21,7 +21,7 @@
           <div :class="{ isOpen }" class="dropdown">
             <ul>
               <li v-for="{ url, name, index } in navList[1].children" :key="index">
-                <router-link class="nav-link" :to="url" :title="name">
+                <router-link class="nav-link" :to="url" :title="name"  @click="logout">
                   {{ name }}
                 </router-link>
               </li>
@@ -51,9 +51,9 @@ export default {
       isOpen: false,
       active: false,
       navList: [
-        { url: '/', name: 'Login'},
+        {  name: 'Login'},
         { url: "#",
-          name: "UserName",
+          name: `Welcome, User`,
           children: [
             {
               url: "/new-recipe",
@@ -68,16 +68,17 @@ export default {
               name: "Meal Plan"
             },
             {
-              url: "user-saved",
+              url: "/user-saved",
               name: "View Saved"
             },
             {
               url: "/logout",
               name: "Logout"
+
             }
           ]
         },
-        { url: "/search", name: "Search" }
+        { url: "#/search", name: "Search" }
       ]
     }
   },

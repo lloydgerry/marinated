@@ -4,33 +4,40 @@ const axios = require('axios')
 
 Vue.use(Vuex)
 
+
+
 export default new Vuex.Store({
   state: {
-    userId: 0,
+    user: {id: 0, email: '', name: ''},
     recipes: []
   },
   mutations: {
     setRecipes(state, newRecipes) {
       state.recipes = newRecipes;
     },
-    login: (state, id) => state.userId = id,
-    logout: (state, id) => state.userId = id
+    login: (state, user) => state.user = user,
+    logout: (state, user) => state.user = user
   },
   getters: {
-    getRecipes: state => {return state.recipes}
+    getRecipes: state => {return state.recipes},
+    isLogged: state => state.user.id ? true : false
   },
   actions: {
     loginUser({ commit }) {
-      commit('login', 1);
+      axios.post('/api/login', {email: 'hermione@test.com'})
+        .then(res => commit('login', res.data))
+        .catch(error => console.log("error from login in store", error));
     },
     logoutUser({ commit }) {
-      commit('logout', 0);
+      axios.get('/api/logoout', {email: 'hermione@test.com'})
+        .then(res => commit('logout', res))
+        .catch(error => console.log("error from logout in store", error));
     },
     fetchAllRecipesData({commit}) {
       axios.get('/api/recipes')
         .then(res => {
           commit('setRecipes',  res.data) ;
-          console.log("store state recipes: ", this.state.recipes)
+          // console.log("store state recipes: ", this.state.recipes)
         })
         .catch(error => console.log("error from fetch data in store", error));
     }

@@ -3,6 +3,21 @@ const { pool } = require('./dbConnection');
 
 module.exports = function(router) {
 
+  router.post("/login", (req, res) => {
+    const user = {id: 1, email: req.body.email, name: 'Hermione'};
+    if (user) {
+      req.session.userId = user.id;
+      res.send(user);
+    } else {
+      res.send(0);
+    } 
+  });
+
+  router.post("/logout", (req, res) => {
+    const user = {id: 0, email: '', name: ''};
+    req.session.userId = null;
+    res.send(user);
+  });
 
   router.get('/recipes', (request, response) => {
     pool.connect((error, client, release) => {

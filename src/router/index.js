@@ -1,14 +1,20 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import store from '../store/index';
 
 Vue.use(VueRouter)
+
+// import { mapState } from 'vuex';
+
+// const state = {...mapState}
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    
   },
   {
     path: '/about',
@@ -16,7 +22,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import( '../views/About.vue')
   },
   {
     path: '/mealplan',
@@ -37,7 +43,17 @@ const routes = [
   {
     path: '/new-recipe',
     name: 'new-recipe',
-    component: () => import('../views/NewRecipe.vue')
+    component: () => import('../views/NewRecipe.vue'),
+    beforeEnter(to, from, next) {
+      if (store.getters["isLogged"]) {
+        next()
+      } else {
+        next({
+          name: "home", // back to safety route //
+          query: { redirectFrom: to.fullPath }
+        });
+      }
+    }
   },
   {
     path: '/foodie-chat',
@@ -52,7 +68,11 @@ const routes = [
   },
   {
     path: '/logout',
-    redirect: '/'
+    redirect: '/',
+    beforeEnter(to, from, next) {
+      store.actions["logout"];
+      next();
+    }
   }
 
 ]
