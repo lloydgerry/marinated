@@ -27,7 +27,7 @@ module.exports = function(router) {
 
       const dbQuery = `
       SELECT * FROM recipes 
-      WHERE title = $1
+      WHERE search_array @@ to_tquery($1)
       `;
       const dbParams = [request.body.search_query];
       console.log("request.body: ", request.body)
@@ -81,7 +81,7 @@ module.exports = function(router) {
       if (error) {console.log(error)};
 
       const dbQuery = `
-        INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, search_array)
+        INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, tags, search_array)
         VAlUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_tsvector($10))
       `;
