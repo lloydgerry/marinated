@@ -2,18 +2,22 @@
   <div>
     <NavBar />
     <DivSpace/>
-    <h2> Form </h2>
+    <h2> Search Recipes </h2>
+    <div class="search-container">
     <input
-      id="search"
+      type="text"
+      class="search-box"
+      id="search-box"
       label="Search"
       margin="normal"
       v-model="search_query"
     />
-    <button type="submit" class="btn" value="SubmitSearch" v-on:click="handleSearch" />
-    <span v-if="searchError"> We're sorry, but there was no recipes with that search.  Maybe try Foodie? </span>
-    <RecipeCardsCarousel v-bind:RecipeCards="RecipeCards"/>
+    <input type="submit" class="btn-round" value="Search" v-on:click="handleSearch" />
+    </div>
+    <h2 v-if="searchError" class="search-error-msg"> We're sorry, but there was no recipes with that search.  Maybe try Foodie? </h2>
+    <RecipeCardsCarousel class="search-display" v-bind:RecipeCards="RecipeCards"/>
   </div>
-
+ 
 </template>
 
 <script>
@@ -21,27 +25,6 @@ const axios = require('axios');
 import NavBar from "../components/layout/NavBar.vue";
 import DivSpace from "../components/layout/DivSpace.vue";
 import RecipeCardsCarousel from "../components/layout/RecipeCardsCarousel";
-
-
-
-
-// const Fuse = require('fuse.js')
-
-// var options = {
-//   shouldSort: true,
-//   findAllMatches: true,
-//   threshold: 0.6,
-//   location: 0,
-//   distance: 100,
-//   maxPatternLength: 32,
-//   minMatchCharLength: 1,
-//   keys: [
-//     "title",
-//     "author.firstName"
-//   ]
-// };
-// var fuse = new Fuse(list, options); // "list" is the item array
-// var result = fuse.search(""); 
 
 export default {
   components: {
@@ -60,7 +43,7 @@ export default {
   methods: {
     handleSearch:  function(event) {
       event.preventDefault();
-      // this.searchError = false;
+      this.searchError = false;
       console.log("search query in handle search before axios: ", this.search_query)
       axios.post('api/searchRecipes', {search_query: this.search_query})
         .then(res => {
@@ -78,6 +61,39 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+div {
+  font-family: karlaregular,sans-serif;
+  margin: 20px;
+  font-size: 1em;
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  height: 2.5em;
+
+}
+
+.search-box {
+  border-radius: 34px;
+  border: 2px solid #e6e6e6;
+  width: 60%;  
+  padding: 0 1em;
+}
+
+.btn-round {
+  background-color: aliceblue;
+  margin-left: 10px;
+  border-radius: 34px;
+  border: 2px solid #e6e6e6;
+  width: 6.5em;
+}
+
+.search-error-msg {
+    margin: 2em
+  }
+
 
 </style>
