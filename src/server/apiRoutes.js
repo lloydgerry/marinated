@@ -83,7 +83,7 @@ module.exports = function(router) {
       const dbQuery = `
         INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, tags, search_array)
         VAlUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_tsvector($10))
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, to_tsvector($11))
       `;
       const data = request.body.recipe;
       const title_vector = String(data.title);
