@@ -3,7 +3,6 @@
     <NavBar/>
     <DivSpace/>
     <div class="simple-page">
-
       <div class="menu">
         <Container
           orientation="horizontal"
@@ -14,9 +13,7 @@
         >
           <Draggable v-for="column in scene.children" :key="column.id">
             <div :class="column.props.className">
-              <div class="card-column-header">
-
-              </div>
+              <div class="card-column-header"></div>
               <Container
                 group-name="col"
                 @drop="(e) => onCardDrop(column.id, e)"
@@ -27,19 +24,15 @@
                 drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions"
               >
-                <Draggable v-for="card in column.children" :key="card.id">
+                <Draggable v-for="card in column.children" :key="card.index">
                   <div :class="card.props.className" :style="card.props.style">
                     <p>{{ card.title }}</p>
                   </div>
                 </Draggable>
               </Container>
             </div>
-
           </Draggable>
-          
         </Container>
-
-
       </div>
 
       <div class="bottom-bar">
@@ -52,22 +45,19 @@
             </Draggable>
           </Container>
         </div>
-        <div >
           <Container 
             behaviour="copy" 
             group-name="col" 
             :get-child-payload="getChildPayload1" 
-            class="card-carousel"
             drag-class="card-ghost"
             drop-class="card-ghost-drop"
           >
             <Draggable v-for="card in items2" :key="card.id">
-              <div class="card.props.className" :style="card.props.style">
-                {{card.title}}
+              <div :class="card.props.className" >
+                <div class="recipe-card">{{card.title}}{{card.props.onTable}}</div>
               </div>
             </Draggable>
           </Container>
-        </div>
       </div>
 
     </div>
@@ -79,8 +69,6 @@
   import DivSpace from "../components/layout/DivSpace.vue";
   import { Container, Draggable } from "vue-smooth-dnd";
   import { applyDrag, generateItems } from "../utils/helpers";
-
-
 
   const scene = {
     type: 'container',
@@ -98,9 +86,11 @@
         type: 'draggable',
         id: `${i}${j+3}`,
         props: {
-          className: 'card'
+          className: 'card',
+          onTable: true
         },
-        title: `cardID: ${i}${j+3}`
+        // title: `cardID: ${i}${j+3}`
+        title: `Empty`
       }))
     }))
   }
@@ -126,11 +116,11 @@ export default {
         animationDuration: '150',
         showOnTop: true
       },
-      items2: generateItems(21, i => ({
+      items2: generateItems(30, i => ({
         type: 'draggable',
         id: '9' + i,
         title: `RecipesID: ${i}`,
-        props: {className: 'card'}
+        props: {className: 'card' , onTable: false}
       })),
       deleteThis: [],
     };
@@ -143,10 +133,14 @@ export default {
     },
     onCardDrop (columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+
+        console.log('removedIndex: ', dropResult.removedIndex, 'addedIndex: ', dropResult.addedIndex);
+        
         const scene = Object.assign({}, this.scene)
         const column = scene.children.filter(p => p.id === columnId)[0]
         const columnIndex = scene.children.indexOf(column)
         const newColumn = Object.assign({}, column)
+        // newColumn.children = 
         newColumn.children = applyDrag(newColumn.children, dropResult)
         scene.children.splice(columnIndex, 1, newColumn)
         this.scene = scene
@@ -155,20 +149,10 @@ export default {
     onDelete(collection, dropResult) {
       const { removedIndex, addedIndex, payload } = dropResult;
       if (removedIndex === null && addedIndex === null) return collection;
-      // console.log('removedIndex: ',removedIndex, 'addedIndex: ',addedIndex, 'payload: ',payload);
-      
       const result = [...collection];
-      // result[addedIndex] = payload;
-
       let itemToAdd = payload;
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0];
-      }
-
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd);
-      }
-
+      if (removedIndex !== null) itemToAdd = result.splice(removedIndex, 1)[0]
+      if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd)
       this[collection] = result;
     },
     getCardPayload (columnId) {
