@@ -8,7 +8,7 @@
       <input type="text" v-model="name"  v-on:keyup.enter="submit" placeholder="Type your ingredient here" > 
       <input type="submit" value="+">
       </form>
-      <p><button v-on:click="seen = !seen"> Add Ingredient </button></p>
+      <p><button class="btn" v-on:click="seen = !seen"> Add Ingredient </button></p>
     </ul>
   </div>
 </template>
@@ -38,5 +38,12 @@ export default {
 </script>
 
 <style>
+
+.btn {
+  background-color: fff;
+  margin-left: 10px;
+  border-radius: 34px;
+  border: 2px solid #e6e6e6;
+}
 
 </style>
