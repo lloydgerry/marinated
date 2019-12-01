@@ -137,23 +137,29 @@ module.exports = function(router) {
         });
     });
   });
-
   router.get('/user/:id', (request, response) => {
-    const dbQuery = `
+    pool.connect((error, client, release) => {
+      if (error) {console.log('the error is here,',error)};
+
+      const dbQuery = `
       SELECT * 
       FROM user_recipes
       JOIN recipes ON recipes.id = recipe_id
-      WHERE user_id is $1;
+      WHERE user_id = $1;
     `;
-    const dbParams = [request.body.id];
-    return database.query(dbQuery, dbParams)
-      .then(data => response.send(data.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes: ', e);
-        response.send(e);
-      });
+      const dbParams = [request.params.id];
+      return client.query(dbQuery, dbParams)
+        .then(data => {
+          release();
+          response.send(data.rows);
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes user id: ', e);
+          response.send(e);
+        });
+    });
   });
-
+  
   router.get('/user/:id/mealplan', (request, response) => {
     const dbQuery = `
       SELECT * 

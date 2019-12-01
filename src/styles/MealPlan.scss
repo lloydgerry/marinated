@@ -104,12 +104,11 @@
           background-color: whitesmoke;
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
           .recipe-card {
-            // margin: 1px;
-            // height: 55px;
-            // /* border: 1px solid #ccc; */
-            // // border: solid grey 1px;
-            // background-color: grey;
-            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+            height: 250px;
+            img {
+              max-width: 200px;
+              height: auto;
+            }
           }
         }
       }

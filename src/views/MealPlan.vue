@@ -52,9 +52,13 @@
             drag-class="card-ghost"
             drop-class="card-ghost-drop"
           >
-            <Draggable v-for="card in items2" :key="card.id">
-              <div :class="card.props.className" >
-                <div class="recipe-card">{{card.title}}{{card.props.onTable}}</div>
+          <!-- recipe cards -->
+            <Draggable v-for="card in recipes" :key="card.id">
+              <div class="card" >
+                <div class="recipe-card">
+                  <img :src="card.image_url"/>
+                  {{card.title}}
+                  </div>
               </div>
             </Draggable>
           </Container>
@@ -69,6 +73,7 @@
   import DivSpace from "../components/layout/DivSpace.vue";
   import { Container, Draggable } from "vue-smooth-dnd";
   import { applyDrag, generateItems } from "../utils/helpers";
+  import store from "../store/index";
 
   const scene = {
     type: 'container',
@@ -89,7 +94,6 @@
           className: 'card',
           onTable: true
         },
-        // title: `cardID: ${i}${j+3}`
         title: `Empty`
       }))
     }))
@@ -116,12 +120,13 @@ export default {
         animationDuration: '150',
         showOnTop: true
       },
-      items2: generateItems(30, i => ({
-        type: 'draggable',
+      items2: generateItems(1, i => ({
+        // type: 'draggable',
         id: '9' + i,
         title: `RecipesID: ${i}`,
         props: {className: 'card' , onTable: false}
       })),
+      recipes: store.state.recipes,
       deleteThis: [],
     };
   },
