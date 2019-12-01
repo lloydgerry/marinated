@@ -1,54 +1,50 @@
 @import "partials/_variables.scss";
 
-// form {
-//   display: flex;
-//   flex-direction: column;
-//   padding: 5%;
-//   font-size: 15px;
-//   font-family: $main-font
-// }
-
-// .ingredients-list {
-//   padding: .75em;
-//   margin: 20px 10px;
-//   font-size: 12px;
-// }
-
-// input[type=text] {
-//   width: 20em;
-//   height: 2em;
-//   align-content: left;
-//   text-align: left;
-//   margin: 8px 0;
-// }
-
-// input[type=text] .preparation {
-//   width: 20em;
-//   height: 10em;
-  
-// }
-
-// input[type=url] {
-//   width: 20em;
-//   height: 2em;
-//   margin: 8px 0;
-//   box-sizing: border-box;
-// }
-
-// .ingredients-list-item {
-
-// }
+form {
+  margin-bottom: 3em;
+}
 
 .btn {
   background-color: fff;
-  margin-left: 10px;
   border-radius: 34px;
   border: 2px solid #e6e6e6;
+  width: 6.5em;
 }
 
-.btn .submit-recipe {
-  padding: 1em;
+.submit-scrape {
+  margin-top: 1em;
 }
+
+#submit-form-btn {
+  .btn{
+    padding:5px;
+    width: 150px;
+  }
+}
+
+#submit-scrape-btn {
+  .btn{
+    padding:5px;
+    width: 150px;
+  }
+}
+
+btn:hover {
+  cursor: pointer;
+  transform: rotateZ(2px)
+}
+
+input.input100.small-field {
+  height: 30px;
+  width: 50%;
+}
+
+input.input100.large-field {
+  height: 200px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
 
 // Middle GROUND STUFF
 // label {
@@ -69,58 +65,10 @@
 
 
 //START TEMPLATE
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
-
-body, html {
-	height: 100%;
-	font-family: Raleway-SemiBold, sans-serif;
-}
-
-/*---------------------------------------------*/
-a {
-	font-family: Raleway-SemiBold;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-}
-
-a:focus {
-	outline: none !important;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-/*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
-}
-
-p {
-	font-family: Raleway-SemiBold;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-}
-
-ul, li {
-	margin: 0px;
-	list-style-type: none;
-}
 
 
-/*---------------------------------------------*/
+
+
 input {
 	outline: none;
 	border: none;
@@ -156,19 +104,6 @@ textarea::-moz-placeholder { color: #adadad;}
 textarea:-ms-input-placeholder { color: #adadad;}
 
 /*---------------------------------------------*/
-button {
-	outline: none !important;
-	border: none;
-	background: transparent;
-}
-
-button:hover {
-	cursor: pointer;
-}
-
-iframe {
-	border: none !important;
-}
 
 
 
@@ -216,20 +151,6 @@ iframe {
   justify-content: space-between;
 }
 
-.contact100-form-title {
-  display: block;
-  width: 100%;
-  font-family: Raleway-Black;
-  font-size: 30px;
-  color: #333333;
-  line-height: 1.2;
-  text-transform: uppercase;
-  text-align: left;
-  padding-bottom: 32px;
-}
-
-
-
 /*------------------------------------------------------------------
 [ Input ]*/
 
@@ -245,7 +166,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Raleway-SemiBold;
+  font-family: karlaregular;
   font-size: 14px;
   color: #555555;
   line-height: 1;
@@ -257,7 +178,7 @@ iframe {
   background: #f2f2f2;
   border-radius: 2px;
 
-  font-family: Raleway-SemiBold;
+  font-family: karlaregular;
   font-size: 14px;
   color: #686868;
   line-height: 1.2;
@@ -276,7 +197,6 @@ iframe {
 input.input100 {
   height: 30px;
 }
-
 
 textarea.input100 {
   min-height: 150px;
@@ -327,29 +247,6 @@ textarea.input100 {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
-}
-
-.contact100-form-btn {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  min-width: 150px;
-  height: 62px;
-
-  font-family: Raleway-Bold;
-  font-size: 16px;
-  color: #fff;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.wrap-contact100-form-btn:hover .contact100-form-bgbtn {
-  left: 0;
 }
 
 

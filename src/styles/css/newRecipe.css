@@ -1,66 +1,45 @@
+form {
+  margin-bottom: 3em;
+}
+
 .btn {
   background-color: fff;
-  margin-left: 10px;
   border-radius: 34px;
   border: 2px solid #e6e6e6;
+  width: 6.5em;
 }
 
-.btn .submit-recipe {
-  padding: 1em;
+.submit-scrape {
+  margin-top: 1em;
 }
 
-* {
-  margin: 0px;
-  padding: 0px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+#submit-form-btn .btn {
+  padding: 5px;
+  width: 150px;
 }
 
-body, html {
-  height: 100%;
-  font-family: Raleway-SemiBold, sans-serif;
+#submit-scrape-btn .btn {
+  padding: 5px;
+  width: 150px;
 }
 
-/*---------------------------------------------*/
-a {
-  font-family: Raleway-SemiBold;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #666666;
-  margin: 0px;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
+btn:hover {
+  cursor: pointer;
+  -webkit-transform: rotateZ(2px);
+          transform: rotateZ(2px);
 }
 
-a:focus {
-  outline: none !important;
+input.input100.small-field {
+  height: 30px;
+  width: 50%;
 }
 
-a:hover {
-  text-decoration: none;
+input.input100.large-field {
+  height: 200px;
+  width: 100%;
+  word-wrap: break-word;
 }
 
-/*---------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
-  margin: 0px;
-}
-
-p {
-  font-family: Raleway-SemiBold;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #666666;
-  margin: 0px;
-}
-
-ul, li {
-  margin: 0px;
-  list-style-type: none;
-}
-
-/*---------------------------------------------*/
 input {
   outline: none;
   border: none;
@@ -140,20 +119,6 @@ textarea:-ms-input-placeholder {
 }
 
 /*---------------------------------------------*/
-button {
-  outline: none !important;
-  border: none;
-  background: transparent;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-iframe {
-  border: none !important;
-}
-
 /*//////////////////////////////////////////////////////////////////
 [ Contact ]*/
 .container-contact100 {
@@ -202,18 +167,6 @@ iframe {
           justify-content: space-between;
 }
 
-.contact100-form-title {
-  display: block;
-  width: 100%;
-  font-family: Raleway-Black;
-  font-size: 30px;
-  color: #333333;
-  line-height: 1.2;
-  text-transform: uppercase;
-  text-align: left;
-  padding-bottom: 32px;
-}
-
 /*------------------------------------------------------------------
 [ Input ]*/
 .wrap-input100 {
@@ -228,7 +181,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Raleway-SemiBold;
+  font-family: karlaregular;
   font-size: 14px;
   color: #555555;
   line-height: 1;
@@ -239,7 +192,7 @@ iframe {
   width: 100%;
   background: #f2f2f2;
   border-radius: 2px;
-  font-family: Raleway-SemiBold;
+  font-family: karlaregular;
   font-size: 14px;
   color: #686868;
   line-height: 1.2;
@@ -299,30 +252,6 @@ textarea.input100 {
   left: -100%;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-}
-
-.contact100-form-btn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0 20px;
-  min-width: 150px;
-  height: 62px;
-  font-family: Raleway-Bold;
-  font-size: 16px;
-  color: #fff;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.wrap-contact100-form-btn:hover .contact100-form-bgbtn {
-  left: 0;
 }
 
 /*------------------------------------------------------------------
