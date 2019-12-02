@@ -6,14 +6,17 @@ export const applyDrag = (arr, dragResult) => {
   // console.log(dragResult);
   // console.log(payload.title);
   const result = arr;
-  if (payload.ingredients) {
+  console.log(payload.props);
+  
+  if (payload.props) {
 
     // let itemToAdd = payload;
     // if (removedIndex !== null) {
     //   itemToAdd = result.splice(removedIndex, 1)[0];
     // }
-    result[addedIndex].title = payload.title;
-    result[addedIndex].props.recipeId = payload.id;
+    console.log(payload.props.recipe.title);
+    result[addedIndex].title = payload.props.recipe.title;
+    result[addedIndex].props.recipe = payload.props.recipe;
     // result[addedIndex].props.onTable = true;
   } else {
     let itemToAdd = payload
@@ -33,6 +36,22 @@ export const generateItems = (count, creator) => {
   const result = []
   for (let i = 0; i < count; i++) {
     result.push(creator(i))
+  }
+  return result
+};
+
+
+
+export const generateRecipeCards = (count, recipes) => {
+  const result = []
+  for (let i = 0; i < count; i++) {
+    result.push({
+      type: 'draggable',
+      id: recipes[i].id,
+      image_url: recipes[i].image_url,
+      title: `${recipes[i].title}`,
+      props: {className: 'card' , onTable: false}
+    })
   }
   return result
 };

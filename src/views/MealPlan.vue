@@ -4,35 +4,49 @@
     <DivSpace/>
     <div class="simple-page">
       <div class="menu">
-        <Container
-          orientation="horizontal"
-          @drop="onColumnDrop($event)"
-          drag-handle-selector=".column-drag-handle"
-          @drag-start="dragStart"
-          :drop-placeholder="upperDropPlaceholderOptions"
-        >
-          <Draggable v-for="column in scene.children" :key="column.id">
-            <div :class="column.props.className">
-              <div class="card-column-header"></div>
-              <Container
-                group-name="col"
-                @drop="(e) => onCardDrop(column.id, e)"
-                @drag-start="(e) => log('drag start', e)"
-                @drag-end="(e) => log('drag end', e)"
-                :get-child-payload="getCardPayload(column.id)"
-                drag-class="card-ghost"
-                drop-class="card-ghost-drop"
-                :drop-placeholder="dropPlaceholderOptions"
-              >
-                <Draggable v-for="card in column.children" :key="card.index">
-                  <div :class="card.props.className" :style="card.props.style">
-                    <p>{{ card.title }}</p>
-                  </div>
-                </Draggable>
-              </Container>
-            </div>
-          </Draggable>
-        </Container>
+        <div id="save-area">
+          <span>
+            <label for="">Select From Saved Plans:</label>
+            <select id="meal-plan-selector" name="">
+              <option >--Please choose an option--</option>
+            </select>
+          </span>
+          <span>
+            <form id="save-form">
+              <input type="text" placeholder="Give Your Meal Plan A Name" class="form-input"/>
+              <input type="submit" class="btn"/>
+            </form>
+          </span>
+        </div>
+          <Container
+            orientation="horizontal"
+            @drop="onColumnDrop($event)"
+            drag-handle-selector=".column-drag-handle"
+            @drag-start="dragStart"
+            :drop-placeholder="upperDropPlaceholderOptions"
+          >
+            <Draggable v-for="column in scene.children" :key="column.id">
+              <div :class="column.props.className">
+                <div class="card-column-header"></div>
+                <Container
+                  group-name="col"
+                  @drop="(e) => onCardDrop(column.id, e)"
+                  @drag-start="(e) => log('drag start', e)"
+                  @drag-end="(e) => log('drag end', e)"
+                  :get-child-payload="getCardPayload(column.id)"
+                  drag-class="card-ghost"
+                  drop-class="card-ghost-drop"
+                  :drop-placeholder="dropPlaceholderOptions"
+                >
+                  <Draggable v-for="card in column.children" :key="card.index">
+                    <div :class="card.props.className" :style="card.props.style">
+                      <p>{{ card.title }}</p>
+                    </div>
+                  </Draggable>
+                </Container>
+              </div>
+            </Draggable>
+          </Container>
       </div>
 
       <div class="bottom-bar">
@@ -50,14 +64,14 @@
             group-name="col" 
             :get-child-payload="getChildPayload1" 
             drag-class="card-ghost"
-            drop-class="card-ghost-drop"
+            drop-class="card-ghost-drop" 
           >
           <!-- recipe cards -->
-            <Draggable v-for="card in recipes" :key="card.id">
+            <Draggable v-for="card in items2" :key="card.id" >
               <div class="card" >
                 <div class="recipe-card">
-                  <img :src="card.image_url"/>
-                  {{card.title}}
+                  <img :src="card.props.recipe.image_url"/>
+                  {{card.props.recipe.title}}
                   </div>
               </div>
             </Draggable>
@@ -89,12 +103,12 @@
       },
       children: generateItems(3, j => ({
         type: 'draggable',
-        id: `${i}${j+3}`,
+        id: `${i}${j}`,
         props: {
           className: 'card',
           onTable: true
         },
-        title: `Empty`
+        title: `Empty ${i}${j}`
       }))
     }))
   }
@@ -120,13 +134,16 @@ export default {
         animationDuration: '150',
         showOnTop: true
       },
-      items2: generateItems(1, i => ({
-        // type: 'draggable',
+      recipes: store.state.recipes,
+
+      items2: generateItems(store.state.recipes.length, i => ({
+        type: 'draggable',
         id: '9' + i,
         title: `RecipesID: ${i}`,
-        props: {className: 'card' , onTable: false}
-      })),
-      recipes: store.state.recipes,
+        // add recipe to props
+        props: {className: 'card' , onTable: false, recipe: store.state.recipes[i]}
+      }), this.recipes),
+      
       deleteThis: [],
     };
   },
@@ -146,6 +163,7 @@ export default {
         const columnIndex = scene.children.indexOf(column)
         const newColumn = Object.assign({}, column)
         // newColumn.children = 
+        // get column and row id and make swap
         newColumn.children = applyDrag(newColumn.children, dropResult)
         scene.children.splice(columnIndex, 1, newColumn)
         this.scene = scene
