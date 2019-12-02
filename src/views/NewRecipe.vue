@@ -2,62 +2,84 @@
   <div>
     <NavBar/>
     <DivSpace/>
-      <form>
-        <div class ="url-form grid-item" >
-          <h2>Copy and paste a URL from one of our partner websites to auto-fill this form:</h2>
-          <input type="url" v-model="scrapeUrl" />
-          <input type="submit" value="Submit URL Scrape" v-on:click="submitScraper" class="btn" >
-        </div>
+    <div class="container-contact100" style="background-image: url('images/bg-01.jpg');">
+      <div class="wrap-contact100">
+        <form class="contact100-form validate-form " @submit="submitScraper">
+          <div>
+            <h2>Copy and paste a URL from one of our partner websites to auto-fill this form:</h2>
+            <input class="input100 submit-scrape" type="url" v-model="scrapeUrl" required />
+            <span class="loading-message-box submit-scrape" v-if="loading"> {{output}} </span>
+            <div id="submit-scrape-btn" >
+            <input type="submit" value="Submit URL Scrape" class="btn submit-scrape" >
+            </div>
+          </div>
+        </form>
+
+        <form class="contact100-form validate-form" @submit="submitForm">
+ 
+          <div class="new-recipe-title grid-item wrap-input100 rs1-wrap-input100 validate-input" data-validate="Title is required" >
+            Title <input class="input100" required type="text" name="title-box" v-model="recipe.title" placeholder="Your Title" minlength="3" />
+          </div>
+
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Summary <input class="input100 large-field" type="textarea" v-model="recipe.summary" />
+          </div>
+        
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Author <input class="input100 small-field" type="text" v-model="recipe.author" />
+          </div>
+
+          <div class="grid-item wrap-input100 rs1-wrap-input100"> 
+            Image Link <input class="input100" type="text" v-model="recipe.image_url" />
+          </div>
+
+          <div class="grid-item wrap-input100 rs1-wrap-input100" >
+            Source URL <input class="input100" type="text" v-model="recipe.source_url" placeholder="https://" />
+          </div>
+
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Prep Time <input class="input100 small-field" type="text" v-model="recipe.prep_time" />
+          </div>
+
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Servings <input class="input100 small-field" type="text" v-model="recipe.servings" />
+          </div>
+
+          <div class="ingredients grid-item wrap-input100 rs1-wrap-input100">
+            Ingredients <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.ingredients" />
+            <form v-if=" this.seenIngredientName" @submit="addIngredient">
+              <input type="text" v-model="ingredientName"  v-on:keyup.enter="addIngredient" placeholder="Type your item here" > 
+              <input type="submit" value="+">
+              </form>
+              <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> Add item </button></p>
+          </div>
+
+          <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
+            Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
+              <form v-if="seenPreparationName" @submit="addPreparation">
+              <input type="text" v-model="preparationName"  v-on:keyup.enter="addPreparation" placeholder="Type your item here" > 
+              <input type="submit" value="+">
+              </form>
+              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> Add item </button></p>
+          </div>
+
+          <div class="tags grid-item wrap-input100 rs1-wrap-input100">
+            Tags <input class="input100" type="text" v-model="recipe.tags" />
+          </div>
+
+          <div id="submit-form-btn">
+            <input type="submit" class="btn submit-recipe" value="Create New Recipe" />
+          </div>
+
       </form>
-      <form>
-        <div class="new-recipe-title grid-item">
-          <h2>Title</h2>
-          <input type="text" v-model="recipe.title" placeholder="Your Title"/>
-        </div>
-        <div class="grid-item">
-          <h2>Summary</h2>
-          <input type="text" v-model="recipe.summary" />
-        </div>
-        <div class="grid-item">
-          <h2>Author</h2>
-          <input type="text" v-model="recipe.author" />
-        </div>
-         <div class="grid-item"> 
-          <h2>Image Link</h2>
-          <input type="text" v-model="recipe.image_url" />
-        </div>
-        <div class="grid-item" >
-          <h2>Source URL</h2>
-          <input type="text" v-model="recipe.source_url" placeholder="https://" />
-        </div>
-        <div class="grid-item">
-          <h2>Prep Time</h2>
-          <input type="text" v-model="recipe.prep_time" />
-        </div>
-        <div class="grid-item">
-          <h2>Servings</h2>
-          <input type="text" v-model="recipe.servings" />
-        </div>
-        <div class="ingredients grid-item">
-          <h2>Ingredients</h2>
-          <IngredientsList v-bind:ingredients="recipe.ingredients" v-on:new-ingredient="addIngredient"/>
-        </div>
-        <div class="preparation grid-item">
-          <h2>Preparation</h2>
-          <IngredientsList v-bind:ingredients="recipe.preparation" v-on:new-ingredient="addIngredient"/>
-        </div>
-        <div class="tags grid-item">
-          <h2>Tags</h2>
-          <input type="text" v-model="recipe.tags" />
-        </div>
-        <div>
-          <input type="submit" class="btn" value="Create New Recipe" v-on:click="submitForm" />
-        </div>
-      </form>
+
     </div>
+    </div>
+	</div>
 </template>
 
 <script>
+import router from  '../router'
 import IngredientsList from '../components/layout/IngredientsList'
 import NavBar from '../components/layout/NavBar.vue'
 import DivSpace from '../components/layout/DivSpace.vue'
@@ -66,7 +88,6 @@ import axios from 'axios'
 export default {
   state: {
     // recipe: {},
-    loading: false
   },
   components: {
     NavBar,
@@ -75,6 +96,12 @@ export default {
   },
   data() {
     return{
+      output: '',
+      loading: false,
+      ingredientName: '',
+      preparationName: '',
+      seenIngredientName: false,
+      seenPreparationName: false,
       scrapeUrl: '',
       recipe: {
         summary: '',
@@ -85,7 +112,7 @@ export default {
         prepTime: '',
         servings: '',
         ingredients: [],
-        preparation: '',
+        preparation: [],
         tags: ''
       }
     }
@@ -93,23 +120,49 @@ export default {
   methods: {
     submitScraper: function(e) {
       e.preventDefault();
+      this.loading = true;
+      this.output = "We are loading your recipe..."
       axios.post('/api/scraper', {url: this.scrapeUrl})
         .then(fetchedrecipe => {
-          console.log("fetched recipe data: ", fetchedrecipe)
-          this.recipe = fetchedrecipe.data
+          if (fetchedrecipe.data === "") {
+            this.output = "We're sorry, our gnomes got lost trying to find that recipe. Please try again."
+            console.log("scraper likely timed out")
+            setTimeout(() => this.loading = false, 10000)
+          } else {
+            console.log("fetched recipe data: ", fetchedrecipe)
+            this.recipe = fetchedrecipe.data
+            this.output = "Recipe loaded!"
+            setTimeout(() => this.loading = false, 10000)
+          }
         })
         .catch(error => console.log("error in submitScraper in NewRecipe: ", error))
     },
-    submitForm: function() {
-      axios.post('api/recipes-new', { recipe: this.recipe})
+    submitForm: function(e) {
+      e.preventDefault();
+      axios.post('api/recipes-new', { recipe: this.recipe })
         .then(res => {
           console.log('recipe entered, go home to check it out.', res);
+          const recipeId = res.data.rows[0].id
+          router.push({ name: 'recipe', params: { id: recipeId} }
+ )
         })
         .catch(error => console.log('error in post request', error));
         
     },
-    addIngredient: function(name) {
-      this.recipe.ingredients.push(name);
+    addIngredient: function(e, ingredientName) {
+      e.preventDefault();
+      ingredientName = this.ingredientName
+      this.recipe.ingredients.push(ingredientName);
+      console.log("this.recipe.ing", this.recipe.ingredients)
+      console.log("ingredient name", ingredientName)
+
+       this.seenIngredientName = false;
+    },
+    addPreparation: function(e, preparationName) {
+      e.preventDefault();
+      preparationName = this.preparationName;
+      this.recipe.preparation.push(preparationName)
+      this.seenPreparationName = false;
     }
   }
 }

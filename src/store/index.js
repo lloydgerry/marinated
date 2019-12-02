@@ -6,16 +6,19 @@ Vue.use(Vuex)
 
 
 export default new Vuex.Store({
+  
   state: {
     user: {id: 0, email: '', name: ''},
-    recipes: []
+    recipes: [],
+    userRecipes: []
   },
   mutations: {
     setRecipes(state, newRecipes) {
       state.recipes = newRecipes;
     },
     login: (state, user) => state.user = user,
-    logout: (state, user) => state.user = user
+    logout: (state, user) => state.user = user,
+    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes
   },
   getters: {
     getRecipes: state => {return state.recipes},
@@ -24,7 +27,16 @@ export default new Vuex.Store({
   actions: {
     loginUser({ commit }) {
       axios.post('/api/login', {email: 'hermione@test.com'})
-        .then(res => commit('login', res.data))
+        .then(res => {
+          commit('login', res.data);
+          console.log('ding in loginUser', res.data);
+          
+          axios.get(`api/user/${res.data.id}/recipes`)
+            .then(response => {
+              console.log('data return from get user recipes', response.data)
+              commit('setUserRecipes', response.data)
+            });
+        })
         .catch(error => console.log("error from login in store", error));
     },
     logoutUser({ commit }) {
@@ -40,6 +52,7 @@ export default new Vuex.Store({
         })
         .catch(error => console.log("error from fetch data in store", error));
     }
+    
   },
   modules: {
   },
