@@ -76,7 +76,7 @@ module.exports = function(router) {
         })
         .then( () => {
           if (queryResult.rowCount !== 0) {
-            console.log("yay this exists")
+            console.log("yay this exists", queryResult)
             return { exists: false };
             } else {
               scraperRouter(dbParams[0])
@@ -99,7 +99,8 @@ module.exports = function(router) {
         INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, tags, search_array)
         VAlUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, to_tsvector($11))
-      `;
+        RETURNING id, title
+        `;
       const data = request.body.recipe;
       const title_vector = String(data.title);
       const tags_vector = String(data.tags);
@@ -137,6 +138,7 @@ module.exports = function(router) {
         });
     });
   });
+
   router.get('/user/:id', (request, response) => {
     pool.connect((error, client, release) => {
       if (error) {console.log('the error is here,',error)};
@@ -176,8 +178,6 @@ module.exports = function(router) {
         response.send(e);
       });
   });
-
-  
 
   return router;
 };
