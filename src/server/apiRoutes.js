@@ -76,7 +76,7 @@ module.exports = function(router) {
         })
         .then( () => {
           if (queryResult.rowCount !== 0) {
-            console.log("yay this exists")
+            console.log("yay this exists", queryResult)
             return { exists: false };
             } else {
               scraperRouter(dbParams[0])
@@ -99,7 +99,8 @@ module.exports = function(router) {
         INSERT INTO recipes (title, image_url, summary, ingredients, preparation, author, source_url, prep_time, servings, tags, search_array)
         VAlUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, to_tsvector($11))
-      `;
+        RETURNING id, title
+        `;
       const data = request.body.recipe;
       const title_vector = String(data.title);
       const tags_vector = String(data.tags);
@@ -176,6 +177,39 @@ module.exports = function(router) {
         response.send(e);
       });
   });
+
+  // router.get('/user/:id', (request, response) => {
+  //   const dbQuery = `
+  //     SELECT * 
+  //     FROM user_recipes
+  //     JOIN recipes ON recipes.id = recipe_id
+  //     WHERE user_id is $1;
+  //   `;
+  //   const dbParams = [request.body.id];
+  //   return database.query(dbQuery, dbParams)
+  //     .then(data => response.send(data.rows))
+  //     .catch(e => {
+  //       console.error('Error in apiRoutes: ', e);
+  //       response.send(e);
+  //     });
+  // });
+
+  // router.get('/user/:id/mealplan', (request, response) => {
+  //   const dbQuery = `
+  //     SELECT * 
+  //     FROM plan_recipes
+  //     JOIN meal_plans ON meal_plan.id = meal_plans_id
+  //     JOIN recipes ON recipes.id = recipe_id
+  //     WHERE user_id is $1;
+  //   `;
+  //   const dbParams = [request.body.id];
+  //   return database.query(dbQuery, dbParams)
+  //     .then(data => response.send(data.rows))
+  //     .catch(e => {
+  //       console.error('Error in apiRoutes mealplan: ', e);
+  //       response.send(e);
+  //     });
+  // });
 
   
 
