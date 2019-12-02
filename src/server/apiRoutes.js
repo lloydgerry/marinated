@@ -140,7 +140,6 @@ module.exports = function(router) {
   });
 
   router.get('/user/:id/recipes', (request, response) => {
-    console.log('got into api routes user recipes')
     pool.connect((error, client, release) => {
 
       const dbQuery = `
@@ -150,15 +149,10 @@ module.exports = function(router) {
         WHERE user_id = $1;
       `;
       const dbParams = [request.params.id];
-      console.log('req.body', request.params)
-      console.log('dbQuery in user recipes', dbQuery)
-      console.log('dbParams in user recipes', dbParams)
-
 
     return client.query(dbQuery, dbParams)
       .then(recipes => {
       release()
-      console.log('data returned from query in user recipes', recipes)
       response.send(recipes.rows) 
       })
       .catch(error => {
@@ -183,6 +177,31 @@ module.exports = function(router) {
   //       response.send(e);
   //     });
   // });
+
+  router.put('/user/:id/recipes', (request, response) => {
+    pool.connect((error, client, release) => {
+
+    if (error) {console.log(error)}
+
+    const dbQuery = `
+    INSERT INTO user_recipes (user_id, recipe_id, saved_date, rating)
+    VALUES
+      ($1, $2, NOW(), 0);
+      `;
+    const dbParams = [request.params.id, request.body.recipeId];
+    console.log('dbParams', dbParams)
+
+    return client.query(dbQuery,dbParams)
+      .then(() => {
+        release()
+        response.send() 
+        console.log("saved for later added to user data")
+      })
+      .catch(error => {
+        console.error('error in apiroutes update user recipe info', error);
+      })
+    })
+  })
 
   return router;
 };

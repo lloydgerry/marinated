@@ -10,19 +10,27 @@ export default new Vuex.Store({
   state: {
     user: {id: 0, email: '', name: ''},
     recipes: [],
-    userRecipes: []
+    userRecipes: [],
+    isUserLoggedIn: false,
   },
   mutations: {
     setRecipes(state, newRecipes) {
       state.recipes = newRecipes;
     },
-    login: (state, user) => state.user = user,
-    logout: (state, user) => state.user = user,
-    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes
+    login: (state, user) => {
+      state.user = user;
+      state.isUserLoggedIn = true;
+    },
+    logout: (state, user) => {
+      state.user = user;
+      state.isUserLoggedIn = false;
+    },
+    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes,
+    addUserRecipe: (state, recipeId) => state.userRecipes.push(recipeId)
   },
   getters: {
     getRecipes: state => {return state.recipes},
-    isLogged: state => state.user.id ? true : false
+    isLogged: state => state.isUserLoggedIn ? true : false
   },
   actions: {
     loginUser({ commit }) {
@@ -51,8 +59,16 @@ export default new Vuex.Store({
           // console.log("store state recipes: ", this.state.recipes)
         })
         .catch(error => console.log("error from fetch data in store", error));
+    },
+    addRecipeToUser({ commit }, recipe) {
+      axios.put(`/api/user/${this.state.user.id}/recipes`, {recipeId: recipe.id})
+        .then(() => {
+          console.log('done addRecipeToUser, recipe', recipe)
+          console.log('state of userRecipes', this.state.userRecipes)
+          commit('addUserRecipe', recipe)
+        })
+        .catch(error => console.log("error in addRecipeToUser in store", error))
     }
-    
   },
   modules: {
   },
