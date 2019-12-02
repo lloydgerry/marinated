@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      recipes: store.state.userRecipes,
+      recipes: this.$store.state.userRecipes,
       userId: store.state.user.id
     }
   },

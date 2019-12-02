@@ -33,11 +33,15 @@ export default {
   data() {
     return {
       userFav: false,
+      recipes: this.$store.state.userRecipes
     }
   },
   computed: {
     loggedIn () {
       return this.$store.state.isUserLoggedIn
+    },
+    userFavourite: function () {
+      return this.checkUserFav()
     }
   },
   props: [
@@ -49,14 +53,17 @@ export default {
       console.log("add this recipe to user hit in recipecard")
       e.preventDefault()
       this.addRecipeToUser(this.recipe)
+      this.userFav = true;
     },
     checkUserFav: function() {
-      if (this.state.user.id === 0) {
-        this.userLoggedIn = false;
+      console.log("checkUserFav ran")
+      let currentRecipe = this.recipe.id
+      if (this.recipes[currentRecipe] === undefined ) {
+        this.userFav = false;
       } else {
-        this.userLoggedIn = true;
+        this.userFav = true;
       }
-    }
+    },
   },
 }
 </script>
