@@ -138,20 +138,29 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/user/:id', (request, response) => {
-    const dbQuery = `
-      SELECT * 
-      FROM user_recipes
-      JOIN recipes ON recipes.id = recipe_id
-      WHERE user_id is $1;
-    `;
-    const dbParams = [request.body.id];
-    return database.query(dbQuery, dbParams)
-      .then(data => response.send(data.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes: ', e);
-        response.send(e);
-      });
+  router.get('/user/:id/recipes', (request, response) => {
+    console.log('got into api routes user recipes')
+    pool.connect((error, client, release) => {
+
+      const dbQuery = `
+        SELECT * 
+        FROM user_recipes
+        JOIN recipes ON recipes.id = recipe_id
+        WHERE user_id is $1;
+      `;
+      const dbParams = [request.body.id];
+      console.log('query in user recipes', dbQuery)
+
+    return client.query(dbQuery, dbParams)
+      .then(recipes => {
+      release()
+      console.log('data returned from query in user recipes')
+      response.send(recipes) 
+      })
+      .catch(error => {
+      console.error('error in apiRoutes user recipes', error);
+      })
+    });
   });
 
   router.get('/user/:id/mealplan', (request, response) => {
