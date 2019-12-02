@@ -6,14 +6,15 @@
       <div class="menu">
         <div id="save-area">
           <span>
-            <label for="">Select From Saved Plans:</label>
-            <select id="meal-plan-selector" name="">
-              <option >--Please choose an option--</option>
+            <label for="meal-plan-selector">Select From Saved Plans:</label>
+            <select id="meal-plan-selector" name="Plans" @change="changeMealPlan($event)" v-model="key">
+              <option>--Please choose an option--</option>
+              <option v-for="plan in userPlans" :key="plan.id" :value="plan.id">{{plan.name}}</option>
             </select>
           </span>
           <span>
             <form id="save-form">
-              <input type="text" placeholder="Give Your Meal Plan A Name" class="form-input"/>
+              <input type="text" :placeholder="placeholder" class="form-input"/>
               <input type="submit" class="btn"/>
             </form>
           </span>
@@ -88,6 +89,7 @@
   import { Container, Draggable } from "vue-smooth-dnd";
   import { applyDrag, generateItems } from "../utils/helpers";
   import store from "../store/index";
+  import axios from 'axios';
 
   const scene = {
     type: 'container',
@@ -134,17 +136,19 @@ export default {
         animationDuration: '150',
         showOnTop: true
       },
-      recipes: store.state.recipes,
-
-      items2: generateItems(store.state.recipes.length, i => ({
+      recipes: store.state.userRecipes,
+      items2: generateItems(store.state.userRecipes.length, i => ({
         type: 'draggable',
         id: '9' + i,
         title: `RecipesID: ${i}`,
         // add recipe to props
-        props: {className: 'card' , onTable: false, recipe: store.state.recipes[i]}
+        props: {className: 'card' , onTable: false, recipe: store.state.userRecipes[i]}
       }), this.recipes),
-      
+      userPlans: store.state.userMealPlans,
+      planRecipes: [],
       deleteThis: [],
+      placeholder: 'Give Your Plan A Name'
+      key: ''
     };
   },
   methods: {  
@@ -183,25 +187,48 @@ export default {
         return this.scene.children.filter(p => p.id === columnId)[0].children[index]
       }
     },
-    dragStart () {
-      
-    },
+    dragStart (){},
     log () {
       // console.log(...params)
     },
     shouldAnimateDrop: function(sourceContainerOptions, payload) {
       console.log(sourceContainerOptions, payload);
-      
       return false;
     },
     shouldAcceptDrop: function(sourceContainerOptions, payload) {
       console.log(sourceContainerOptions, payload);
-      
       return false;
     },
     getChildPayload1 (index) {
       return this.items2[index]
     },
+    fetchMealPlanRecipes( planId ) {
+      return axios.get(`/api/mealplan/${planId}`)
+        .then(res => {
+           this.planRecipes = res.data;
+           return res.data;
+        })
+        .catch(e => console.log('error in fetching recipes: ', e))
+    },
+    changeMealPlan(event) {
+      const id = event.target.value
+        this.fetchMealPlanRecipes(id)
+          .then(res => {
+            this.fillTableWithPlan(res);
+            console.log('is array', res)
+          })
+          .catch(e => console.error(e));
+    },
+    fillTableWithPlan () {
+      let i = 0;
+      for (let j = 0; j < 7; j++ ) {
+        for (let k = 0; k < 3; k++) {
+          this.scene.children[j].children[k].title = this.planRecipes[i].title;
+          this.scene.children[j].children[k].props.recipe.id = this.planRecipes[i].title;
+          i++;
+        }
+      }
+    }
   }
 };
 </script>

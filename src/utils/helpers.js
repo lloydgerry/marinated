@@ -39,27 +39,3 @@ export const generateItems = (count, creator) => {
   }
   return result
 };
-
-
-
-export const generateRecipeCards = (count, recipes) => {
-  const result = []
-  for (let i = 0; i < count; i++) {
-    result.push({
-      type: 'draggable',
-      id: recipes[i].id,
-      image_url: recipes[i].image_url,
-      title: `${recipes[i].title}`,
-      props: {className: 'card' , onTable: false}
-    })
-  }
-  return result
-};
-
-export const emptyTable = () => {
-  const result = [];
-  for (let i = 0; i < 7; i++) {
-    result.push([{id: i, title: `Something ${i}`}, {id: i+1, title: `Something ${i}`}, {id: i+2, title: `Something ${i}`}] )
-  }
-  return result;
-};

@@ -161,23 +161,68 @@ module.exports = function(router) {
         });
     });
   });
-  
-  router.get('/user/:id/mealplan', (request, response) => {
-    const dbQuery = `
-      SELECT * 
-      FROM plan_recipes
-      JOIN meal_plans ON meal_plan.id = meal_plans_id
-      JOIN recipes ON recipes.id = recipe_id
-      WHERE user_id is $1;
-    `;
-    const dbParams = [request.body.id];
-    return database.query(dbQuery, dbParams)
-      .then(data => response.send(data.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes mealplan: ', e);
-        response.send(e);
-      });
+
+  router.get('/user/:id/mealplans', (request,response) => {
+    pool.connect((error, client, release) => {
+      if (error) console.log('the error is in meal plan request: ', error)
+
+      const dbQuery = `
+        SELECT *
+        FROM meal_plans
+        WHERE user_id = $1;
+        `;
+      const dbParams = [request.params.id];
+      return client.query(dbQuery, dbParams)
+        .then(data => {
+          release();
+          response.send(data.rows);
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes mealplans: ', e);
+          response.send(e);
+        });
+    })
   });
+
+  router.get('/mealplan/:id', (request, response) => {
+    pool.connect((error, client, release) => {
+      if (error) console.log('the error is in mealplan recipes request: ', error)
+
+      const dbQuery = `
+        SELECT recipes.id AS id, recipes.title AS title, plan_recipes.position AS position
+        FROM plan_recipes
+        JOIN recipes ON recipes.id = recipe_id
+        WHERE meal_plans_id = $1;
+        `;
+      const dbParams = [request.params.id];
+      client.query(dbQuery, dbParams)
+        .then(data => {
+          release();
+          response.send(data.rows);
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes mealplans recipes: ', e);
+          response.send(e);
+        });
+    })
+  })
+  
+  // router.get('/user/:id/mealplan', (request, response) => {
+  //   const dbQuery = `
+  //     SELECT * 
+  //     FROM plan_recipes
+  //     JOIN meal_plans ON meal_plan.id = meal_plans_id
+  //     JOIN recipes ON recipes.id = recipe_id
+  //     WHERE user_id is $1;
+  //   `;
+  //   const dbParams = [request.body.id];
+  //   return database.query(dbQuery, dbParams)
+  //     .then(data => response.send(data.rows))
+  //     .catch(e => {
+  //       console.error('Error in apiRoutes mealplan: ', e);
+  //       response.send(e);
+  //     });
+  // });
 
   return router;
 };

@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     user: {id: 0, email: '', name: ''},
     recipes: [],
-    userRecipes: []
+    userRecipes: [],
+    userMealPlans: []
   },
   mutations: {
     setRecipes(state, newRecipes) {
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     },
     login: (state, user) => state.user = user,
     logout: (state, user) => state.user = user,
-    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes
+    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes,
+    setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans
   },
   getters: {
     getRecipes: state => {return state.recipes},
@@ -28,14 +30,16 @@ export default new Vuex.Store({
     loginUser({ commit }) {
       axios.post('/api/login', {email: 'hermione@test.com'})
         .then(res => {
-          commit('login', res.data);
-          console.log('ding', res.data);
-          
-          axios.get(`api/user/${res.data.id}`)
+          commit('login', res.data);    
+          return axios.get(`api/user/${res.data.id}`)
             .then(response => {
-              console.log(response.data)
-              commit('setUserRecipes', response.data)
+              commit('setUserRecipes', response.data);
+              return res.data.id
             });
+        })
+        .then(response => {
+          axios.get(`api/user/${response}/mealplans`)
+            .then(res => commit('setUserMealPlans', res.data))
         })
         .catch(error => console.log("error from login in store", error));
     },
