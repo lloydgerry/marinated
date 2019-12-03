@@ -28,7 +28,7 @@
           >
             <Draggable v-for="column in scene.children" :key="column.id">
               <div :class="column.props.className">
-                <div class="card-column-header"></div>
+                <div class="card-column-header">{{column.name}}</div>
                 <Container
                   group-name="col"
                   @drop="(e) => onCardDrop(column.id, e)"
@@ -42,7 +42,7 @@
                   <Draggable v-for="card in column.children" :key="card.index">
                     <div :class="card.props.className">
                       <a @click="card.title=''">✘</a>
-                      <p>{{ card.title }}</p>
+                      <p @click="goToRecipe(card.props.recipe.id)">{{ card.title }}</p>
                     </div>
                   </Draggable>
                 </Container>
@@ -62,7 +62,7 @@
         <!-- recipe cards -->
           <Draggable v-for="card in items2" :key="card.id" >
             <div class="card" >
-              <div class="recipe-card">
+              <div class="recipe-card" @click="goToRecipe(card.props.recipe.id)">
                 <img :src="card.props.recipe.image_url"/>
                 {{card.props.recipe.title}}
               </div>
@@ -81,8 +81,10 @@
   import { Container, Draggable } from "vue-smooth-dnd";
   import { applyDrag, generateItems } from "../utils/helpers";
   import store from "../store/index";
+  import router from "../router"
   import axios from 'axios';
 
+  const columnNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const scene = {
     type: 'container',
     props: {
@@ -91,6 +93,7 @@
     children: generateItems(7, i => ({
       id: `column${i+2}`,
       type: 'container',
+      name: columnNames[i],
       props: {
         orientation: 'vertical',
         className: 'card-container'
@@ -245,6 +248,9 @@ export default {
         result.push({title: '', id: 0});
       }
       return result;
+    },
+    goToRecipe(id) {
+      router.push({ name: 'recipe', params: { id: id } })
     }
   }
 };
