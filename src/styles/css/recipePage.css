@@ -6,6 +6,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  margin: 0 20px;
 }
 
 .recipe-display .grid-container {
@@ -50,4 +51,3 @@
   font-size: 18px;
   line-height: 20px;
 }
-/*# sourceMappingURL=recipePage.css.map */
