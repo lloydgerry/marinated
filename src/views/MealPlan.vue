@@ -42,6 +42,7 @@
                   <Draggable v-for="card in column.children" :key="card.index">
                     <div :class="card.props.className" :style="card.props.style">
                       <p>{{ card.title }}</p>
+                      <!-- <span style="position: right">🗑</span> -->
                     </div>
                   </Draggable>
                 </Container>
@@ -51,7 +52,7 @@
       </div>
 
       <div class="bottom-bar">
-        <div class="delete-area">
+        <!-- <div class="delete-area">
           <Container group-name="col" @drop="onDelete('items2', $event)" >
             <Draggable v-for="card in deleteThis" :key="card.id">
               <div class="card.props.className" :style="card.props.style">
@@ -59,7 +60,7 @@
               </div>
             </Draggable>
           </Container>
-        </div>
+        </div> -->
           <Container 
             behaviour="copy" 
             group-name="col" 
@@ -142,7 +143,6 @@ export default {
         type: 'draggable',
         id: '9' + i,
         title: `RecipesID: ${i}`,
-        // add recipe to props
         props: {className: 'card' , onTable: false, recipe: store.state.userRecipes[i]}
       }), this.recipes),
       userPlans: store.state.userMealPlans,
@@ -155,24 +155,24 @@ export default {
   },
   methods: {  
     onColumnDrop (dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
+      const scene = Object.assign({}, this.scene);
+      scene.children = applyDrag(scene.children, dropResult);
+      this.scene = scene;
     },
     onCardDrop (columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
 
         console.log('removedIndex: ', dropResult.removedIndex, 'addedIndex: ', dropResult.addedIndex);
         
-        const scene = Object.assign({}, this.scene)
+        const scene = Object.assign({}, this.scene);
         const column = scene.children.filter(p => p.id === columnId)[0]
-        const columnIndex = scene.children.indexOf(column)
-        const newColumn = Object.assign({}, column)
+        const columnIndex = scene.children.indexOf(column);
+        const newColumn = Object.assign({}, column);
         // newColumn.children = 
         // get column and row id and make swap
-        newColumn.children = applyDrag(newColumn.children, dropResult)
-        scene.children.splice(columnIndex, 1, newColumn)
-        this.scene = scene
+        newColumn.children = applyDrag(newColumn.children, dropResult);
+        scene.children.splice(columnIndex, 1, newColumn);
+        this.scene = scene;
       }
     },
     onDelete(collection, dropResult) {
@@ -180,13 +180,13 @@ export default {
       if (removedIndex === null && addedIndex === null) return collection;
       const result = [...collection];
       let itemToAdd = payload;
-      if (removedIndex !== null) itemToAdd = result.splice(removedIndex, 1)[0]
-      if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd)
+      if (removedIndex !== null) itemToAdd = result.splice(removedIndex, 1)[0];
+      if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd);
       this[collection] = result;
     },
     getCardPayload (columnId) {
       return index => {
-        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+        return this.scene.children.filter(p => p.id === columnId)[0].children[index];
       }
     },
     dragStart (){},
@@ -202,16 +202,12 @@ export default {
       return false;
     },
     getChildPayload1 (index) {
-      return this.items2[index]
+      return this.items2[index];
     },
     changeMealPlan(event) {
-      const id = event.target.value
-      console.log(id);
-      console.log(this.key, '= key======');
-      
+      const id = event.target.value;
       if (id !== '0') {
         const selectedPlan = store.state.userMealPlans.filter(plan => plan.id === Number(id))[0];
-        console.log(selectedPlan.plan_array)
         this.fillTableWithPlan(selectedPlan.plan_array); 
         this.placeholder = selectedPlan.name;
       } else {
@@ -220,7 +216,6 @@ export default {
       }
     },
     fillTableWithPlan (tableFill) {
-      // console.log(tableFill)
       let i = 0;
       for (let j = 0; j < 7; j++ ) {
         for (let k = 0; k < 3; k++) {
