@@ -7,6 +7,7 @@ module.exports = function(router) {
     const user = {id: 1, email: req.body.email, name: 'Hermione'};
     if (user) {
       req.session.userId = user.id;
+      user.token = req.session.userId;
       res.send(user);
     } else {
       res.send(0);
