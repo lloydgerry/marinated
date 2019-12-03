@@ -15,11 +15,7 @@ export default new Vuex.Store({
     isUserLoggedIn: false,
   },
   mutations: {
-    setRecipes(state, newRecipes) {
-      state.recipes = newRecipes;
-    },
-    setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes,
-    setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans,
+    setRecipes:(state, newRecipes) => state.recipes = newRecipes,
     login: (state, user) => {
       state.user = user;
       state.isUserLoggedIn = true;
@@ -29,7 +25,8 @@ export default new Vuex.Store({
       state.isUserLoggedIn = false;
     },
     setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes,
-    addUserRecipe: (state, recipeId) => state.userRecipes.push(recipeId)
+    addUserRecipe: (state, recipeId) => state.userRecipes.push(recipeId),
+    setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans
   },
   getters: {
     getRecipes: state => {return state.recipes},
@@ -39,21 +36,11 @@ export default new Vuex.Store({
     loginUser({ commit }) {
       axios.post('/api/login', {email: 'hermione@test.com'})
         .then(res => {
-<<<<<<< HEAD
-          commit('login', res.data);    
-          return axios.get(`api/user/${res.data.id}`)
+          commit('login', res.data);            
+          return axios.get(`api/user/${res.data.id}/recipes`)
             .then(response => {
               commit('setUserRecipes', response.data);
               return res.data.id
-=======
-          commit('login', res.data);
-          console.log('ding in loginUser', res.data);
-          
-          axios.get(`api/user/${res.data.id}/recipes`)
-            .then(response => {
-              console.log('data return from get user recipes', response.data)
-              commit('setUserRecipes', response.data)
->>>>>>> master
             });
         })
         .then(response => {
