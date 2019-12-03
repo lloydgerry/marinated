@@ -2,7 +2,7 @@
   <div class="home">
     <NavBar/>
     <DivSpace/>
-    <span>{{ errorMsg }}</span>
+    <div class="error">{{ errorMsg }}</div>
     <RecipeCardsCarousel v-bind:RecipeCards="this.$store.state.recipes"/>
   </div>
 </template>
@@ -37,8 +37,9 @@ export default {
   beforeRouteEnter(to, from, next) {
     if (to.query.redirectFrom) {
       next(vm => {
+        setTimeout(() => {vm.errorMsg = ''}, 10000)
         vm.errorMsg =
-          "Sorry, You need to log in before being able to access that route"
+          "Sorry, you need to login before being able to access that content.";
       })
     } else {
       next()
@@ -49,6 +50,23 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAllRecipesData']),
-  }
+    }
 }
 </script>
+
+<style scoped>
+
+div {
+  background-color: #181616;
+  width: 100%;
+}
+
+div.error {
+  margin-top: 20px;
+  background-color: #181616;
+  color: red;
+  width: 100%;
+  text-align: center;
+}
+
+</style>
