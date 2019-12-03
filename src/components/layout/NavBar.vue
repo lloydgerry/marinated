@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <router-link to="/" title="Marinated"><h1 id="nav-item-white">Marinated</h1></router-link> 
     <ul id="navigation">
-      <li v-if="!this.$store.state.user.id > 0 ">
+      <li v-if="!this.$store.state.token > 0 ">
         <template>
           <a
             id="nav-item-white"
@@ -53,7 +53,6 @@ import { mapActions, mapState } from 'vuex';
 export default {
   name: 'NavBar',
   state: {...mapState},
-  // props: ["item"],
   data() {
     return {
       isOpen: false,
@@ -82,7 +81,6 @@ export default {
             {
               url: "/logout",
               name: "Logout"
-
             }
           ]
         },

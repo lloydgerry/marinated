@@ -1,4 +1,4 @@
-
+@import "partials/_variables.scss";
 
 .simple-page {
   display: flex;
@@ -12,15 +12,32 @@
       height: 30px;
       z-index: 2;
       margin-bottom: 10px;
+      label {
+        font-size: 14px;
+      }
+      #meal-plan-selector {
+        width: 150px;
+        border-radius: 34px;
+        border: 1px solid #e6e6e6;
+        padding: 0 1em;
+      }
       #save-form {
         display: flex;
         flex-direction: row;
         .form-input {
+          border-radius: 34px;
+          border: 1px solid #e6e6e6;
+          padding: 0 1em;
           width: 200px;
         }
         .btn {
-          width: 50px;
+          background-color: #6b7d83;
+          margin-left: 10px;
+          border-radius: 34px;
+          border: 2px solid #e6e6e6;
+          width: 6.5em;
           cursor: pointer;
+          color: $white;
         }
       }
     }
@@ -28,21 +45,25 @@
     top: 75px;
     left: 0;
     width: 100%;
-    height: 250px;
+    height: 260px;
     z-index: 1;
     padding-top: 10px;
     margin: 0px;
     border: solid black 1px;
     background-color: lightgray;
     font-size: 18px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     .smooth-dnd-container {
       width: 200px; //width of columns
       .smooth-dnd-draggable-wrapper {
         .card-container {
           min-width: 100%;
-          height: 200px;
-          background-color: #f3f3f3;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+          height: 220px;
+          background-color: lightgrey;
+          .card-column-header{
+            text-align: center;
+          }
           .smooth-dnd-container {
             .smooth-dnd-draggable-wrapper {
               .card {
@@ -102,10 +123,13 @@
           width: 200px;
           background-color: whitesmoke;
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+          border-radius: 5px;
           .recipe-card {
             height: 250px;
             cursor: default;
             img {
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px;
               max-width: 200px;
               height: auto;
             }

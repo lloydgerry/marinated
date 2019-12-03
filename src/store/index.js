@@ -13,6 +13,7 @@ export default new Vuex.Store({
     userRecipes: [],
     userMealPlans: [],
     isUserLoggedIn: false,
+    token: localStorage.getItem('user-token') || ''
   },
   mutations: {
     setRecipes:(state, newRecipes) => state.recipes = newRecipes,
@@ -26,17 +27,25 @@ export default new Vuex.Store({
     },
     setUserRecipes: (state, userRecipes) => state.userRecipes = userRecipes,
     addUserRecipe: (state, recipeId) => state.userRecipes.push(recipeId),
-    setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans
+    setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans,
+    AUTH_SUCCESS: (state, token) => state.token = token,
+    AUTH_LOGOUT: (state) => state.token = ''
   },
   getters: {
     getRecipes: state => {return state.recipes},
-    isLogged: state => state.isUserLoggedIn ? true : false
+    isLogged: state => state.isUserLoggedIn ? true : false,
+    isAuthenticated: state => !!state.token,
   },
   actions: {
     loginUser({ commit }) {
       axios.post('/api/login', {email: 'hermione@test.com'})
         .then(res => {
-          commit('login', res.data);            
+          console.log(res.data);
+          
+          commit('login', res.data);  
+          const token = res.data.token
+          localStorage.setItem('user-token', token) // store the token in localstorage
+          commit('AUTH_SUCCESS', token)          
           return axios.get(`api/user/${res.data.id}/recipes`)
             .then(response => {
               commit('setUserRecipes', response.data);
@@ -51,7 +60,11 @@ export default new Vuex.Store({
     },
     logoutUser({ commit }) {
       axios.post('/api/logout', {email: 'hermione@test.com'})
-        .then(res => commit('logout', res))
+        .then(res => {
+          commit('logout', res)
+          commit('AUTH_LOGOUT')
+          localStorage.removeItem('user-token')
+        })
         .catch(error => console.log("error from logout in store", error));
     },
     fetchAllRecipesData({commit}) {
