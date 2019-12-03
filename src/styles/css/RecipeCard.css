@@ -1,11 +1,11 @@
 .card-container {
-  margin: 25px 10px;
+  margin: 10px 10px;
   padding: 0;
   position: relative;
   width: 300px;
   height: 400px;
-  background: whitesmoke;
-  border: 1px black solid;
+  background: #FBF9F4;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -19,14 +19,17 @@
 .card-container .card-link .card-media {
   max-width: 300px;
   max-height: auto;
+  position: relative;
+  top: 0;
 }
 
 .card-container .card-link .card-title {
+  margin-left: 8px;
   font-family: 'Cormorant Garamond', serif;
   font-size: 30px;
   font-weight: 300;
   line-height: 40px;
-  color: black;
+  color: #191919;
   text-decoration: none !important;
 }
 
@@ -39,6 +42,25 @@
 }
 
 .card-container .card-link .subtle {
-  color: #aaa;
+  color: #6b7d83;
+}
+
+.card-container .favourite-icon {
+  border-bottom-left-radius: 10px;
+  height: 25px;
+  width: 24px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=RecipeCard.css.map */

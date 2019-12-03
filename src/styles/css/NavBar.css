@@ -1,3 +1,8 @@
+#nav-item-white {
+  color: white;
+  cursor: pointer;
+}
+
 .nav-bar {
   position: fixed;
   top: 0;
@@ -12,14 +17,14 @@
           justify-content: space-between;
   -ms-flex-line-pack: center;
       align-content: center;
-  background-color: #9fb59d;
+  background-color: #516d57;
   margin: 0px;
   height: 75px;
 }
 
 .nav-bar a {
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
 }
 
 .nav-bar a h1 {
@@ -49,7 +54,7 @@
   display: block;
   padding: 0.55em 1em;
   text-decoration: none;
-  color: black;
+  color: white;
   border-radius: 0.35em;
   background-color: transparent;
   -webkit-transition: all 200ms ease;
@@ -58,15 +63,16 @@
 
 .nav-bar #navigation li a:hover {
   color: #ffffff;
-  background-color: rgba(81, 109, 87, 0.65);
+  background-color: rgba(159, 181, 157, 0.65);
 }
 
 .nav-bar #navigation li a.active {
-  background-color: rgba(81, 109, 87, 0.45);
+  background-color: rgba(159, 181, 157, 0.45);
 }
 
 .nav-bar #navigation li .nav-link {
   background-color: transparent;
+  color: black;
   text-align: left;
 }
 
@@ -78,13 +84,13 @@
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
   border-radius: 0.35em;
-  border: #516d57 solid 1px;
+  border: #9fb59d solid 1px;
   background-color: rgba(255, 255, 255, 0.75);
   visibility: hidden;
   opacity: 0;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
-  color: #000000;
+  color: #516d57;
 }
 
 .nav-bar .dropdown.isOpen {
