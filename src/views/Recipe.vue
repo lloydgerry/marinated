@@ -25,12 +25,15 @@
         <img :src="recipe.image_url">
       </div>
       <div>
+        <div class="summary">
+          {{recipe.summary}}
+        </div>
         <div 
           class="prep"
           v-for="preparation in recipe.preparation" 
           :key="preparation.index"
         >
-          {{ preparation }}
+          - {{ preparation }}
         </div>
       </div>
     </div>
