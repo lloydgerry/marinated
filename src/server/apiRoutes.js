@@ -160,23 +160,29 @@ module.exports = function(router) {
       })
     });
   });
-  
-  // router.get('/user/:id/mealplan', (request, response) => {
-  //   const dbQuery = `
-  //     SELECT * 
-  //     FROM plan_recipes
-  //     JOIN meal_plans ON meal_plan.id = meal_plans_id
-  //     JOIN recipes ON recipes.id = recipe_id
-  //     WHERE user_id is $1;
-  //   `;
-  //   const dbParams = [request.body.id];
-  //   return database.query(dbQuery, dbParams)
-  //     .then(data => response.send(data.rows))
-  //     .catch(e => {
-  //       console.error('Error in apiRoutes mealplan: ', e);
-  //       response.send(e);
-  //     });
-  // });
+
+  router.get('/user/:id/mealplans', (request,response) => {
+    pool.connect((error, client, release) => {
+      if (error) console.log('the error is in meal plan request: ', error)
+
+      const dbQuery = `
+        SELECT *
+        FROM meal_plans
+        WHERE user_id = $1;
+        `;
+      const dbParams = [request.params.id];
+      return client.query(dbQuery, dbParams)
+        .then(data => {
+          release();
+          response.send(data.rows);
+        })
+        .catch(e => {
+          console.error('Error in apiRoutes mealplans: ', e);
+          response.send(e);
+        });
+    })
+  });
+
 
   router.put('/user/:id/recipes', (request, response) => {
     pool.connect((error, client, release) => {
@@ -202,6 +208,47 @@ module.exports = function(router) {
       })
     })
   })
+  
+  router.post('/mealplan', (request, response) => {
+    pool.connect((error, client, release) => {
+      if (error) console.log('the error is in mealplan recipes post', error);
+        const dbQuery = `
+          INSERT INTO meal_plans (name, user_id, plan_array)
+          VALUES ($1, $2, $3)
+          RETURNING id, name;
+        `;
+        const dbParams = [request.body.name, request.body.userId, request.body.array];
+        console.log('dbParams:', dbParams);
+        
+        client.query(dbQuery, dbParams)
+          .then(res => {
+            release();
+            response.send(res);
+          })
+          .catch(err => console.log('Error in saving new meal plan:', err));
+    })
+  });
+
+  router.put('/mealplan/:id', (request, response) => {
+    pool.connect((error, client, release) => {
+      if (error) console.log('the error is in mealplan recipes post', error);
+        const dbQuery = `
+          UPDATE meal_plans 
+          SET name = $1 , plan_array = $2
+          WHERE id = $3
+          RETURNING id, name;
+        `;
+        const dbParams = [request.body.name, request.body.array, request.params.id];
+        console.log('dbParams:', dbParams);
+        
+        client.query(dbQuery, dbParams)
+          .then(res => {
+            release();
+            response.send(res);
+          })
+          .catch(err => console.log('Error in saving new meal plan:', err));
+    })
+  });
 
   return router;
 };
