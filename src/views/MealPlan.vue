@@ -13,8 +13,8 @@
             </select>
           </span>
           <span>
-            <form id="save-form" @submit.prevent="savePlan">
-              <input type="text" :placeholder="placeholder" class="form-input" minimumlength=1 required/>
+            <form id="save-form" @submit.prevent="savePlan()">
+              <input type="text" placeholder="Give Your Plan A Name" class="form-input" minimumlength=1 required v-model="planName"/>
               <input type="submit" class="btn" value="SAVE"/>
             </form>
           </span>
@@ -148,9 +148,9 @@ export default {
       userPlans: store.state.userMealPlans,
       planRecipes: [],
       deleteThis: [],
-      placeholder: 'Give Your Plan A Name',
+      planName: '',
       emptyTable: this.createEmptyTable(),
-      key: ''
+      key: 0
     };
   },
   methods: {  
@@ -204,32 +204,23 @@ export default {
     getChildPayload1 (index) {
       return this.items2[index]
     },
-    fetchMealPlanRecipes( planId ) {
-      return axios.get(`/api/mealplan/${planId}`)
-        .then(res => {
-           this.planRecipes = res.data;
-           return res.data;
-        })
-        .catch(e => console.log('error in fetching recipes: ', e))
-    },
     changeMealPlan(event) {
       const id = event.target.value
       console.log(id);
+      console.log(this.key, '= key======');
       
-      if (id !== '0'){
-        this.fetchMealPlanRecipes(id)
-          .then(res => {
-            this.fillTableWithPlan(res); 
-            const selectedPlan = store.state.userMealPlans.filter(plan => plan.id === Number(id))[0];
-            this.placeholder = selectedPlan.name;
-          })
-          .catch(e => console.error(e));
+      if (id !== '0') {
+        const selectedPlan = store.state.userMealPlans.filter(plan => plan.id === Number(id))[0];
+        console.log(selectedPlan.plan_array)
+        this.fillTableWithPlan(selectedPlan.plan_array); 
+        this.placeholder = selectedPlan.name;
       } else {
         this.fillTableWithPlan(this.emptyTable);
         this.placeholder = 'Give Your Plan A Name';
       }
     },
     fillTableWithPlan (tableFill) {
+      // console.log(tableFill)
       let i = 0;
       for (let j = 0; j < 7; j++ ) {
         for (let k = 0; k < 3; k++) {
@@ -240,9 +231,27 @@ export default {
       }
     },
     savePlan() {
-      // if () {
-
-      // }
+      let savedTable = [];
+      let index = 0;
+      for (let i = 0; i < 7; i++){
+        for (let j = 0; j < 3; j++) {
+          savedTable.push({"id": this.scene.children[i].children[j].props.recipe.id, "title": this.scene.children[i].children[j].title, "position": index});
+          index++;
+        }
+      }
+      const toSend = JSON.stringify(savedTable);
+      const sendObject = {name: this.planName, userId: store.state.user.id, array: toSend}
+      if (this.key === 0) {
+        //save new plan
+        axios.post('/api/mealplan', sendObject)
+          .then(res => console.log(res))
+          .catch(err => console.log('error on save of plan ', err));
+      } else {
+        //save existing plan
+        axios.put(`/api/mealplan/${this.key}`, sendObject)
+          .then(res => console.log(res))
+          .catch(err => console.log('error on save of plan ', err));
+      }
     },
     createEmptyTable() {
       let result = [];
