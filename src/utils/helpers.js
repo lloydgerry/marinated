@@ -1,19 +1,13 @@
 export const applyDrag = (arr, dragResult) => {
-  // const { removedIndex, addedIndex, payload, element } = dropResult;
-  const { removedIndex, addedIndex, payload } = dragResult
-  if (removedIndex === null && addedIndex === null) return arr
-  // console.log('removedIndex: ',removedIndex, 'addedIndex: ',addedIndex, 'payload: ',payload);
+  const { removedIndex, addedIndex, payload } = dragResult;
+  if (removedIndex === null && addedIndex === null) return arr;
+  console.log('removedIndex: ',removedIndex, 'addedIndex: ',addedIndex, 'payload: ',payload);
   // console.log(dragResult);
   // console.log(payload.title);
   const result = arr;
   console.log(payload.props);
   
-  if (payload.props) {
-
-    // let itemToAdd = payload;
-    // if (removedIndex !== null) {
-    //   itemToAdd = result.splice(removedIndex, 1)[0];
-    // }
+  if (payload.props.onTable === false) {
     console.log(payload.props.recipe.title);
     result[addedIndex].title = payload.props.recipe.title;
     result[addedIndex].props.recipe = payload.props.recipe;

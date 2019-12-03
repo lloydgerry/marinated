@@ -11,7 +11,6 @@
       justify-content: space-around;
       height: 30px;
       z-index: 2;
-      // background-color: yellow;
       margin-bottom: 10px;
       #save-form {
         display: flex;
@@ -21,6 +20,7 @@
         }
         .btn {
           width: 50px;
+          cursor: pointer;
         }
       }
     }
@@ -31,36 +31,39 @@
     height: 250px;
     z-index: 1;
     padding-top: 10px;
-    // padding: 10 0;
     margin: 0px;
     border: solid black 1px;
     background-color: lightgray;
     font-size: 18px;
     .smooth-dnd-container {
-      // margin-top: 10px;
-      width: 100%;
-      min-width: 100px;
-      // max-width: 200px;
+      width: 200px; //width of columns
       .smooth-dnd-draggable-wrapper {
-        // width: 14%;
         .card-container {
           min-width: 100%;
-          // padding: 10px;
-          // margin: 5px;
           height: 200px;
           background-color: #f3f3f3;
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
-
           .smooth-dnd-container {
             .smooth-dnd-draggable-wrapper {
               .card {
+                display: flex;
+                align-items: center;
                 margin: 1px;
                 height: 45px;
-                /* border: 1px solid #ccc; */
-                // border: solid grey 1px;
-                background-color: white;
+                background-color: whitesmoke;
                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
                 padding: 10px;
+                word-break: normal;
+                cursor: default;
+                a {
+                  position:relative;
+                  top: -20px;
+                  right: -97%;
+                  color: grey;
+                  &:hover {
+                    color: red;
+                  }
+                }
               }
             }
           }
@@ -80,46 +83,20 @@
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg)
   }
-  
-  // .opacity-ghost {
-  //   transition: all .18s ease;
-  //   opacity: 0.8;
-  //   // transform: rotateZ(5deg);
-  //   background-color: cornflowerblue;
-  //   box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
-  // }
-  
-  // .opacity-ghost-drop {
-  //     opacity: 1;
-  //     // transform: rotateZ(0deg);
-  //     background-color: white;
-  //     // box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.0);
-  // }
-
-  
-  
   .bottom-bar {
     margin-top: 270px;
     display: flex;
     flex-direction: row;
-    .delete-area {
-      position: fixed;
-      background: red;
-      height: 175px;
-      width: 150px;
-      margin-right: 10px;
-    }
+    justify-content: center;
     .smooth-dnd-container{
-      margin-left: 175px;
+      margin-left: 50px;
       display: flex;
       flex-flow: row wrap;
       overflow-y: scroll;
-      // min-height: 200px;
-      // height: 700px;
-      // width: 175px;
       .smooth-dnd-draggable-wrapper {
         height: 230px;
         .card {
+          text-align: center;
           margin: 3px;
           height: 225px;
           width: 200px;
@@ -127,6 +104,7 @@
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
           .recipe-card {
             height: 250px;
+            cursor: default;
             img {
               max-width: 200px;
               height: auto;

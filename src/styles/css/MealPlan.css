@@ -56,11 +56,11 @@
 
 .simple-page .menu #save-area #save-form .btn {
   width: 50px;
+  cursor: pointer;
 }
 
 .simple-page .menu .smooth-dnd-container {
-  width: 100%;
-  min-width: 100px;
+  width: 200px;
 }
 
 .simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container {
@@ -72,13 +72,31 @@
 }
 
 .simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 1px;
   height: 45px;
-  /* border: 1px solid #ccc; */
-  background-color: white;
+  background-color: whitesmoke;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
   padding: 10px;
+  word-break: normal;
+  cursor: default;
+}
+
+.simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card a {
+  position: relative;
+  top: -20px;
+  right: -97%;
+  color: grey;
+}
+
+.simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card a:hover {
+  color: red;
 }
 
 .simple-page .card-ghost {
@@ -111,18 +129,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-}
-
-.simple-page .bottom-bar .delete-area {
-  position: fixed;
-  background: red;
-  height: 175px;
-  width: 150px;
-  margin-right: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .simple-page .bottom-bar .smooth-dnd-container {
-  margin-left: 175px;
+  margin-left: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -138,6 +151,7 @@
 }
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card {
+  text-align: center;
   margin: 3px;
   height: 225px;
   width: 200px;
@@ -148,6 +162,7 @@
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card .recipe-card {
   height: 250px;
+  cursor: default;
 }
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card .recipe-card img {
