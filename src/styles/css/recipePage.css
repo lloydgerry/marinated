@@ -6,7 +6,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  padding: 5%;
 }
 
 .recipe-display .grid-container {
@@ -20,10 +19,11 @@
   font-size: 50px;
   color: #5C5463;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .recipe-display .grid-container p {
-  color: #ffffff;
+  color: black;
   margin: 5px 0px;
 }
 
@@ -38,6 +38,11 @@
 
 .recipe-display .grid-container img {
   max-width: 100%;
+}
+
+.recipe-display .grid-container .summary {
+  margin: 20px 0;
+  font-size: 18px;
 }
 
 .recipe-display .grid-container .prep {

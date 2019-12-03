@@ -16,13 +16,15 @@
   top: 75px;
   left: 0;
   width: 100%;
-  height: 250px;
+  height: 260px;
   z-index: 1;
   padding-top: 10px;
   margin: 0px;
   border: solid black 1px;
   background-color: lightgray;
   font-size: 18px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .simple-page .menu #save-area {
@@ -40,6 +42,17 @@
   margin-bottom: 10px;
 }
 
+.simple-page .menu #save-area label {
+  font-size: 14px;
+}
+
+.simple-page .menu #save-area #meal-plan-selector {
+  width: 150px;
+  border-radius: 34px;
+  border: 1px solid #e6e6e6;
+  padding: 0 1em;
+}
+
 .simple-page .menu #save-area #save-form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -51,12 +64,20 @@
 }
 
 .simple-page .menu #save-area #save-form .form-input {
+  border-radius: 34px;
+  border: 1px solid #e6e6e6;
+  padding: 0 1em;
   width: 200px;
 }
 
 .simple-page .menu #save-area #save-form .btn {
-  width: 50px;
+  background-color: #6b7d83;
+  margin-left: 10px;
+  border-radius: 34px;
+  border: 2px solid #e6e6e6;
+  width: 6.5em;
   cursor: pointer;
+  color: #ffffff;
 }
 
 .simple-page .menu .smooth-dnd-container {
@@ -65,10 +86,12 @@
 
 .simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container {
   min-width: 100%;
-  height: 200px;
-  background-color: #f3f3f3;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+  height: 220px;
+  background-color: lightgrey;
+}
+
+.simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .card-column-header {
+  text-align: center;
 }
 
 .simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card {
@@ -158,6 +181,7 @@
   background-color: whitesmoke;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
 }
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card .recipe-card {
@@ -166,6 +190,8 @@
 }
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card .recipe-card img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   max-width: 200px;
   height: auto;
 }

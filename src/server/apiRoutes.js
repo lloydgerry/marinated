@@ -7,6 +7,7 @@ module.exports = function(router) {
     const user = {id: 1, email: req.body.email, name: 'Hermione'};
     if (user) {
       req.session.userId = user.id;
+      user.token = req.session.userId;
       res.send(user);
     } else {
       res.send(0);
@@ -42,9 +43,10 @@ module.exports = function(router) {
 
       const dbQuery = `
       SELECT * FROM recipes 
-      WHERE search_array @@ to_tsquery($1)
+      WHERE search_array @@ plainto_tsquery($1)
       `;
-      const dbParams = [request.body.search_query];
+      const dbParams = [request.body.search_query]
+      console.log("typeof reqeust.body search query", typeof request.body.search_query)
       console.log("request.body: ", request.body)
       console.log("dbParams in searchRecipes: ", dbParams)
 
