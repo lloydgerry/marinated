@@ -68,8 +68,8 @@ export default {
               name: "Meal Plan"
             },
             {
-              url: "/user-saved",
-              name: "View Saved"
+              url: "/savedforlater",
+              name: "Saved Recipes"
             },
             {
               url: "/logout",
