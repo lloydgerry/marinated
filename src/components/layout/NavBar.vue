@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <router-link to="/" title="Marinated"><h1>Marinated</h1></router-link> 
+    <router-link to="/" title="Marinated"><h1 id="nav-item-white">Marinated</h1></router-link> 
     <ul id="navigation">
       <li v-if="!this.$store.state.user.id > 0 ">
         <template>
@@ -36,6 +36,7 @@
         <template>
           <a 
             id="nav-item-white"
+            class="search-item"
             :href="navList[2].url" 
             :title="navList[2].name">
             {{ navList[2].name }}
