@@ -14,7 +14,7 @@
           </span>
           <span>
             <form id="save-form" @submit.prevent="savePlan">
-              <input type="text" :placeholder="placeholder" class="form-input"/>
+              <input type="text" :placeholder="placeholder" class="form-input" minimumlength=1 required/>
               <input type="submit" class="btn" value="SAVE"/>
             </form>
           </span>
@@ -111,7 +111,7 @@
           onTable: true,
           recipe: {}
         },
-        title: `Empty ${i}${j}`
+        title: ``
       }))
     }))
   }
@@ -240,7 +240,9 @@ export default {
       }
     },
     savePlan() {
+      // if () {
 
+      // }
     },
     createEmptyTable() {
       let result = [];
