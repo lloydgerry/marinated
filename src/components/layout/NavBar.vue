@@ -4,7 +4,10 @@
     <ul id="navigation">
       <li v-if="!this.$store.state.user.id > 0 ">
         <template>
-          <a @click="login" :title="navList[0].name">
+          <a
+            id="nav-item-white"
+            @click="login" 
+            :title="navList[0].name">
             {{ navList[0].name }}
           </a>
         </template>
@@ -12,6 +15,7 @@
       <li v-else>
         <template class="menu">
           <a 
+            id="nav-item-white"
             :title="navList[1].name" 
             @click="isOpen = !isOpen, active = !active" 
             :class="{ active }"
@@ -30,7 +34,10 @@
         </template>
       <li>
         <template>
-          <a :href="navList[2].url" :title="navList[2].name">
+          <a 
+            id="nav-item-white"
+            :href="navList[2].url" 
+            :title="navList[2].name">
             {{ navList[2].name }}
           </a>
         </template>

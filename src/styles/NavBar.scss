@@ -1,5 +1,10 @@
 @import "./partials/variables";
 
+#nav-item-white {
+  color: white;
+  cursor: pointer;
+}
+
 .nav-bar {
   position: fixed;
   top:0;
@@ -37,7 +42,8 @@
         display: block;
         padding: 0.55em 1em;
         text-decoration: none;
-        color: darken($text-primary, 15%);
+        // color: darken($dropdown-color, 0%);
+        color: white;
         border-radius: 0.35em;
         background-color: transparent;
         transition: all 200ms ease;
@@ -54,6 +60,7 @@
 
       .nav-link {
         background-color: transparent;
+        color: black;
         text-align: left;
       }
     }
@@ -70,7 +77,7 @@
     visibility: hidden;
     opacity: 0;
     transition: all 200ms linear;
-    color: $text-primary;
+    color: $dropdown-color;
     &.isOpen {
       transform: translatex(-50%);
       visibility: visible;

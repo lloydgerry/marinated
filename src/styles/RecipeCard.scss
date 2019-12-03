@@ -3,13 +3,15 @@
 
 
 .card-container {
-  margin: 25px 10px;
+  margin: 10px 10px;
   padding: 0;
   position: relative;
   width: 300px;
   height: 400px;
-  background: whitesmoke;
-  border: 1px black solid;
+  // background: rgb(255, 255, 255); 
+  background: #FBF9F4;
+  // border: 1px #6b7d83 solid;
+  border-radius: 5px;
   overflow: hidden;
   .card-link {
     width: 300px;
@@ -19,13 +21,16 @@
     .card-media {
       max-width:300px;
       max-height:auto;
+      position: relative;
+      top: 0;
     }
     .card-title {
+      margin-left: 8px;
       font-family: 'Cormorant Garamond', serif;
       font-size: 30px;
       font-weight: 300;
       line-height: 40px;
-      color: black;
+      color: #191919;
       text-decoration: none!important;
       // margin: 10px 10px;
     }
@@ -37,8 +42,22 @@
       overflow: hidden;
     }
     .subtle {
-      color: #aaa;
+      color: #6b7d83;
     }
+  }
+
+  .favourite-icon {
+    border-bottom-left-radius: 10px;
+    height: 25px;
+    width: 24px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
   }
   // .card-shadow {
   //   background-color: #fff;

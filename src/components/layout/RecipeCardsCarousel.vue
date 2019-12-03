@@ -1,5 +1,5 @@
 <template>
-  <div > 
+  <div class="carousel-background"> 
     <draggable v-model="recipeCarouselArray">
       <transition-group class="recipe-carousel centered">
         <div v-for="recipe in RecipeCards" :key="recipe.id" class="recipe-carousel-item">

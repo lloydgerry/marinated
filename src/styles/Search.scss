@@ -1,16 +1,23 @@
 
-
+@import "./partials/variables";
 
 div {
   font-family: karlaregular,sans-serif;
-  margin: 20px;
   font-size: 1em;
+  width: 100%;
+}
+
+h2 {
+  color: white;
+  font-family: $main-font;
+  margin-bottom: 10px;
 }
 
 .search-container {
   display: flex;
   justify-content: flex-start;
   height: 2.5em;
+  padding: 5px;
 
 }
 
@@ -32,3 +39,11 @@ div {
 .search-error-msg {
     margin: 2em
   }
+
+.page-colour {
+  background-color: $blackish-background;
+  padding: 20px;
+  min-height: 1000px;
+  height: 100%;
+  width: 100%;
+}

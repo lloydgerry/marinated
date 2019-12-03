@@ -1,19 +1,19 @@
 <template>
   <div class="card-container">
+   
     <router-link :to="{ name: 'recipe', params: { id: recipe.id } }" class="card-link">
 
       <img v-bind:src=recipe.image_url  alt="" class="card-media"/>
-  
-      <!-- <span class="card-number card-circle subtle">{{recipeCard.id}}</span> -->
-      <h2 class="card-title">{{recipe.title}} </h2>  
-      <div v-if="loggedIn" class="favourite-icon" id="favourite-icon">
+       <div v-if="loggedIn" class="favourite-icon" id="favourite-icon">
         <div v-if="userFav" >
-          <img src="../../assets/heart-added.png" > 
+          <img src="../../assets/heart-added-color.png" > 
         </div>
         <div v-else>
           <img src="../../assets/heart-add.png" v-on:click.prevent="addThisRecipeToUser" >
         </div>
-     </div>
+      </div>
+      <h2 class="card-title">{{recipe.title}} </h2>  
+      
       <span class="card-summary subtle">{{recipe.summary}}</span>
 
     </router-link>  
