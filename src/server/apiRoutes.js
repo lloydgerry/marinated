@@ -139,45 +139,69 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/user/:id', (request, response) => {
+  router.get('/user/:id/recipes', (request, response) => {
     pool.connect((error, client, release) => {
-      if (error) {console.log('the error is here,',error)};
 
       const dbQuery = `
-      SELECT * 
-      FROM user_recipes
-      JOIN recipes ON recipes.id = recipe_id
-      WHERE user_id = $1;
-    `;
+        SELECT * 
+        FROM user_recipes
+        JOIN recipes ON recipes.id = recipe_id
+        WHERE user_id = $1;
+      `;
       const dbParams = [request.params.id];
-      return client.query(dbQuery, dbParams)
-        .then(data => {
-          release();
-          response.send(data.rows);
-        })
-        .catch(e => {
-          console.error('Error in apiRoutes user id: ', e);
-          response.send(e);
-        });
+
+    return client.query(dbQuery, dbParams)
+      .then(recipes => {
+      release()
+      response.send(recipes.rows) 
+      })
+      .catch(error => {
+      console.error('error in apiRoutes user recipes', error);
+      })
     });
   });
   
-  router.get('/user/:id/mealplan', (request, response) => {
+  // router.get('/user/:id/mealplan', (request, response) => {
+  //   const dbQuery = `
+  //     SELECT * 
+  //     FROM plan_recipes
+  //     JOIN meal_plans ON meal_plan.id = meal_plans_id
+  //     JOIN recipes ON recipes.id = recipe_id
+  //     WHERE user_id is $1;
+  //   `;
+  //   const dbParams = [request.body.id];
+  //   return database.query(dbQuery, dbParams)
+  //     .then(data => response.send(data.rows))
+  //     .catch(e => {
+  //       console.error('Error in apiRoutes mealplan: ', e);
+  //       response.send(e);
+  //     });
+  // });
+
+  router.put('/user/:id/recipes', (request, response) => {
+    pool.connect((error, client, release) => {
+
+    if (error) {console.log(error)}
+
     const dbQuery = `
-      SELECT * 
-      FROM plan_recipes
-      JOIN meal_plans ON meal_plan.id = meal_plans_id
-      JOIN recipes ON recipes.id = recipe_id
-      WHERE user_id is $1;
-    `;
-    const dbParams = [request.body.id];
-    return database.query(dbQuery, dbParams)
-      .then(data => response.send(data.rows))
-      .catch(e => {
-        console.error('Error in apiRoutes mealplan: ', e);
-        response.send(e);
-      });
-  });
+    INSERT INTO user_recipes (user_id, recipe_id, saved_date, rating)
+    VALUES
+      ($1, $2, NOW(), 0);
+      `;
+    const dbParams = [request.params.id, request.body.recipeId];
+    console.log('dbParams', dbParams)
+
+    return client.query(dbQuery,dbParams)
+      .then(() => {
+        release()
+        response.send() 
+        console.log("saved for later added to user data")
+      })
+      .catch(error => {
+        console.error('error in apiroutes update user recipe info', error);
+      })
+    })
+  })
 
   return router;
 };

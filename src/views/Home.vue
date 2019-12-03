@@ -34,7 +34,6 @@ export default {
       return this.$store.state.recipes
     }
   },
-
   data() {
     return {
       mealCardIsOpen: false,
