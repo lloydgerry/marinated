@@ -3,20 +3,14 @@
     <NavBar/>
     <DivSpace/>
     <span>{{ errorMsg }}</span>
-    <div v-if="mealCardIsOpen">
-      <PlanDrawer />
-    </div>  
     <RecipeCardsCarousel v-bind:RecipeCards="this.$store.state.recipes"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import NavBar from "../components/layout/NavBar.vue"
 import DivSpace from "../components/layout/DivSpace.vue"
-import PlanDrawer from "../components/PlanDrawer"
 import RecipeCardsCarousel from "../components/layout/RecipeCardsCarousel"
-// const axios = require('axios')
 
 import { mapActions, mapState } from 'vuex';
 
@@ -25,7 +19,6 @@ export default {
   state: {...mapState},
   components: {
     NavBar,
-    PlanDrawer,
     RecipeCardsCarousel,
     DivSpace
   },
@@ -56,12 +49,6 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAllRecipesData']),
-    mealCardClose() {
-      this.mealCardIsOpen = false
-    },
-    mealCardOpen() {
-      this.mealCardIsOpen = true
-    }
   }
 }
 </script>
