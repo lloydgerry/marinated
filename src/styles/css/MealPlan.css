@@ -60,8 +60,7 @@
 }
 
 .simple-page .menu .smooth-dnd-container {
-  width: 100%;
-  min-width: 150px;
+  width: 200px;
 }
 
 .simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container {
@@ -87,6 +86,17 @@
   padding: 10px;
   word-break: normal;
   cursor: default;
+}
+
+.simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card a {
+  position: relative;
+  top: -20px;
+  right: -97%;
+  color: grey;
+}
+
+.simple-page .menu .smooth-dnd-container .smooth-dnd-draggable-wrapper .card-container .smooth-dnd-container .smooth-dnd-draggable-wrapper .card a:hover {
+  color: red;
 }
 
 .simple-page .card-ghost {
@@ -141,6 +151,7 @@
 }
 
 .simple-page .bottom-bar .smooth-dnd-container .smooth-dnd-draggable-wrapper .card {
+  text-align: center;
   margin: 3px;
   height: 225px;
   width: 200px;

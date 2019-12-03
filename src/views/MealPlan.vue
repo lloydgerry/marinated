@@ -40,9 +40,9 @@
                   :drop-placeholder="dropPlaceholderOptions"
                 >
                   <Draggable v-for="card in column.children" :key="card.index">
-                    <div :class="card.props.className" :style="card.props.style">
+                    <div :class="card.props.className">
+                      <a @click="card.title=''">✘</a>
                       <p>{{ card.title }}</p>
-                      <!-- <span style="position: right">🗑</span> -->
                     </div>
                   </Draggable>
                 </Container>
@@ -52,32 +52,23 @@
       </div>
 
       <div class="bottom-bar">
-        <!-- <div class="delete-area">
-          <Container group-name="col" @drop="onDelete('items2', $event)" >
-            <Draggable v-for="card in deleteThis" :key="card.id">
-              <div class="card.props.className" :style="card.props.style">
-                {{card.title}}
+        <Container 
+          behaviour="copy" 
+          group-name="col" 
+          :get-child-payload="getChildPayload1" 
+          drag-class="card-ghost"
+          drop-class="card-ghost-drop" 
+        >
+        <!-- recipe cards -->
+          <Draggable v-for="card in items2" :key="card.id" >
+            <div class="card" >
+              <div class="recipe-card">
+                <img :src="card.props.recipe.image_url"/>
+                {{card.props.recipe.title}}
               </div>
-            </Draggable>
-          </Container>
-        </div> -->
-          <Container 
-            behaviour="copy" 
-            group-name="col" 
-            :get-child-payload="getChildPayload1" 
-            drag-class="card-ghost"
-            drop-class="card-ghost-drop" 
-          >
-          <!-- recipe cards -->
-            <Draggable v-for="card in items2" :key="card.id" >
-              <div class="card" >
-                <div class="recipe-card">
-                  <img :src="card.props.recipe.image_url"/>
-                  {{card.props.recipe.title}}
-                  </div>
-              </div>
-            </Draggable>
-          </Container>
+            </div>
+          </Draggable>
+        </Container>
       </div>
 
     </div>
