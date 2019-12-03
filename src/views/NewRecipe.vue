@@ -55,20 +55,20 @@
           <div class="ingredients grid-item wrap-input100 rs1-wrap-input100">
             Ingredients 
             <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.ingredients" />
-            <form v-if=" this.seenIngredientName" @submit="addIngredient">
-              <input type="text" v-model="ingredientName"  v-on:keyup.enter="addIngredient" placeholder="Type your item here" > 
-              <input type="submit" value="+">
+            <form v-if=" this.seenIngredientName">
+              <input class="input100 small-field" type="text" v-model="ingredientName"  v-on:keyup.enter.prevent="addIngredient" placeholder="Type your item here" > 
+              <button class="btn" v-on:click.prevent="addIngredient" value="Add Item"> Add item </button>
               </form>
-              <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> Add item </button></p>
+              <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> New item </button></p>
           </div>
 
           <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
             Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
-              <form v-if="seenPreparationName" @submit="addPreparation">
-              <input type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
-              <input type="submit" value="+">
+              <form v-if="seenPreparationName">
+              <input class="input100 small-field" type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
+              <button class="btn" v-on:click.prevent="addPreparation" value="Add item"> Add item </button>
               </form>
-              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> Add item </button></p>
+              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> New item </button></p>
           </div>
 
           <div class="tags grid-item wrap-input100 rs1-wrap-input100">
