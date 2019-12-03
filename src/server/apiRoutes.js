@@ -24,7 +24,7 @@ module.exports = function(router) {
 
       if (error) {console.log(error)}
 
-    return client.query(`SELECT * FROM recipes;`)
+    return client.query(`SELECT * FROM recipes ORDER BY id DESC;`)
       .then(recipes => {
         release()
         response.send(recipes.rows) 
