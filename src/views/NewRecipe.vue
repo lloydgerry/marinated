@@ -15,6 +15,13 @@
           </div>
         </form>
 
+        <p v-if="errors.length" class="error-message">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
+        </ul>
+        </p>
+
         <form class="contact100-form validate-form" @submit="submitForm">
  
           <div class="new-recipe-title grid-item wrap-input100 rs1-wrap-input100 validate-input" data-validate="Title is required" >
@@ -22,7 +29,7 @@
           </div>
 
           <div class="grid-item wrap-input100 rs1-wrap-input100">
-            Summary <input class="input100 large-field" type="textarea" v-model="recipe.summary" />
+            Summary <textarea class="input100 large-field" type="textarea" v-model="recipe.summary" />
           </div>
         
           <div class="grid-item wrap-input100 rs1-wrap-input100">
@@ -46,7 +53,8 @@
           </div>
 
           <div class="ingredients grid-item wrap-input100 rs1-wrap-input100">
-            Ingredients <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.ingredients" />
+            Ingredients 
+            <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.ingredients" />
             <form v-if=" this.seenIngredientName" @submit="addIngredient">
               <input type="text" v-model="ingredientName"  v-on:keyup.enter="addIngredient" placeholder="Type your item here" > 
               <input type="submit" value="+">
@@ -57,7 +65,7 @@
           <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
             Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
               <form v-if="seenPreparationName" @submit="addPreparation">
-              <input type="text" v-model="preparationName"  v-on:keyup.enter="addPreparation" placeholder="Type your item here" > 
+              <input type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
               <input type="submit" value="+">
               </form>
               <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> Add item </button></p>
@@ -68,11 +76,15 @@
           </div>
 
           <div id="submit-form-btn">
-            <input type="submit" class="btn submit-recipe" value="Create New Recipe" />
+            <input type="submit" v-on:click.prevent="submitForm" class="btn submit-recipe" value="Create New Recipe" />
           </div>
-
       </form>
-
+      <p v-if="errors.length" class="error-message">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li class="error-messages" v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
+        </ul>
+        </p>
     </div>
     </div>
 	</div>
@@ -96,6 +108,7 @@ export default {
   },
   data() {
     return{
+      errors: [],
       output: '',
       loading: false,
       ingredientName: '',
@@ -105,7 +118,7 @@ export default {
       scrapeUrl: '',
       recipe: {
         summary: '',
-        title: '',
+        title: null,
         image_url: '',
         author: '',
         sourceUrl: '',
@@ -128,7 +141,11 @@ export default {
             this.output = "We're sorry, our gnomes got lost trying to find that recipe. Please try again."
             console.log("scraper likely timed out")
             setTimeout(() => this.loading = false, 10000)
-          } else {
+          } //else if (fetchedrecipe !== undefined) {
+          //   const recipeId = fetchedrecipe.data.rows[0].id
+          //   router.push({ name: 'recipe', params: { id: recipeId} })
+          // } 
+          else {
             console.log("fetched recipe data: ", fetchedrecipe)
             this.recipe = fetchedrecipe.data
             this.output = "Recipe loaded!"
@@ -139,6 +156,15 @@ export default {
     },
     submitForm: function(e) {
       e.preventDefault();
+      this.errors = [];
+       if (!this.recipe.title) {
+        this.errors.push('Title is required.');
+      }
+      if (this.recipe.preparation.length === 0) {
+        this.errors.push('Please fill out preparation.');
+      }
+      if (this.recipe.title && (this.recipe.preparation.length > 0)) {
+     
       axios.post('api/recipes-new', { recipe: this.recipe })
         .then(res => {
           console.log('recipe entered, go home to check it out.', res);
@@ -147,7 +173,7 @@ export default {
  )
         })
         .catch(error => console.log('error in post request', error));
-        
+      }
     },
     addIngredient: function(e, ingredientName) {
       e.preventDefault();

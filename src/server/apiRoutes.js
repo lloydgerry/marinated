@@ -74,10 +74,10 @@ module.exports = function(router) {
           console.log("query result", queryResult)
           release()
         })
-        .then( () => {
+        .then(() => {
           if (queryResult.rowCount !== 0) {
             console.log("yay this exists", queryResult)
-            return { exists: false };
+            // response.send(queryResult)
             } else {
               scraperRouter(dbParams[0])
                 .then(recipe => { 
