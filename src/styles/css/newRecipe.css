@@ -35,9 +35,17 @@ input.input100.small-field {
 }
 
 input.input100.large-field {
-  height: 200px;
+  min-height: 50px;
   width: 100%;
   word-wrap: break-word;
+}
+
+.error-message {
+  margin-bottom: 10px;
+}
+
+.error-messages {
+  color: red;
 }
 
 input {
@@ -46,6 +54,7 @@ input {
 }
 
 textarea {
+  height: 50px;
   outline: none;
   border: none;
 }
@@ -149,14 +158,13 @@ textarea:-ms-input-placeholder {
   max-width: 960px;
   background: #fff;
   border-radius: 2px;
-  padding: 66px 115px 59px 115px;
   position: relative;
 }
 
 /*==================================================================
 [ Form ]*/
 .contact100-form {
-  width: 100%;
+  width: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,7 +178,7 @@ textarea:-ms-input-placeholder {
 /*------------------------------------------------------------------
 [ Input ]*/
 .wrap-input100 {
-  width: 100%;
+  width: 90%;
   position: relative;
   background-color: transparent;
   margin-bottom: 35px;
@@ -196,7 +204,7 @@ textarea:-ms-input-placeholder {
   font-size: 14px;
   color: #686868;
   line-height: 1.2;
-  padding: 0 28px;
+  padding: 0 10px;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
   margin-top: 10px;
@@ -208,7 +216,7 @@ input.input100 {
 }
 
 textarea.input100 {
-  min-height: 150px;
+  min-height: 50px;
   padding-top: 19px;
   padding-bottom: 13px;
 }
