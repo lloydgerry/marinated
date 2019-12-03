@@ -8,14 +8,14 @@
           <span>
             <label for="meal-plan-selector">Select From Saved Plans:</label>
             <select id="meal-plan-selector" name="Plans" @change="changeMealPlan($event)" v-model="key">
-              <option>--Please choose an option--</option>
+              <option value="0">NEW PLAN</option>
               <option v-for="plan in userPlans" :key="plan.id" :value="plan.id">{{plan.name}}</option>
             </select>
           </span>
           <span>
-            <form id="save-form">
+            <form id="save-form" @submit.prevent="savePlan">
               <input type="text" :placeholder="placeholder" class="form-input"/>
-              <input type="submit" class="btn"/>
+              <input type="submit" class="btn" value="SAVE"/>
             </form>
           </span>
         </div>
@@ -108,7 +108,8 @@
         id: `${i}${j}`,
         props: {
           className: 'card',
-          onTable: true
+          onTable: true,
+          recipe: {}
         },
         title: `Empty ${i}${j}`
       }))
@@ -147,7 +148,8 @@ export default {
       userPlans: store.state.userMealPlans,
       planRecipes: [],
       deleteThis: [],
-      placeholder: 'Give Your Plan A Name'
+      placeholder: 'Give Your Plan A Name',
+      emptyTable: this.createEmptyTable(),
       key: ''
     };
   },
@@ -212,22 +214,40 @@ export default {
     },
     changeMealPlan(event) {
       const id = event.target.value
+      console.log(id);
+      
+      if (id !== '0'){
         this.fetchMealPlanRecipes(id)
           .then(res => {
-            this.fillTableWithPlan(res);
-            console.log('is array', res)
+            this.fillTableWithPlan(res); 
+            const selectedPlan = store.state.userMealPlans.filter(plan => plan.id === Number(id))[0];
+            this.placeholder = selectedPlan.name;
           })
           .catch(e => console.error(e));
+      } else {
+        this.fillTableWithPlan(this.emptyTable);
+        this.placeholder = 'Give Your Plan A Name';
+      }
     },
-    fillTableWithPlan () {
+    fillTableWithPlan (tableFill) {
       let i = 0;
       for (let j = 0; j < 7; j++ ) {
         for (let k = 0; k < 3; k++) {
-          this.scene.children[j].children[k].title = this.planRecipes[i].title;
-          this.scene.children[j].children[k].props.recipe.id = this.planRecipes[i].title;
+          this.scene.children[j].children[k].title = tableFill[i].title;
+          this.scene.children[j].children[k].props.recipe.id = tableFill[i].id;
           i++;
         }
       }
+    },
+    savePlan() {
+
+    },
+    createEmptyTable() {
+      let result = [];
+      for(let i = 0; i < 21; i++) {
+        result.push({title: '', id: 0});
+      }
+      return result;
     }
   }
 };
