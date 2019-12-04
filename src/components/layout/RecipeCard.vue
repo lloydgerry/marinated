@@ -65,6 +65,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.checkUserFav();
+  }
 }
 </script>
 
