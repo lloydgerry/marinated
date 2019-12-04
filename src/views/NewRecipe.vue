@@ -141,10 +141,12 @@ export default {
             this.output = "We're sorry, our gnomes got lost trying to find that recipe. Please try again."
             console.log("scraper likely timed out")
             setTimeout(() => this.loading = false, 10000)
-          } //else if (fetchedrecipe !== undefined) {
-          //   const recipeId = fetchedrecipe.data.rows[0].id
-          //   router.push({ name: 'recipe', params: { id: recipeId} })
-          // } 
+          } else if (fetchedrecipe.data.rowCount >= 1) {
+            this.output = "Found a recipe already in the database, routing you there."
+            setTimeout(() => {router.push({ name: 'recipe', params: { id: recipeId} })}, 2000)
+            const recipeId = fetchedrecipe.data.rows[0].id
+            
+          } 
           else {
             console.log("fetched recipe data: ", fetchedrecipe)
             this.recipe = fetchedrecipe.data
@@ -167,7 +169,6 @@ export default {
      
       axios.post('api/recipes-new', { recipe: this.recipe })
         .then(res => {
-          console.log('recipe entered, go home to check it out.', res);
           const recipeId = res.data.rows[0].id
           router.push({ name: 'recipe', params: { id: recipeId} }
  )
