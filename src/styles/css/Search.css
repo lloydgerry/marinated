@@ -1,3 +1,21 @@
+.main {
+  background-color: #181616;
+  padding: 20px 0;
+  min-height: 1000px;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 div {
   font-family: karlaregular,sans-serif;
   font-size: 1em;
@@ -14,9 +32,9 @@ h2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 2.5em;
   padding: 5px;
 }
@@ -25,7 +43,11 @@ h2 {
   border-radius: 34px;
   border: 2px solid #e6e6e6;
   width: 60%;
+  max-width: 300px;
   padding: 0 1em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .btn-round {
@@ -39,12 +61,3 @@ h2 {
 .search-error-msg {
   margin: 2em;
 }
-
-.page-colour {
-  background-color: #181616;
-  padding: 20px;
-  min-height: 1000px;
-  height: 100%;
-  width: 100%;
-}
-/*# sourceMappingURL=Search.css.map */

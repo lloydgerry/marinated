@@ -2,22 +2,23 @@
   <div>
     <NavBar />
     <DivSpace/>
-    <div class="page-colour">
-    <h2> Search Recipes </h2>
-    <div class="search-container">
-    <input
-      type="text"
-      class="search-box"
-      id="search-box"
-      label="Search"
-      margin="normal"
-      v-model="search_query"
-      v-on:keyup.enter="handleSearch" 
-    />
-    <input type="submit" class="btn-round" value="Search" v-on:click="handleSearch" />
+    <div class="main">
+     
+      <h2> Search Recipes </h2>
+       <div class="search-container">
+      <input
+        type="text"
+        class="search-box"
+        id="search-box"
+        label="Search"
+        margin="normal"
+        v-model="search_query"
+        v-on:keyup.enter="handleSearch" 
+      />
+        <input type="submit" class="btn-round" value="Search" v-on:click="handleSearch" />
     </div>
-    <h2 v-if="searchError" class="search-error-msg"> We're sorry, but there was no recipes with that search.  Maybe try Foodie? </h2>
-    <RecipeCardsCarousel class="search-display" v-bind:RecipeCards="RecipeCards"/>
+      <h2 v-if="searchError" class="search-error-msg"> We're sorry, but there was no recipes with that search.  Maybe try Foodie? </h2>
+      <RecipeCardsCarousel class="search-display" v-bind:RecipeCards="RecipeCards"/>
     </div>
   </div>
  
