@@ -8,18 +8,16 @@
           <div>
             <h2>Copy and paste a URL from one of our partner websites to auto-fill this form:</h2>
             <input class="input100 submit-scrape" type="url" v-model="scrapeUrl" required />
+            <input type="submit" value="Submit URL" class="btn submit-scrape" >
             <span class="loading-message-box submit-scrape" v-if="loading"> {{output}} </span>
-            <div id="submit-scrape-btn" >
-            <input type="submit" value="Submit URL Scrape" class="btn submit-scrape" >
-            </div>
           </div>
         </form>
 
         <p v-if="errors.length" class="error-message">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
-        </ul>
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li class="error-messages" v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
+          </ul>
         </p>
 
         <form class="contact100-form validate-form" @submit="submitForm">
@@ -29,27 +27,38 @@
           </div>
 
           <div class="grid-item wrap-input100 rs1-wrap-input100">
-            Summary <textarea class="input100 large-field" type="textarea" v-model="recipe.summary" />
-          </div>
-        
-          <div class="grid-item wrap-input100 rs1-wrap-input100">
             Author <input class="input100 small-field" type="text" v-model="recipe.author" />
           </div>
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Summary <textarea class="input100 large-field" type="textarea" v-model="recipe.summary" />
+          </div>
+          <div class="tags grid-item wrap-input100 rs1-wrap-input100">
+            Tags <textarea class="input100 small-field" type="text" v-model="recipe.tags" />
+          </div>
+          
 
           <div class="grid-item wrap-input100 rs1-wrap-input100"> 
             Image Link <input class="input100" type="text" v-model="recipe.image_url" />
+          </div>
+          <div class="grid-item wrap-input100 rs1-wrap-input100">
+            Servings <input class="input100 small-field" type="text" v-model="recipe.servings" />
           </div>
 
           <div class="grid-item wrap-input100 rs1-wrap-input100" >
             Source URL <input class="input100" type="text" v-model="recipe.source_url" placeholder="https://" />
           </div>
-
+          
           <div class="grid-item wrap-input100 rs1-wrap-input100">
             Prep Time <input class="input100 small-field" type="text" v-model="recipe.prep_time" />
           </div>
 
-          <div class="grid-item wrap-input100 rs1-wrap-input100">
-            Servings <input class="input100 small-field" type="text" v-model="recipe.servings" />
+          <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
+            Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
+              <form v-if="seenPreparationName" @submit="addPreparation">
+              <input type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
+              <input type="submit" value="+">
+              </form>
+              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> Add item </button></p>
           </div>
 
           <div class="ingredients grid-item wrap-input100 rs1-wrap-input100">
@@ -78,14 +87,16 @@
           <div id="submit-form-btn">
             <input type="submit" v-on:click.prevent="submitForm" class="btn submit-recipe" value="Create New Recipe" />
           </div>
-      </form>
-      <p v-if="errors.length" class="error-message">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li class="error-messages" v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
-        </ul>
+        </form>
+
+        <p v-if="errors.length" class="error-message">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li class="error-messages" v-for="error in errors" v-bind:key=errors[error]>{{ error }}</li>
+          </ul>
         </p>
-    </div>
+
+      </div>
     </div>
 	</div>
 </template>
