@@ -62,19 +62,6 @@
               <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> Add item </button></p>
           </div>
 
-          <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
-            Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
-              <form v-if="seenPreparationName" @submit="addPreparation">
-              <input type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
-              <input type="submit" value="+">
-              </form>
-              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> Add item </button></p>
-          </div>
-
-          <div class="tags grid-item wrap-input100 rs1-wrap-input100">
-            Tags <input class="input100" type="text" v-model="recipe.tags" />
-          </div>
-
           <div id="submit-form-btn">
             <input type="submit" v-on:click.prevent="submitForm" class="btn submit-recipe" value="Create New Recipe" />
           </div>
