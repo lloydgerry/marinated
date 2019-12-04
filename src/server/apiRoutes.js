@@ -189,28 +189,49 @@ module.exports = function(router) {
 
   router.put('/user/:id/recipes', (request, response) => {
     pool.connect((error, client, release) => {
+      if (error) {console.log(error)}
 
-    if (error) {console.log(error)}
+      const dbQuery = `
+      INSERT INTO user_recipes (user_id, recipe_id, saved_date, rating)
+      VALUES
+        ($1, $2, NOW(), 0);
+        `;
+      const dbParams = [request.params.id, request.body.recipeId];
+      console.log('dbParams', dbParams)
 
-    const dbQuery = `
-    INSERT INTO user_recipes (user_id, recipe_id, saved_date, rating)
-    VALUES
-      ($1, $2, NOW(), 0);
-      `;
-    const dbParams = [request.params.id, request.body.recipeId];
-    console.log('dbParams', dbParams)
-
-    return client.query(dbQuery,dbParams)
-      .then(() => {
-        release()
-        response.send() 
-        console.log("saved for later added to user data")
-      })
-      .catch(error => {
-        console.error('error in apiroutes update user recipe info', error);
-      })
+      return client.query(dbQuery,dbParams)
+        .then(() => {
+          release();
+          response.send();
+          console.log("saved for later added to user data");
+        })
+        .catch(error => {
+          console.error('error in apiroutes update user recipe info', error);
+        })
     })
-  })
+  });
+
+  //Removes recipe from saved for later list.
+  router.delete('/user/:id/recipes', (request, response) => {
+    pool.connect((error, client, release) => {
+      if (error) {console.log(error)}
+
+      const dbQuery = `
+      DELETE FROM user_recipes
+      WHERE user_id = $1 AND recipe_id = $2;
+      `;
+      const dbParams = [request.params.id, request.body.recipeId];
+      return client.query(dbQuery,dbParams)
+        .then(() => {
+          release();
+          response.send();
+          console.log("saved for later removed from user data");
+        })
+        .catch(error => {
+          console.error('error in apiroutes update user recipe info', error);
+        })
+    })
+  });
   
   router.post('/mealplan', (request, response) => {
     pool.connect((error, client, release) => {

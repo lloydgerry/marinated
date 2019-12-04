@@ -1,52 +1,56 @@
 <template>
-  <div class="about">
+  <div class="recipe-page">
     <NavBar/>
     <DivSpace/>
     <div class="recipe-display"> 
-    <div class="grid-container">
-      <div class="grid-item">
-        <h1>{{recipe.title}}</h1>
-        <p>Author: {{ recipe.author }}</p>
-        <p>Time: {{ recipe.prep_time }}</p>
-        <p>Servings: {{ recipe.servings }}</p>
+      <div class="grid-container">
+        <div class="grid-item">
+          <h1>{{recipe.title}}</h1>
+          <p>Author: {{ recipe.author }}</p>
+          <p>Time: {{ recipe.prep_time }}</p>
+          <p>Servings: {{ recipe.servings }}</p>
+        </div>
+        <div class="grid-item" id="ingredients">
+          <div 
+            class="ingredient"
+            v-for="ingredient in recipe.ingredients" 
+            :key="ingredient.index"
+          >
+            {{ ingredient }}
+          </div>
+        </div>
       </div>
-      <div class="grid-item" id="ingredients">
-        <div 
-          class="ingredient"
-          v-for="ingredient in recipe.ingredients" 
-          :key="ingredient.index"
-        >
-          {{ ingredient }}
+      <div class="grid-container">
+        <div class="grid-item" v-if="recipe.image_url !== '' && recipe.image_url !== 'undefined'">
+          <img :src="recipe.image_url">
+        </div>
+        <!-- <div v-else >
+          <img src="../assets/place_setting.jpg"/>
+        </div> -->
+        <div>
+          <div class="summary">
+            {{recipe.summary}}
+          </div>
+          <div 
+            class="prep"
+            v-for="preparation in recipe.preparation" 
+            :key="preparation.index"
+          >
+            - {{ preparation }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="grid-container">
-      <div class="grid-item" v-if="recipe.image_url === '' || recipe.image_url === 'undefined'">
-        <img src="../assets/place_setting.jpg"/>
-      </div>
-      <div v-else >
-        <img :src="recipe.image_url">
-      </div>
-      <div>
-        <div class="summary">
-          {{recipe.summary}}
-        </div>
-        <div 
-          class="prep"
-          v-for="preparation in recipe.preparation" 
-          :key="preparation.index"
-        >
-          - {{ preparation }}
-        </div>
-      </div>
+    <div class="save-button">
+      <a @click="changeSaveState">{{saveButtonMessage}}</a> 
     </div>
-  </div>
   </div>
 </template>
 
 <script>
 import NavBar from "../components/layout/NavBar.vue";
 import DivSpace from "../components/layout/DivSpace.vue";
+import store from "../store/index";
 import axios from 'axios';
 
 
@@ -59,18 +63,44 @@ export default {
   props: [ 'id'],
   data() {
     return {
-      recipe: {}
+      recipe: {},
+      saveButtonMessage: '',
+      saved: true
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData();
+    this.checkSave();
   },
   methods: {
     fetchData() {
       axios.get(`api/recipes/${this.id}`)
         .then(res => this.recipe = res.data[0])
+        .then()
         .catch(error => console.log("error from fetch data", error));
+    },
+    checkSave() {
+      const index = store.state.userRecipes.findIndex(r => r.id === this.recipe.id)
+      if (index < 0){
+        this.saved = false;
+        this.saveButtonMessage = "Save Recipe For Later";
+      } else {
+        this.saved = true;
+        this.saveButtonMessage = "Remove From Saved List";
+      }
+    },
+    changeSaveState() {
+      if (this.saved) {
+        // store.dispatch('addRecipeToUser', this.recipe);
+      } else {
+        // store.dispatch('removeRecipeFromUser', this.recipe);
+      }
+      this.checkSave();
+
     }
+  },
+  mounted: {
+
   }
 
 }
