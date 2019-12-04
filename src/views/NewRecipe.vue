@@ -64,11 +64,24 @@
           <div class="ingredients grid-item wrap-input100 rs1-wrap-input100">
             Ingredients 
             <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.ingredients" />
-            <form v-if=" this.seenIngredientName" @submit="addIngredient">
-              <input type="text" v-model="ingredientName"  v-on:keyup.enter="addIngredient" placeholder="Type your item here" > 
-              <input type="submit" value="+">
+            <form v-if=" this.seenIngredientName">
+              <input class="input100 small-field" type="text" v-model="ingredientName"  v-on:keyup.enter.prevent="addIngredient" placeholder="Type your item here" > 
+              <button class="btn" v-on:click.prevent="addIngredient" value="Add Item"> Add item </button>
               </form>
-              <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> Add item </button></p>
+              <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> New item </button></p>
+          </div>
+
+          <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
+            Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
+              <form v-if="seenPreparationName">
+              <input class="input100 small-field" type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
+              <button class="btn" v-on:click.prevent="addPreparation" value="Add item"> Add item </button>
+              </form>
+              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> New item </button></p>
+          </div>
+
+          <div class="tags grid-item wrap-input100 rs1-wrap-input100">
+            Tags <input class="input100" type="text" v-model="recipe.tags" />
           </div>
 
           <div id="submit-form-btn">
@@ -139,10 +152,12 @@ export default {
             this.output = "We're sorry, our gnomes got lost trying to find that recipe. Please try again."
             console.log("scraper likely timed out")
             setTimeout(() => this.loading = false, 10000)
-          } //else if (fetchedrecipe !== undefined) {
-          //   const recipeId = fetchedrecipe.data.rows[0].id
-          //   router.push({ name: 'recipe', params: { id: recipeId} })
-          // } 
+          } else if (fetchedrecipe.data.rowCount >= 1) {
+            this.output = "Found a recipe already in the database, routing you there."
+            setTimeout(() => {router.push({ name: 'recipe', params: { id: recipeId} })}, 2000)
+            const recipeId = fetchedrecipe.data.rows[0].id
+            
+          } 
           else {
             console.log("fetched recipe data: ", fetchedrecipe)
             this.recipe = fetchedrecipe.data
@@ -165,7 +180,6 @@ export default {
      
       axios.post('api/recipes-new', { recipe: this.recipe })
         .then(res => {
-          console.log('recipe entered, go home to check it out.', res);
           const recipeId = res.data.rows[0].id
           router.push({ name: 'recipe', params: { id: recipeId} }
  )
