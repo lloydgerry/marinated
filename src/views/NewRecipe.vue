@@ -71,19 +71,6 @@
               <p><button class="btn" v-on:click="seenIngredientName = !seenIngredientName"> New item </button></p>
           </div>
 
-          <div class="preparation grid-item wrap-input100 rs1-wrap-input100">
-            Preparation <IngredientsList class="input100 large-field" v-bind:ingredients="recipe.preparation" />
-              <form v-if="seenPreparationName">
-              <input class="input100 small-field" type="text" v-model="preparationName"  v-on:keyup.enter.prevent="addPreparation" placeholder="Type your item here" > 
-              <button class="btn" v-on:click.prevent="addPreparation" value="Add item"> Add item </button>
-              </form>
-              <p><button class="btn" v-on:click="seenPreparationName = !seenPreparationName"> New item </button></p>
-          </div>
-
-          <div class="tags grid-item wrap-input100 rs1-wrap-input100">
-            Tags <input class="input100" type="text" v-model="recipe.tags" />
-          </div>
-
           <div id="submit-form-btn">
             <input type="submit" v-on:click.prevent="submitForm" class="btn submit-recipe" value="Create New Recipe" />
           </div>
@@ -178,13 +165,13 @@ export default {
       }
       if (this.recipe.title && (this.recipe.preparation.length > 0)) {
      
-      axios.post('api/recipes-new', { recipe: this.recipe })
-        .then(res => {
-          const recipeId = res.data.rows[0].id
-          router.push({ name: 'recipe', params: { id: recipeId} }
- )
-        })
-        .catch(error => console.log('error in post request', error));
+        axios.post('api/recipes-new', { recipe: this.recipe })
+          .then(res => {
+            const recipeId = res.data.rows[0].id
+            router.push({ name: 'recipe', params: { id: recipeId} }
+  )
+          })
+          .catch(error => console.log('error in post request', error));
       }
     },
     addIngredient: function(e, ingredientName) {
