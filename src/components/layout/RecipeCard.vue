@@ -2,11 +2,11 @@
   <div class="card-container">
    
     <router-link :to="{ name: 'recipe', params: { id: recipe.id } }" class="card-link">
-      <div v-if="recipe.image_url !== ''">
-        <img v-bind:src="recipe.image_url"  alt="" class="card-media"/>
+      <div v-if="recipe.image_url === '' || recipe.image_url === 'undefined'">
+        <img src="../../assets/place_setting.jpg" class="card-media"/>
       </div>
       <div v-else >
-        <img src="../../assets/place_setting.jpg" class="card-media"/>
+        <img v-bind:src="recipe.image_url"  alt="" class="card-media"/>
       </div>
       
        <div v-if="loggedIn" class="favourite-icon" id="favourite-icon">
@@ -28,12 +28,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-
-
 export default {
-
   components: {
-
   },
   data() {
     return {
@@ -45,8 +41,9 @@ export default {
     loggedIn () {
       return this.$store.state.isUserLoggedIn
     },
-    userFavourite: function () {
-      return this.checkUserFav()
+    userFavourites () {
+      console.log('user Favourites fired:', this.userRecipes)
+      return this.$store.state.userRecipes
     }
   },
   props: [
@@ -63,7 +60,7 @@ export default {
     checkUserFav: function() {
       console.log("checkUserFav ran")
       let currentRecipe = this.recipe.id
-      if (this.recipes[currentRecipe] === undefined ) {
+      if (this.recipes.findIndex(ele => ele.id === currentRecipe) === -1 ) {
         this.userFav = false;
       } else {
         this.userFav = true;
