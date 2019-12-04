@@ -28,12 +28,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-
-
 export default {
-
   components: {
-
   },
   data() {
     return {
@@ -45,8 +41,9 @@ export default {
     loggedIn () {
       return this.$store.state.isUserLoggedIn
     },
-    userFavourite: function () {
-      return this.checkUserFav()
+    userFavourites () {
+      console.log('user Favourites fired:', this.userRecipes)
+      return this.$store.state.userRecipes
     }
   },
   props: [
@@ -63,7 +60,7 @@ export default {
     checkUserFav: function() {
       console.log("checkUserFav ran")
       let currentRecipe = this.recipe.id
-      if (this.recipes[currentRecipe] === undefined ) {
+      if (this.recipes.findIndex(ele => ele.id === currentRecipe) === -1 ) {
         this.userFav = false;
       } else {
         this.userFav = true;
