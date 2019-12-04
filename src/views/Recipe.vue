@@ -21,8 +21,11 @@
       </div>
     </div>
     <div class="grid-container">
-      <div class="grid-item">
+      <div class="grid-item" v-if="recipe.image_url !== ''">
         <img :src="recipe.image_url">
+      </div>
+      <div v-else >
+        <img src="../assets/place_setting.jpg"/>
       </div>
       <div>
         <div class="summary">
