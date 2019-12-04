@@ -21,11 +21,11 @@
       </div>
     </div>
     <div class="grid-container">
-      <div class="grid-item" v-if="recipe.image_url !== ''">
-        <img :src="recipe.image_url">
+      <div class="grid-item" v-if="recipe.image_url === '' || recipe.image_url === 'undefined'">
+        <img src="../assets/place_setting.jpg"/>
       </div>
       <div v-else >
-        <img src="../assets/place_setting.jpg"/>
+        <img :src="recipe.image_url">
       </div>
       <div>
         <div class="summary">
