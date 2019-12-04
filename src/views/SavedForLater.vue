@@ -3,9 +3,6 @@
     <NavBar/>
     <DivSpace />
     <RecipeCardsCarousel v-bind:RecipeCards="this.recipes"/>
-    <div class="about">
-      <h1>This is a user's saved for later page</h1>
-    </div>
     </div>
 </template>
 
