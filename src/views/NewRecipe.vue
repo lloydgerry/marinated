@@ -151,7 +151,7 @@ export default {
           if (fetchedrecipe.data === "") {
             this.output = "We're sorry, our gnomes got lost trying to find that recipe. Please try again."
             console.log("scraper likely timed out")
-            setTimeout(() => this.loading = false, 10000)
+            setTimeout(() => this.loading = false, 15000)
           } else if (fetchedrecipe.data.rowCount >= 1) {
             this.output = "Found a recipe already in the database, routing you there."
             setTimeout(() => {router.push({ name: 'recipe', params: { id: recipeId} })}, 2000)
