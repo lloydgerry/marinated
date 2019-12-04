@@ -178,13 +178,13 @@ export default {
       }
       if (this.recipe.title && (this.recipe.preparation.length > 0)) {
      
-      axios.post('api/recipes-new', { recipe: this.recipe })
-        .then(res => {
-          const recipeId = res.data.rows[0].id
-          router.push({ name: 'recipe', params: { id: recipeId} }
- )
-        })
-        .catch(error => console.log('error in post request', error));
+        axios.post('api/recipes-new', { recipe: this.recipe })
+          .then(res => {
+            const recipeId = res.data.rows[0].id
+            router.push({ name: 'recipe', params: { id: recipeId} }
+  )
+          })
+          .catch(error => console.log('error in post request', error));
       }
     },
     addIngredient: function(e, ingredientName) {

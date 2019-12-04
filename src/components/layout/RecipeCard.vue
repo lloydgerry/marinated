@@ -2,8 +2,13 @@
   <div class="card-container">
    
     <router-link :to="{ name: 'recipe', params: { id: recipe.id } }" class="card-link">
-
-      <img v-bind:src=recipe.image_url  alt="" class="card-media"/>
+      <div v-if="recipe.image_url !== ''">
+        <img v-bind:src="recipe.image_url"  alt="" class="card-media"/>
+      </div>
+      <div v-else >
+        <img src="../../assets/place_setting.jpg" class="card-media"/>
+      </div>
+      
        <div v-if="loggedIn" class="favourite-icon" id="favourite-icon">
         <div v-if="userFav" >
           <img src="../../assets/heart-added-color.png" > 
