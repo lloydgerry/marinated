@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="save-button" v-if="loggedIn">
-      <a @click="changeSaveState">{{saveButtonMessage}}</a> 
+      <input @click="changeSaveState" v-model="saveButtonMessage" type="button"/>
     </div>
     <div v-else class="save-button"></div>
   </div>
@@ -92,11 +92,11 @@ export default {
     },
     changeSaveState() {
       if (this.isSaved < 0) {
-        store.dispatch('addRecipeToUser', {recipeId: this.id})
-          .then(this.checkSave())
+        store.dispatch('addRecipeToUser', {id: this.id});
+        this.saveButtonMessage = 'Remove From Saved List';
       } else {
-        store.dispatch('removeRecipeFromUser',  this.id)
-          .then(this.checkSave())
+        store.dispatch('removeRecipeFromUser',  this.id);
+        this.saveButtonMessage = 'Save Recipe For Later';
       }
     }
   },
