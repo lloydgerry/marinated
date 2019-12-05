@@ -37,25 +37,6 @@ Search Results
     - Note: nodemon is used, so you should not have to restart your server
 6. Visit `http://localhost:8080/`
 
-## Project setup
-```
-npm install
-```
-
-#### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-#### Compiles and minifies for production
-```
-npm run build
-```
-
-#### Run the backend server using nodemon
-```
-npm run local
-```
 
 ## Dependencies
 
