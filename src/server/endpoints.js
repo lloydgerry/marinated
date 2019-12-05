@@ -3,7 +3,7 @@ const { pool } = require('./dbConnection');
 
 module.exports = function(router) {
 
-  router.get('/random-recipe', (request, response) => {
+  router.post('/random-recipe', (request, response) => {
     console.log("In the random recipe router")
     pool.connect((error, client, release) => {
 
