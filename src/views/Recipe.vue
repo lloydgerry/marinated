@@ -26,7 +26,7 @@
         </div>
         <div>
           <div class="summary">
-            {{recipe.summary}}
+            {{ recipe.summary }}
           </div>
           <div 
             class="prep"
@@ -58,7 +58,7 @@ export default {
     NavBar,
     DivSpace
   },
-  props: [ 'id'],
+  props: ['id'],
   data() {
     return {
       recipe: {},
@@ -71,10 +71,10 @@ export default {
   },
   computed: {
     loggedIn () {
-      return this.$store.state.isUserLoggedIn
+      return this.$store.state.isUserLoggedIn;
     },
     isSaved: function() {
-      return this.$store.state.userRecipes.findIndex(r => r.id === this.id)
+      return this.$store.state.userRecipes.findIndex(r => r.id === this.id);
     }
   },
   methods: {
@@ -95,7 +95,7 @@ export default {
         store.dispatch('addRecipeToUser', {id: this.id});
         this.saveButtonMessage = 'Remove From Saved List';
       } else {
-        store.dispatch('removeRecipeFromUser',  this.id);
+        store.dispatch('removeRecipeFromUser', this.id);
         this.saveButtonMessage = 'Save Recipe For Later';
       }
     }
@@ -103,7 +103,6 @@ export default {
   mounted() {
     this.checkSave();
   }
-
 }
 </script>
 
