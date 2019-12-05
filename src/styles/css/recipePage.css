@@ -1,4 +1,5 @@
 .recipe-display {
+  background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6,13 +7,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 0 20px;
+  padding: 0 20px;
 }
 
 .recipe-display .grid-container {
   width: 50%;
   overflow-y: scroll;
-  height: 500px;
+  height: 600px;
   padding: 20px;
 }
 
@@ -44,10 +45,33 @@
 .recipe-display .grid-container .summary {
   margin: 20px 0;
   font-size: 18px;
+  font-style: italic;
 }
 
 .recipe-display .grid-container .prep {
   margin: 20px 0px;
   font-size: 18px;
   line-height: 20px;
+}
+
+.save-button {
+  padding-top: 15px;
+  padding-left: 50px;
+  width: 100%;
+  height: 100px;
+  background-color: #ffffff;
+}
+
+.save-button a {
+  background-color: #6b7d83;
+  color: #ffffff;
+  border-radius: 34px;
+  border: 2px solid #e6e6e6;
+  width: 1000px;
+  padding: 2px 15px;
+}
+
+.save-button a:hover {
+  cursor: pointer;
+  background-color: darkgrey;
 }

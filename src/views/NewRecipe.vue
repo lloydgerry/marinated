@@ -2,7 +2,7 @@
   <div>
     <NavBar/>
     <DivSpace/>
-    <div class="container-contact100" style="background-image: url('images/bg-01.jpg');">
+    <div class="container-contact100">
       <div class="wrap-contact100">
         <form class="contact100-form validate-form " @submit="submitScraper">
           <div>

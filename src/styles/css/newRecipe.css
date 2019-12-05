@@ -74,6 +74,7 @@ textarea:focus, input:focus {
       -ms-flex-align: center;
           align-items: center;
   padding: 15px;
+  background-color: #ffffff;
 }
 
 .wrap-contact100 {
