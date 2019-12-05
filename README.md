@@ -6,7 +6,7 @@ Created By:
 
 ## Description
 
-Marinated is an online recipe hub to save, import and plan your meals. Browse through our database of recipes and save them for future reference. If you need help finding something good you can use the search function or interact with our very own AI Foodie, a helpful bot who is here to help you find great things to eat. If what you are looking for is not avaiable in the database you can input recipes either by manually entering them or by providing the url to the recipe you want to add. Once you have created a catalog of recipes you like, you are able to add them to a meal plan through our drag and drop mealplan builder. Marinated is your one stop online shop for your recipe needs.
+Marinated is an online recipe hub to save, import and plan your meals to help save you time. Browse through our database of existing recipes and save them for future reference. Ever have trouble you need help finding something delightful for your next meal? Well, you can use our amazing search function or interact with our very own AI, ‘Foodie’; a helpful Chatbot, who is here to help you find great things to eat. If what you are looking for is not available in the database you can input recipes either manually or by providing the website address to the recipe you want to add. Once you have created a catalog of recipes you like, you are able to add them to a meal plan through our drag and drop meal plan builder. Marinated is your one stop online shop for your food needs.
 
 See a working demo version here: https://marinated.herokuapp.com/
 
