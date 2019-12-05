@@ -75,6 +75,10 @@ const routes = [
       store.dispatch('logoutUser');
       next({name: "home"});
     }
+  },
+  {
+    path: '*',
+    redirect: { name: 'home' }
   }
 ]
 
