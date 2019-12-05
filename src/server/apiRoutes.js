@@ -225,7 +225,6 @@ module.exports = function(router) {
         .then((res) => {
           release();
           response.send(res);
-          console.log("saved for later removed from user data", res);
         })
         .catch(error => {
           console.error('error in apiroutes update user recipe info', error);

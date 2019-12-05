@@ -41,6 +41,7 @@
     <div class="save-button" v-if="loggedIn">
       <a @click="changeSaveState">{{saveButtonMessage}}</a> 
     </div>
+    <div v-else class="save-button"></div>
   </div>
 </template>
 
@@ -67,7 +68,6 @@ export default {
   },
   created() {
     this.fetchData();
-    // this.checkSave();
   },
   computed: {
     loggedIn () {
@@ -84,29 +84,20 @@ export default {
         .catch(error => console.log("error from fetch data", error));
     },
     checkSave() {
-      console.log(this.isSaved);
-      
       if (this.isSaved < 0){
-        console.log('save is becoming < 0');
         this.saveButtonMessage = "Save Recipe For Later";
       } else {
-        console.log('save is becoming >= 0');
         this.saveButtonMessage = "Remove From Saved List";
       }
     },
     changeSaveState() {
       if (this.isSaved < 0) {
-        
-        
         store.dispatch('addRecipeToUser', {recipeId: this.id})
           .then(this.checkSave())
       } else {
-        console.log('this.id is equal to: ', this.id);
         store.dispatch('removeRecipeFromUser',  this.id)
           .then(this.checkSave())
       }
-      // this.checkSave();
-
     }
   },
   mounted() {
