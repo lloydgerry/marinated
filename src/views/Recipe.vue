@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import NavBar from "../components/layout/NavBar.vue";
 import DivSpace from "../components/layout/DivSpace.vue";
+import NavBar from "../components/layout/NavBar.vue";
 import store from "../store/index";
-import axios from 'axios';
 import router from '../router';
+import axios from 'axios';
 
 
 export default {
