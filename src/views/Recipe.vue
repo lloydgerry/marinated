@@ -26,7 +26,7 @@
         </div>
         <div>
           <div class="summary">
-            {{recipe.summary}}
+            {{ recipe.summary }}
           </div>
           <div 
             class="prep"
@@ -39,8 +39,9 @@
       </div>
     </div>
     <div class="save-button" v-if="loggedIn">
-      <a @click="changeSaveState">{{saveButtonMessage}}</a> 
+      <input @click="changeSaveState" v-model="saveButtonMessage" type="button"/>
     </div>
+    <div v-else class="save-button"></div>
   </div>
 </template>
 
@@ -57,7 +58,7 @@ export default {
     NavBar,
     DivSpace
   },
-  props: [ 'id'],
+  props: ['id'],
   data() {
     return {
       recipe: {},
@@ -67,14 +68,13 @@ export default {
   },
   created() {
     this.fetchData();
-    // this.checkSave();
   },
   computed: {
     loggedIn () {
-      return this.$store.state.isUserLoggedIn
+      return this.$store.state.isUserLoggedIn;
     },
     isSaved: function() {
-      return this.$store.state.userRecipes.findIndex(r => r.id === this.id)
+      return this.$store.state.userRecipes.findIndex(r => r.id === this.id);
     }
   },
   methods: {
@@ -84,35 +84,25 @@ export default {
         .catch(error => console.log("error from fetch data", error));
     },
     checkSave() {
-      console.log(this.isSaved);
-      
       if (this.isSaved < 0){
-        console.log('save is becoming < 0');
         this.saveButtonMessage = "Save Recipe For Later";
       } else {
-        console.log('save is becoming >= 0');
         this.saveButtonMessage = "Remove From Saved List";
       }
     },
     changeSaveState() {
       if (this.isSaved < 0) {
-        
-        
-        store.dispatch('addRecipeToUser', {recipeId: this.id})
-          .then(this.checkSave())
+        store.dispatch('addRecipeToUser', {id: this.id});
+        this.saveButtonMessage = 'Remove From Saved List';
       } else {
-        console.log('this.id is equal to: ', this.id);
-        store.dispatch('removeRecipeFromUser',  this.id)
-          .then(this.checkSave())
+        store.dispatch('removeRecipeFromUser', this.id);
+        this.saveButtonMessage = 'Save Recipe For Later';
       }
-      // this.checkSave();
-
     }
   },
   mounted() {
     this.checkSave();
   }
-
 }
 </script>
 

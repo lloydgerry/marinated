@@ -62,16 +62,16 @@
   background-color: #ffffff;
 }
 
-.save-button a {
+.save-button input {
   background-color: #6b7d83;
   color: #ffffff;
   border-radius: 34px;
   border: 2px solid #e6e6e6;
-  width: 1000px;
+  width: 150px;
   padding: 2px 15px;
 }
 
-.save-button a:hover {
+.save-button input:hover {
   cursor: pointer;
   background-color: darkgrey;
 }

@@ -50,12 +50,12 @@
   width: 100%;
   height: 100px;
   background-color:$white;
-  a {
+  input {
     background-color: #6b7d83;
     color: $white;
     border-radius: 34px;
     border: 2px solid #e6e6e6;
-    width: 1000px;
+    width: 150px;
     padding: 2px 15px;
     &:hover {
       cursor: pointer;
