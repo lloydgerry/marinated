@@ -67,10 +67,6 @@ export default {
               name: "Add New Recipe"
             },
             {
-              url: "/foodie-chat",
-              name: "FoodieChat"
-            },
-            {
               url: "/mealplan",
               name: "Meal Plan"
             },
