@@ -155,15 +155,10 @@ export default {
     },
     onCardDrop (columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-
-        console.log('removedIndex: ', dropResult.removedIndex, 'addedIndex: ', dropResult.addedIndex);
-        
         const scene = Object.assign({}, this.scene);
         const column = scene.children.filter(p => p.id === columnId)[0]
         const columnIndex = scene.children.indexOf(column);
         const newColumn = Object.assign({}, column);
-        // newColumn.children = 
-        // get column and row id and make swap
         newColumn.children = applyDrag(newColumn.children, dropResult);
         scene.children.splice(columnIndex, 1, newColumn);
         this.scene = scene;
@@ -184,17 +179,7 @@ export default {
       }
     },
     dragStart (){},
-    log () {
-      // console.log(...params)
-    },
-    shouldAnimateDrop: function(sourceContainerOptions, payload) {
-      console.log(sourceContainerOptions, payload);
-      return false;
-    },
-    shouldAcceptDrop: function(sourceContainerOptions, payload) {
-      console.log(sourceContainerOptions, payload);
-      return false;
-    },
+    log () {},
     getChildPayload1 (index) {
       return this.items2[index];
     },
@@ -203,10 +188,10 @@ export default {
       if (id !== '0') {
         const selectedPlan = store.state.userMealPlans.filter(plan => plan.id === Number(id))[0];
         this.fillTableWithPlan(selectedPlan.plan_array); 
-        this.placeholder = selectedPlan.name;
+        this.planName = selectedPlan.name;
       } else {
         this.fillTableWithPlan(this.emptyTable);
-        this.placeholder = 'Give Your Plan A Name';
+        this.planName = 'Give Your Plan A Name';
       }
     },
     fillTableWithPlan (tableFill) {
