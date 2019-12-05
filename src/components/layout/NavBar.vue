@@ -60,7 +60,7 @@ export default {
       navList: [
         {  name: 'Login'},
         { url: "#",
-          name: `Welcome, User`,
+          name: `Welcome, Chef`,
           children: [
             {
               url: "/new-recipe",
