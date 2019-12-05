@@ -50,6 +50,7 @@ import NavBar from "../components/layout/NavBar.vue";
 import DivSpace from "../components/layout/DivSpace.vue";
 import store from "../store/index";
 import axios from 'axios';
+import router from '../router';
 
 
 export default {
@@ -79,9 +80,13 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get(`api/recipes/${this.id}`)
-        .then(res => this.recipe = res.data[0])
-        .catch(error => console.log("error from fetch data", error));
+      if (Number(this.id) > 0){
+        axios.get(`api/recipes/${this.id}`)
+          .then(res => this.recipe = res.data[0])
+          .catch(error => console.log("error from fetch data", error));
+      } else {
+        router.push({ name: 'home' });
+      }
     },
     checkSave() {
       if (this.isSaved < 0){
