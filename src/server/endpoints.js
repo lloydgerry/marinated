@@ -8,6 +8,10 @@ module.exports = function(router) {
     pool.connect((error, client, release) => {
 
     if (error) {console.log(error)}
+    
+    console.log("request", request)
+    console.log("response", response)
+
 
     const dbQuery = `
       SELECT * FROM recipes 
