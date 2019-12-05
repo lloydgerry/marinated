@@ -3,6 +3,9 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://[::1]:5000',
+      },
+      '/endpoints': {
+        target: 'http://[::1]:5000',
       }
     }
   }
