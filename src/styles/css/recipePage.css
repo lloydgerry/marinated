@@ -1,4 +1,5 @@
 .recipe-display {
+  background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6,7 +7,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 0 20px;
+  padding: 0 20px;
 }
 
 .recipe-display .grid-container {
@@ -54,10 +55,11 @@
 }
 
 .save-button {
-  margin-top: 10px;
-  margin-left: 50px;
+  padding-top: 15px;
+  padding-left: 50px;
   width: 100%;
   height: 100px;
+  background-color: #ffffff;
 }
 
 .save-button a {

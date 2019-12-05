@@ -1,9 +1,10 @@
 @import "partials/_variables.scss";
 
 .recipe-display{
+  background-color:$white;
   display: flex;
   flex-direction: row;
-  margin: 0 20px;
+  padding: 0 20px;
   .grid-container {
     width: 50%;
     overflow-y: scroll;
@@ -44,10 +45,11 @@
   }
 }
 .save-button {
-  margin-top: 10px;
-  margin-left: 50px;
+  padding-top: 15px;
+  padding-left: 50px;
   width: 100%;
   height: 100px;
+  background-color:$white;
   a {
     background-color: #6b7d83;
     color: $white;
