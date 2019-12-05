@@ -253,23 +253,6 @@ module.exports = function(router) {
     })
   });
 
+
   return router;
 };
-// router.post('/', (request, response) => {
-//   pool.connect((error, client, release) => {
-
-//     if (error) {console.log(error)}
-
-//     const dbQuery = `ENTER YOUR QUERY HERE`;
-//     const dbParams = [request.body.!!!!!!];
-
-//   return client.query(dbQuery,dbParams)
-//     .then(recipes => {
-//       release()
-//       response.send() 
-//     })
-//     .catch(error => {
-//       console.error('', error);
-//     })
-//   })
-// })

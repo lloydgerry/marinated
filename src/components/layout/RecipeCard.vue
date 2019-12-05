@@ -42,7 +42,6 @@ export default {
       return this.$store.state.isUserLoggedIn
     },
     userFavourites () {
-      console.log('user Favourites fired:', this.userRecipes)
       return this.$store.state.userRecipes
     }
   },
@@ -52,13 +51,11 @@ export default {
   methods: {
     ...mapActions(['addRecipeToUser']),
     addThisRecipeToUser: function(e) {
-      console.log("add this recipe to user hit in recipecard")
       e.preventDefault()
       this.addRecipeToUser(this.recipe)
       this.userFav = true;
     },
     checkUserFav: function() {
-      console.log("checkUserFav ran")
       let currentRecipe = this.recipe.id
       if (this.recipes.findIndex(ele => ele.id === currentRecipe) === -1 ) {
         this.userFav = false;

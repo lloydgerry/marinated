@@ -76,7 +76,6 @@ const routes = [
       next({name: "home"});
     }
   }
-
 ]
 
 const router = new VueRouter({
