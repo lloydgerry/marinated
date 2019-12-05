@@ -60,15 +60,11 @@ export default {
       navList: [
         {  name: 'Login'},
         { url: "#",
-          name: `Welcome, User`,
+          name: `Welcome, Chef`,
           children: [
             {
               url: "/new-recipe",
               name: "Add New Recipe"
-            },
-            {
-              url: "/foodie-chat",
-              name: "FoodieChat"
             },
             {
               url: "/mealplan",
