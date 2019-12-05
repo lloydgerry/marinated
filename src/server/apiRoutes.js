@@ -212,7 +212,7 @@ module.exports = function(router) {
   });
 
   //Removes recipe from saved for later list.
-  router.delete('/user/:id/recipes', (request, response) => {
+  router.post('/user/:id/recipes', (request, response) => {
     pool.connect((error, client, release) => {
       if (error) {console.log(error)}
 
@@ -222,10 +222,10 @@ module.exports = function(router) {
       `;
       const dbParams = [request.params.id, request.body.recipeId];
       return client.query(dbQuery,dbParams)
-        .then(() => {
+        .then((res) => {
           release();
-          response.send();
-          console.log("saved for later removed from user data");
+          response.send(res);
+          console.log("saved for later removed from user data", res);
         })
         .catch(error => {
           console.error('error in apiroutes update user recipe info', error);

@@ -24,9 +24,6 @@
         <div class="grid-item" v-if="recipe.image_url !== '' && recipe.image_url !== 'undefined'">
           <img :src="recipe.image_url">
         </div>
-        <!-- <div v-else >
-          <img src="../assets/place_setting.jpg"/>
-        </div> -->
         <div>
           <div class="summary">
             {{recipe.summary}}
@@ -41,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="save-button">
+    <div class="save-button" v-if="loggedIn">
       <a @click="changeSaveState">{{saveButtonMessage}}</a> 
     </div>
   </div>
@@ -65,42 +62,55 @@ export default {
     return {
       recipe: {},
       saveButtonMessage: '',
-      saved: true
+      userHasSaved: false
     }
   },
   created() {
     this.fetchData();
-    this.checkSave();
+    // this.checkSave();
+  },
+  computed: {
+    loggedIn () {
+      return this.$store.state.isUserLoggedIn
+    },
+    isSaved: function() {
+      return this.$store.state.userRecipes.findIndex(r => r.id === this.id)
+    }
   },
   methods: {
     fetchData() {
       axios.get(`api/recipes/${this.id}`)
         .then(res => this.recipe = res.data[0])
-        .then()
         .catch(error => console.log("error from fetch data", error));
     },
     checkSave() {
-      const index = store.state.userRecipes.findIndex(r => r.id === this.recipe.id)
-      if (index < 0){
-        this.saved = false;
+      console.log(this.isSaved);
+      
+      if (this.isSaved < 0){
+        console.log('save is becoming < 0');
         this.saveButtonMessage = "Save Recipe For Later";
       } else {
-        this.saved = true;
+        console.log('save is becoming >= 0');
         this.saveButtonMessage = "Remove From Saved List";
       }
     },
     changeSaveState() {
-      if (this.saved) {
-        // store.dispatch('addRecipeToUser', this.recipe);
+      if (this.isSaved < 0) {
+        
+        
+        store.dispatch('addRecipeToUser', {recipeId: this.id})
+          .then(this.checkSave())
       } else {
-        // store.dispatch('removeRecipeFromUser', this.recipe);
+        console.log('this.id is equal to: ', this.id);
+        store.dispatch('removeRecipeFromUser',  this.id)
+          .then(this.checkSave())
       }
-      this.checkSave();
+      // this.checkSave();
 
     }
   },
-  mounted: {
-
+  mounted() {
+    this.checkSave();
   }
 
 }

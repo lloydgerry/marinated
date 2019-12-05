@@ -29,7 +29,7 @@ export default new Vuex.Store({
     addUserRecipe: (state, recipeId) => state.userRecipes.push(recipeId),
     removeUserRecipe: (state, recipeId) => {
       let index = state.userRecipes.findIndex(r => r.id === recipeId);
-      state.userRecipes[index].splice(index, 1);
+      state.userRecipes.splice(index, 1);
     },
     setUserMealPlans: (state, userPlans) => state.userMealPlans = userPlans,
     AUTH_SUCCESS: (state, token) => state.token = token,
@@ -76,19 +76,12 @@ export default new Vuex.Store({
     },
     addRecipeToUser({ commit }, recipe) {
       axios.put(`/api/user/${this.state.user.id}/recipes`, {recipeId: recipe.id})
-        .then(() => {
-          console.log('done addRecipeToUser, recipe', recipe);
-          console.log('state of userRecipes', this.state.userRecipes);
-          commit('addUserRecipe', recipe);
-        })
+        .then(() => commit('addUserRecipe', recipe))
         .catch(error => console.log("error in addRecipeToUser in store", error));
     },
     removeRecipeFromUser({ commit }, recipe) {
-      axios.delete(`/api/user/${this.state.user.id}/recipes`, {recipeId: recipe.id})
-        .then(() => {
-          console.log('removed : ', recipe);
-          commit('removeUserRecipe', recipe);
-        })
+      axios.post(`/api/user/${this.state.user.id}/recipes`, {recipeId: recipe})
+        .then(() => commit('removeUserRecipe', recipe))
         .catch(error => console.log('error in removeRecipeFromUser in store', error));
     }
   },
