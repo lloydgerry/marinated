@@ -26,10 +26,15 @@ module.exports = function(router) {
       return client.query(dbQuery, dbParams)
         .then(recipes => {
           release()
+          if (recipes.rows[0] !== undefined) {
           console.log("recipes", recipes)
           let url = recipes.rows[0].id
           const thingy = `http://marinated.herokuapp.com/#/recipe/${url}`
           response.json({thingy}) 
+          } else {
+            console.log("recipes in else:", recipes)
+            response.json({thingy: "No recipes with that search, sorry."})
+          }
 
         })
         .catch(error => {
