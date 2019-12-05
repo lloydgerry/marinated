@@ -26,6 +26,7 @@ module.exports = function(router) {
       return client.query(dbQuery, dbParams)
         .then(recipes => {
           release()
+          console.log("recipes", recipes)
           let url = recipes.rows[0].id
           const thingy = `http://marinated.herokuapp.com/#/recipe/${url}`
           response.json({thingy}) 
