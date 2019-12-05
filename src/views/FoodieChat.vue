@@ -21,12 +21,6 @@ export default {
       };
     loadWatsonAssistantChat.setAttribute('src', 'https://assistant-web.watsonplatform.net/loadWatsonAssistantChat.js');
 
-    // document.window.appendChild(loadWatsonAssistantChat(options)
-    //   .then(function(instance){
-    //     instance.render();
-    //   })
-    // );
-
   window.loadWatsonAssistantChat(options).then(function(instance){
     instance.render();
   });

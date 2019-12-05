@@ -50,7 +50,19 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAllRecipesData']),
-    }
+  },
+  mounted () {
+    let loadWatsonAssistantChat = document.createElement('script');
+    var options = {
+      integrationID: '0fa522cf-3cc3-4e2f-ad53-fcee27d2ce08',
+      region: 'us-south'
+      };
+    loadWatsonAssistantChat.setAttribute('src', 'https://assistant-web.watsonplatform.net/loadWatsonAssistantChat.js');
+
+  window.loadWatsonAssistantChat(options).then(function(instance){
+    instance.render();
+  });
+  }
 }
 </script>
 
