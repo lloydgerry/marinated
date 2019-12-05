@@ -20,7 +20,7 @@ module.exports = function(router) {
         release()
         let url = recipes.rows[0].id
         const thingy = `http://marinated.herokuapp.com/#/recipe/${url}`
-        response.json(thingy) 
+        response.json({thingy}) 
 
       })
       .catch(error => {
